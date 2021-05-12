@@ -30,7 +30,7 @@ export const Card = ({
   const classes = useStyles();
 
   return (
-    <Paper className={`${classes.wrapper} ${className}`} elevation={3}>
+    <Paper className={`${classes.wrapper} ${className}`} elevation={1}>
       {isCounted && (
         <Typography variant="h6" className={classes.title}>
           {count} / {countAmount}
