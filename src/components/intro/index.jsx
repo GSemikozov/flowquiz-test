@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Intro = () => {
+export const Intro = ({handleClick}) => {
   const classes = useStyles();
 
   return (
@@ -117,6 +117,7 @@ export const Intro = () => {
           color="primary"
           size="small"
           endIcon={<SubdirectoryArrowLeftIcon />}
+          onClick={handleClick}
         >
           Let’s go
         </Button>

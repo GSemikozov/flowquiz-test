@@ -1,4 +1,5 @@
 // import logo from './logo.svg';
+import * as React from "react";
 import './App.css';
 
 import { Link } from '@material-ui/core';
@@ -15,6 +16,7 @@ import { Message } from './components/message';
 import { OptionalQuestion } from './components/optional-question';
 import { QuestionWithAnswer } from './components/question-with-answer';
 import { Statistics } from './components/statistics';
+import { useRef } from "react";
 
 // import Grid from "@material-ui/core/Grid";
 
@@ -27,6 +29,20 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles();
   const preventDefault = (event) => event.preventDefault();
+
+  const section1Ref = useRef();
+  const section2Ref = useRef();
+  const section3Ref = useRef();
+  const section4Ref = useRef();
+
+  const moveToSection = (ref) => {
+    const section = ref.current;
+    section.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'center',
+    });
+  }
 
   return (
     <div className="wrapper">
@@ -41,14 +57,14 @@ function App() {
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
+              fillRule="evenodd"
+              clipRule="evenodd"
               d="M24.8786 23.6003C28.0087 19.7189 30 15.0141 30 11.4554C30 9.70944 29.579 8.48045 28.9524 7.57613C28.318 6.66051 27.3695 5.92939 26.0797 5.36105C23.4197 4.18899 19.6796 3.86328 15.5493 3.86328C11.6992 3.86328 8.25948 4.82351 5.83948 6.5834C3.48776 8.29364 2 10.8173 2 14.3255C2 18.025 3.42229 22.0165 5.79133 25.0632C8.16025 28.1097 11.2925 29.9992 14.6479 29.9992C17.8874 29.9992 21.7127 27.526 24.8786 23.6003ZM14.6479 31.9992C22.9451 31.9992 32 19.7981 32 11.4554C32 3.11276 23.8465 1.86328 15.5493 1.86328C7.25206 1.86328 0 5.98284 0 14.3255C0 22.6682 6.35065 31.9992 14.6479 31.9992Z"
               fill="#A8D1E7"
             />
             <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
+              fillRule="evenodd"
+              clipRule="evenodd"
               d="M27.0953 23.6595C28.932 21.4393 30 18.2262 30 14.4133C30 11.0794 28.0507 8.0102 24.9107 5.68923C21.7723 3.36949 17.6897 2 14.0177 2C10.448 2 8.10498 3.28297 6.59066 5.28674C5.01122 7.37669 4.15381 10.494 4.15381 14.4133C4.15381 17.849 5.94585 21.022 8.80825 23.3945C11.677 25.7722 15.4661 27.2039 19.0915 27.2039C22.6406 27.2039 25.2936 25.8376 27.0953 23.6595ZM19.0915 29.2039C27.3333 29.2039 32 22.7486 32 14.4133C32 6.07796 22.2594 0 14.0177 0C5.77587 0 2.15381 6.07796 2.15381 14.4133C2.15381 22.7486 10.8497 29.2039 19.0915 29.2039Z"
               fill="#374785"
             />
@@ -64,10 +80,10 @@ function App() {
         <Container fixed={true} maxWidth="md">
           <Box>
             <Card className={classes.card}>
-              <Intro />
+              <Intro handleClick={() => moveToSection(section1Ref)} />
             </Card>
           </Box>
-          <Box>
+          <Box ref={section1Ref}>
             <Card count={1} countAmount={10} isCounted={true}>
               <Box>
                 <Message avatar="" text="card" type="system" />
@@ -83,22 +99,22 @@ function App() {
                   avatar=""
                   text="confirm please"
                   type="system"
-                  handleConfirm={() => console.log("confirm")}
+                  handleConfirm={() => moveToSection(section2Ref)}
                 />
               </Box>
             </Card>
           </Box>
-          <Box>
+          <Box ref={section2Ref}>
             <Card count={2} countAmount={10} isCounted={true}>
-              <OptionalQuestion />
+              <OptionalQuestion handleClick={() => moveToSection(section3Ref)} />
             </Card>
           </Box>
-          <Box>
+          <Box ref={section3Ref}>
             <Card count={3} countAmount={10} isCounted={true}>
-              <QuestionWithAnswer />
+              <QuestionWithAnswer handleClick={() => moveToSection(section3Ref)} />
             </Card>
           </Box>
-          <Box>
+          <Box ref={section4Ref}>
             <Card count={6} countAmount={10} isCounted={true}>
               <Statistics
                 title="You are an average course creator"

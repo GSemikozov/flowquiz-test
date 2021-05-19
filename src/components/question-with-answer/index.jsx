@@ -44,7 +44,7 @@ const Notification = () => {
   );
 };
 
-const FormAnswer = () => {
+const FormAnswer = ({handleClick}) => {
   const classes = useStyles();
 
   return (
@@ -59,6 +59,7 @@ const FormAnswer = () => {
           size="small"
           className={classes.button}
           endIcon={<SubdirectoryArrowLeftIcon />}
+          onClick={handleClick}
         >
           Check the answer
         </Button>
@@ -67,7 +68,7 @@ const FormAnswer = () => {
   );
 };
 
-export const QuestionWithAnswer = () => {
+export const QuestionWithAnswer = ({handleClick}) => {
   return (
     <>
       <CardTitle>Question 1. What is the internet marketing?</CardTitle>
@@ -81,7 +82,7 @@ export const QuestionWithAnswer = () => {
         Well, questions, Lesha.{" "}
         <b>What do you think an internet marketer does of this?</b>
       </Typography>
-      <FormAnswer />
+      <FormAnswer handleClick={handleClick} />
       <Notification />
     </>
   );

@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const OptionalQuestion = () => {
+export const OptionalQuestion = ({handleClick}) => {
   const classes = useStyles();
 
   return (
@@ -65,6 +65,7 @@ export const OptionalQuestion = () => {
         size="small"
         className={classes.button}
         endIcon={<SubdirectoryArrowLeftIcon />}
+        onClick={handleClick}
       >
         Continue
       </Button>
