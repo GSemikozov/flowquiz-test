@@ -16,7 +16,13 @@ import { Message } from './components/message';
 import { OptionalQuestion } from './components/optional-question';
 import { QuestionWithAnswer } from './components/question-with-answer';
 import { Statistics } from './components/statistics';
-import { useRef } from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
+import {Assignment1} from "./components/assignment-1";
+import {Assignment2} from "./components/assignment-2";
+import {Ads} from "./components/ads";
+import {Review} from "./components/review";
+import {Assignment3} from "./components/assignment-3";
+import {Assignment4} from "./components/assignment-4";
 
 // import Grid from "@material-ui/core/Grid";
 
@@ -24,25 +30,72 @@ const useStyles = makeStyles((theme) => ({
   card: {
     //
   },
+  hidden: {
+    display: "none",
+  },
+  section: {
+    marginTop: "40px",
+  },
 }));
+
+const useShow = (initialState = false) => {
+  // Initialize the state
+  const [state, setState] = useState(initialState);
+
+  const show = useCallback(() => setState(state => true), []);
+
+  return [state, show];
+}
 
 function App() {
   const classes = useStyles();
-  const preventDefault = (event) => event.preventDefault();
+
+  const [isSection1Shown, setIsSection1Shown] = useState(false);
+  const [isSection2Shown, setIsSection2Shown] = useState(false);
+  const [isSection3Shown, setIsSection3Shown] = useState(false);
+  const [isSection4Shown, setIsSection4Shown] = useState(false);
+  const [isSectionReviewShown, setIsSectionReviewShown] = useState(false);
 
   const section1Ref = useRef();
   const section2Ref = useRef();
   const section3Ref = useRef();
   const section4Ref = useRef();
+  const sectionReviewRef = useRef();
+
+  const openCorrectSection = (ref) => {
+    switch(ref) {
+      case section1Ref:
+        return setIsSection1Shown(true);
+      case section2Ref:
+        return setIsSection2Shown(true);
+      case section3Ref:
+        return setIsSection3Shown(true);
+      case section4Ref:
+        return setIsSection4Shown(true);
+      case sectionReviewRef:
+        return setIsSectionReviewShown(true);
+      default:
+        return;
+    }
+  }
 
   const moveToSection = (ref) => {
     const section = ref.current;
-    section.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-      inline: 'center',
-    });
+    // section.style.display = "block";
+    openCorrectSection(ref);
+    // section.scrollIntoView({
+    //   behavior: 'smooth',
+    //   block: 'start',
+    //   inline: 'center',
+    // });
   }
+
+  useEffect(() => {
+    console.log("state changed", isSection1Shown);
+    console.log("state changed", isSection2Shown);
+    console.log("state changed", isSection3Shown);
+    console.log("state changed", isSection4Shown);
+  }, [isSection1Shown, isSection2Shown, isSection3Shown, isSection4Shown]);
 
   return (
     <div className="wrapper">
@@ -83,96 +136,12 @@ function App() {
               <Intro handleClick={() => moveToSection(section1Ref)} />
             </Card>
           </Box>
-          <Box ref={section1Ref}>
-            <Card count={1} countAmount={10} isCounted={true}>
-              <Box>
-                <Message avatar="" text="card" type="system" />
-              </Box>
-              <Box>
-                <Message avatar="" text="card" type="write" />
-              </Box>
-              <Box>
-                <Message avatar="" text="card" type="default" />
-              </Box>
-              <Box>
-                <Message
-                  avatar=""
-                  text="confirm please"
-                  type="system"
-                  handleConfirm={() => moveToSection(section2Ref)}
-                />
-              </Box>
-            </Card>
-          </Box>
-          <Box ref={section2Ref}>
-            <Card count={2} countAmount={10} isCounted={true}>
-              <OptionalQuestion handleClick={() => moveToSection(section3Ref)} />
-            </Card>
-          </Box>
-          <Box ref={section3Ref}>
-            <Card count={3} countAmount={10} isCounted={true}>
-              <QuestionWithAnswer handleClick={() => moveToSection(section3Ref)} />
-            </Card>
-          </Box>
-          <Box ref={section4Ref}>
-            <Card count={6} countAmount={10} isCounted={true}>
-              <Statistics
-                title="You are an average course creator"
-                text="You are meeting with university friends. At some point, your friend Alexey asks: “Here I work as an analyst, analyzing data. Olya works as a designer, draws buttons. All clear. What do you do in your internet marketing? ”. "
-              />
-            </Card>
-          </Box>
-          <Box>
-            <Card>
-              <Typography align="center" variant="body1">
-                Build your own interactive quiz for free with{" "}
-                <Link
-                  href="#"
-                  onClick={preventDefault}
-                  color="inherit"
-                  underline="always"
-                >
-                  Flowquiz
-                </Link>
-              </Typography>
-            </Card>
-          </Box>
-          <Box>
-            <Card>
-              <CardHeading style={{ textAlign: "center" }}>
-                How was the quiz?
-              </CardHeading>
-              <Box>
-                <Message
-                  avatar=""
-                  text="Fred, how was the quiz? Was it useful and interesting?"
-                  type="system"
-                />
-              </Box>
-              <Box>
-                <CustomRating title="How useful?" />
-              </Box>
-              <Box>
-                <CustomRating title="How interesting?" defaultValue={3} />
-              </Box>
-              <Box>
-                <Message
-                  avatar=""
-                  text="What could we do better?"
-                  type="system"
-                />
-              </Box>
-              <Box>
-                <Message
-                  avatar=""
-                  text="What could we do better?"
-                  type="write"
-                  btnText="Submit"
-                  placeholder="What could we do better?"
-                />
-              </Box>
-            </Card>
-          </Box>
+          {isSection1Shown && (<Assignment1 sectionRef={section1Ref} targetRef={section2Ref} handleClick={moveToSection} />)}
+          {isSection2Shown && (<Assignment2 sectionRef={section2Ref} targetRef={section3Ref} handleClick={moveToSection} />)}
+          {isSection3Shown && (<Assignment3 sectionRef={section3Ref} targetRef={section4Ref} handleClick={moveToSection} />)}
+          {isSection4Shown && (<Assignment4 sectionRef={section4Ref} targetRef={sectionReviewRef} handleClick={moveToSection} />)}
+          <Ads />
+          {isSectionReviewShown && (<Review sectionRef={sectionReviewRef} />)}
         </Container>
       </main>
     </div>

@@ -59,7 +59,10 @@ const FormAnswer = ({handleClick}) => {
           size="small"
           className={classes.button}
           endIcon={<SubdirectoryArrowLeftIcon />}
-          onClick={handleClick}
+          onClick={(event) => {
+            event.preventDefault();
+            handleClick();
+          }}
         >
           Check the answer
         </Button>

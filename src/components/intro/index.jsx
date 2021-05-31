@@ -82,7 +82,7 @@ export const Intro = ({handleClick}) => {
       </svg>
       <Box style={{ display: "flex", justifyContent: "center" }}>
         <CardHeading style={{ textAlign: "center" }}>
-          How good of a course creator are you?
+          The course creator test
         </CardHeading>
       </Box>
       <Box component="div" className={classes.socials}>
@@ -101,10 +101,10 @@ export const Intro = ({handleClick}) => {
       </Box>
       <Box>
         <Typography variant="body1">
-          You are meeting with university friends. At some point, your friend
-          Alexey asks: “Here I work as an analyst, analyzing data. Olya works as
-          a designer, draws buttons. All clear. What do you do in your internet
-          marketing? ”.
+          Don’t let the brevity of this test fool you. Though only 10 questions long, it is deceptively hard.
+        </Typography>
+        <Typography variant="body1" style={{marginTop: "20px"}}>
+          So far, nobody has been able to answer all of the questions correctly. Can you?
         </Typography>
       </Box>
       <Box
