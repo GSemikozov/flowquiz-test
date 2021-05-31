@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from "react";
+import React, {useEffect} from "react";
 import {Card} from "../card";
 import Box from "@material-ui/core/Box";
 import {Message} from "../message";

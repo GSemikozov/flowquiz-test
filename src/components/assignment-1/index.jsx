@@ -1,9 +1,8 @@
-import React, {useEffect, useRef} from "react";
+import React, {useEffect} from "react";
 import {Card} from "../card";
 import Box from "@material-ui/core/Box";
 import {Message} from "../message";
 import {makeStyles} from "@material-ui/core/styles";
-import {Link} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({

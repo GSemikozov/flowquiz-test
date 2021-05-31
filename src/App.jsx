@@ -2,20 +2,20 @@
 import * as React from "react";
 import './App.css';
 
-import { Link } from '@material-ui/core';
+// import { Link } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+// import Typography from '@material-ui/core/Typography';
 
 import { Card } from './components/card';
-import { CardHeading } from './components/card-heading';
-import { CustomRating } from './components/custom-rating';
+// import { CardHeading } from './components/card-heading';
+// import { CustomRating } from './components/custom-rating';
 import { Intro } from './components/intro';
-import { Message } from './components/message';
-import { OptionalQuestion } from './components/optional-question';
-import { QuestionWithAnswer } from './components/question-with-answer';
-import { Statistics } from './components/statistics';
+// import { Message } from './components/message';
+// import { OptionalQuestion } from './components/optional-question';
+// import { QuestionWithAnswer } from './components/question-with-answer';
+// import { Statistics } from './components/statistics';
 import {useCallback, useEffect, useRef, useState} from "react";
 import {Assignment1} from "./components/assignment-1";
 import {Assignment2} from "./components/assignment-2";
@@ -38,14 +38,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const useShow = (initialState = false) => {
-  // Initialize the state
-  const [state, setState] = useState(initialState);
-
-  const show = useCallback(() => setState(state => true), []);
-
-  return [state, show];
-}
+// const useShow = (initialState = false) => {
+//   // Initialize the state
+//   const [state, setState] = useState(initialState);
+//
+//   const show = useCallback(() => setState(state => true), []);
+//
+//   return [state, show];
+// }
 
 function App() {
   const classes = useStyles();
@@ -80,7 +80,7 @@ function App() {
   }
 
   const moveToSection = (ref) => {
-    const section = ref.current;
+    // const section = ref.current;
     // section.style.display = "block";
     openCorrectSection(ref);
     // section.scrollIntoView({
