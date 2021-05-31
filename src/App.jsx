@@ -16,7 +16,7 @@ import { Intro } from './components/intro';
 // import { OptionalQuestion } from './components/optional-question';
 // import { QuestionWithAnswer } from './components/question-with-answer';
 // import { Statistics } from './components/statistics';
-import {useCallback, useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {Assignment1} from "./components/assignment-1";
 import {Assignment2} from "./components/assignment-2";
 import {Ads} from "./components/ads";
