@@ -86,7 +86,7 @@ export const Intro = ({handleClick}) => {
         </CardHeading>
       </Box>
       <Box component="div" className={classes.socials}>
-        <Typography variant="body2">6 min to complete</Typography>
+        <Typography variant="body2" color="textSecondary">6 min to complete</Typography>
         <Box component="div">
           <IconButton color="default" size="medium" component="span">
             <Twitter />

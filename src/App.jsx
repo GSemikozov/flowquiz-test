@@ -19,7 +19,7 @@ import { Intro } from './components/intro';
 import {useEffect, useRef, useState} from "react";
 import {Assignment1} from "./components/assignment-1";
 import {Assignment2} from "./components/assignment-2";
-import {Ads} from "./components/ads";
+// import {Ads} from "./components/ads";
 import {Review} from "./components/review";
 import {Assignment3} from "./components/assignment-3";
 import {Assignment4} from "./components/assignment-4";
@@ -140,7 +140,7 @@ function App() {
           {isSection2Shown && (<Assignment2 sectionRef={section2Ref} targetRef={section3Ref} handleClick={moveToSection} />)}
           {isSection3Shown && (<Assignment3 sectionRef={section3Ref} targetRef={section4Ref} handleClick={moveToSection} />)}
           {isSection4Shown && (<Assignment4 sectionRef={section4Ref} targetRef={sectionReviewRef} handleClick={moveToSection} />)}
-          <Ads />
+          {/*<Ads />*/}
           {isSectionReviewShown && (<Review sectionRef={sectionReviewRef} />)}
         </Container>
       </main>

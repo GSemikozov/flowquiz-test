@@ -1,11 +1,13 @@
 import { Collapse, Grid, ListItem, ListItemSecondaryAction, ListItemText, Tooltip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import { Cancel, Check, CheckCircle } from '@material-ui/icons';
+import {Cancel, Check, CheckCircle, Close} from '@material-ui/icons';
 // import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import React from 'react';
 import Radio from "@material-ui/core/Radio";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import green from '@material-ui/core/colors/green';
+
+const greenColor = green[500];
 
 const useStyles = makeStyles((theme) => ({
   label: {
@@ -25,15 +27,22 @@ const useStyles = makeStyles((theme) => ({
     counterIncrement: "alphabeticList",
     border: "1px solid #E3E7EB",
     borderRadius: "8px",
-    paddingLeft: theme.spacing(3),
-    paddingRight: theme.spacing(3),
+    padding: 0,
     marginBottom: theme.spacing(1),
     width: "auto",
     display: "flex",
     alignItems: "center",
+    boxShadow: "0.5px 0.5px 2px #DFDEE5",
   },
   listItemError: {
     borderColor: "red",
+  },
+  listItemActive: {
+    opacity: "1 !important",
+    borderColor: theme.palette.action.active,
+  },
+  listItemSelected: {
+    borderColor: theme.palette.action.selected,
   },
   listItemIcon: {
     minWidth: 32,
@@ -56,10 +65,14 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   formControlLabel: {
-    minWidth: 32,
+    width: "100%",
+    margin: 0,
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(3),
+    boxSizing: "border-box",
   },
   answerPanel: {
-    paddingLeft: theme.spacing(1.5),
+    paddingLeft: theme.spacing(1.75),
     paddingRight: theme.spacing(2),
     paddingBottom: theme.spacing(2),
     // marginLeft: "-5px",
@@ -67,9 +80,19 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: "nowrap",
     alignItems: "flex-start",
     boxSizing: "border-box",
+    "& p, & ul": {
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
+    },
+    "& ul li:not(last-child)": {
+      marginBottom: theme.spacing(1),
+    }
   },
   answerPanelItem: {
     boxSizing: "border-box",
+  },
+  successColor: {
+    color: greenColor,
   },
 }));
 
@@ -81,10 +104,15 @@ export const OptionalQuestionItem = ({ isTrue = false, isOpen, value, isSubmitte
     <>
       <ListItem
         button={true}
-        className={`${classes.listItem} ${error && classes.listItemError}`}
+        className={`
+          ${classes.listItem}
+          ${error && classes.listItemError}
+          ${!isSubmitted && value === text && classes.listItemActive}
+          ${isSubmitted && value === text && classes.listItemSelected}
+        `}
         disabled={isSubmitted}
       >
-        <ListItemText id={labelId} style={{ listStyleType: "none" }}>
+        <ListItemText id={labelId} style={{ listStyleType: "none", margin: 0 }}>
           <FormControlLabel className={classes.formControlLabel} label={text} control={
             <Radio
               edge="start"
@@ -97,15 +125,25 @@ export const OptionalQuestionItem = ({ isTrue = false, isOpen, value, isSubmitte
           } />
         </ListItemText>
         <ListItemSecondaryAction>
-          {isOpen && value === text && (
-            <Tooltip title="Correct" aria-label="Correct">
+          {!isOpen && value === text && (
+            <Tooltip title="Chosen" aria-label="Chosen">
               <Check color="primary" />
+            </Tooltip>
+          )}
+          {isOpen && isTrue && (
+            <Tooltip title="Correct" aria-label="Correct">
+              <Check className={classes.successColor} />
+            </Tooltip>
+          )}
+          {isOpen && !isTrue && (
+            <Tooltip title="Incorrect" aria-label="Incorrect">
+              <Close color="error" />
             </Tooltip>
           )}
         </ListItemSecondaryAction>
       </ListItem>
       <Collapse
-        in={isOpen}
+        in={isOpen && value === text}
         timeout="auto"
       >
         {/* isAnswerOpen used before */}
@@ -122,7 +160,7 @@ export const OptionalQuestionItem = ({ isTrue = false, isOpen, value, isSubmitte
             className={classes.answerPanelItem}
             style={{ flexGrow: 1 }}
           >
-            <Typography variant="body1">{children}</Typography>
+            {children}
           </Grid>
         </Grid>
       </Collapse>

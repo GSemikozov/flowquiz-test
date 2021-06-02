@@ -5,7 +5,7 @@ import React from 'react';
 const useStyles = makeStyles((theme) => ({
   title: {
     fontWeight: 700,
-    color: "#1A1F36",
+    color: theme.palette.text.primary,
   },
 }));
 
