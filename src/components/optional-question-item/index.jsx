@@ -44,11 +44,6 @@ const useStyles = makeStyles((theme) => ({
   listItemSelected: {
     borderColor: theme.palette.action.selected,
   },
-  radio: {
-    "&:checked ~ .listItemIcon": {
-      borderColor: "red",
-    },
-  },
   listItemIcon: {
     width: 20,
     height: 20,
@@ -71,6 +66,12 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: 600,
     },
   },
+  listItemCheckedIcon: {
+    backgroundColor: theme.palette.primary.main,
+    "&:before": {
+      color: "#fff",
+    },
+  },
   formControlLabel: {
     width: "100%",
     margin: 0,
@@ -87,6 +88,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const OptionalQuestionItem = ({ isTrue = false, isOpen, value, isSubmitted, id, error, text, children }) => {
   const classes = useStyles();
+
   const labelId = `input-list-label-${id}`;
 
   return (
@@ -103,22 +105,19 @@ export const OptionalQuestionItem = ({ isTrue = false, isOpen, value, isSubmitte
       >
         <ListItemText id={labelId} style={{ listStyleType: "none", margin: 0, position:'relative' }}>
           <FormControlLabel className={classes.formControlLabel} label={text} control={
-            <>
-              <Radio
-                edge="start"
-                tabIndex={-1}
-                disableRipple
-                value={text}
-                color={"primary"}
-                id={id}
-                inputProps={{ 'aria-labelledby': labelId }}
-                className={classes.radio}
-                style={{position: "absolute", width: "1px", height: "1px", opacity: 0}}
-              />
-              <div className={classes.listItemIcon} />
-            </>
+            <Radio
+              edge="start"
+              tabIndex={-1}
+              disableRipple
+              value={text}
+              color={"primary"}
+              id={id}
+              inputProps={{ 'aria-labelledby': labelId }}
+              className={classes.radio}
+              style={{position: "absolute", width: "1px", height: "1px", opacity: 0}}
+            />
           } />
-          {/*<div className={classes.listItemIcon} />*/}
+          <div className={`${classes.listItemIcon} ${value === text && classes.listItemCheckedIcon}`} />
         </ListItemText>
         <ListItemSecondaryAction>
           {!isOpen && value === text && (
