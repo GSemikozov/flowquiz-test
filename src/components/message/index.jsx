@@ -70,7 +70,7 @@ export const Message = ({
   const classes = useStyles();
 
   return (
-    <Box py={2}>
+    <Box py={1}>
       <Grid
         container
         spacing={1}

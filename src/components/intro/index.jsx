@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { Facebook, LinkedIn, Twitter } from '@material-ui/icons';
 import SubdirectoryArrowLeftIcon from '@material-ui/icons/SubdirectoryArrowLeft';
-import React from 'react';
+import React, {useRef} from 'react';
 
 import { CardHeading } from '../card-heading';
 
@@ -29,6 +29,14 @@ const useStyles = makeStyles((theme) => ({
 
 export const Intro = ({handleClick}) => {
   const classes = useStyles();
+
+  const section1continueBtnRef = useRef();
+
+  const handleСontinue = () => {
+    handleClick();
+    console.log("section1continueBtnRef", section1continueBtnRef.current)
+    section1continueBtnRef.current.style.display = "none";
+  }
 
   return (
     <Box component="div" className={classes.wrapper}>
@@ -109,15 +117,17 @@ export const Intro = ({handleClick}) => {
       </Box>
       <Box
         component="div"
-        style={{ marginTop: 40, justifyContent: "flex-start", width: "100%" }}
+        style={{ justifyContent: "flex-start", width: "100%" }}
       >
         <Button
+          ref={section1continueBtnRef}
           type="submit"
           variant="contained"
           color="primary"
           size="small"
           endIcon={<SubdirectoryArrowLeftIcon />}
-          onClick={handleClick}
+          onClick={handleСontinue}
+          style={{ marginTop: 40 }}
         >
           Let’s go
         </Button>

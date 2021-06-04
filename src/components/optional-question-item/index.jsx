@@ -1,6 +1,6 @@
-import { Collapse, Grid, ListItem, ListItemSecondaryAction, ListItemText, Tooltip } from '@material-ui/core';
+import { ListItem, ListItemSecondaryAction, ListItemText, Tooltip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import {Cancel, Check, CheckCircle, Close} from '@material-ui/icons';
+import {Check, Close} from '@material-ui/icons';
 // import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import React from 'react';
 import Radio from "@material-ui/core/Radio";
@@ -44,51 +44,40 @@ const useStyles = makeStyles((theme) => ({
   listItemSelected: {
     borderColor: theme.palette.action.selected,
   },
+  radio: {
+    "&:checked ~ .listItemIcon": {
+      borderColor: "red",
+    },
+  },
   listItemIcon: {
-    minWidth: 32,
-    position: "relative",
+    width: 20,
+    height: 20,
+    borderRadius: "50%",
+    border: `2px solid ${theme.palette.primary.main}`,
+    position: "absolute",
+    top: "50%",
+    left: theme.spacing(2),
+    transform: "translate(0, -50%)",
+    boxSizing: "border-box",
     "&:before": {
       content: "counter(alphabeticList, upper-alpha)",
       speak: "counter(alphabeticList, upper-alpha)",
       position: "absolute",
-      top: 0,
-      left: 0,
-      // left: "-12px",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
       fontSize: "0.8rem",
-      width: "42px",
-      height: "42px",
-      lineHeight: "41px",
-      verticalAlign: "middle",
-      textAlign: "center",
-      color: "blue",
+      color: theme.palette.primary.main,
       fontWeight: 600,
     },
   },
   formControlLabel: {
     width: "100%",
     margin: 0,
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(3),
-    boxSizing: "border-box",
-  },
-  answerPanel: {
-    paddingLeft: theme.spacing(1.75),
-    paddingRight: theme.spacing(2),
+    paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
-    // marginLeft: "-5px",
-    display: "flex",
-    flexWrap: "nowrap",
-    alignItems: "flex-start",
-    boxSizing: "border-box",
-    "& p, & ul": {
-      marginTop: theme.spacing(2),
-      marginBottom: theme.spacing(2),
-    },
-    "& ul li:not(last-child)": {
-      marginBottom: theme.spacing(1),
-    }
-  },
-  answerPanelItem: {
+    paddingLeft: theme.spacing(6),
+    paddingRight: theme.spacing(3),
     boxSizing: "border-box",
   },
   successColor: {
@@ -112,17 +101,24 @@ export const OptionalQuestionItem = ({ isTrue = false, isOpen, value, isSubmitte
         `}
         disabled={isSubmitted}
       >
-        <ListItemText id={labelId} style={{ listStyleType: "none", margin: 0 }}>
+        <ListItemText id={labelId} style={{ listStyleType: "none", margin: 0, position:'relative' }}>
           <FormControlLabel className={classes.formControlLabel} label={text} control={
-            <Radio
-              edge="start"
-              tabIndex={-1}
-              disableRipple
-              value={text}
-              color={"primary"}
-              inputProps={{ 'aria-labelledby': labelId }}
-            />
+            <>
+              <Radio
+                edge="start"
+                tabIndex={-1}
+                disableRipple
+                value={text}
+                color={"primary"}
+                id={id}
+                inputProps={{ 'aria-labelledby': labelId }}
+                className={classes.radio}
+                style={{position: "absolute", width: "1px", height: "1px", opacity: 0}}
+              />
+              <div className={classes.listItemIcon} />
+            </>
           } />
+          {/*<div className={classes.listItemIcon} />*/}
         </ListItemText>
         <ListItemSecondaryAction>
           {!isOpen && value === text && (
@@ -142,28 +138,6 @@ export const OptionalQuestionItem = ({ isTrue = false, isOpen, value, isSubmitte
           )}
         </ListItemSecondaryAction>
       </ListItem>
-      <Collapse
-        in={isOpen && value === text}
-        timeout="auto"
-      >
-        {/* isAnswerOpen used before */}
-        <Grid container spacing={1} className={classes.answerPanel}>
-          <Grid item className={classes.answerPanelItem}>
-            {isTrue ? (
-              <CheckCircle style={{ color: "green" }} />
-            ) : (
-              <Cancel color="error" />
-            )}
-          </Grid>
-          <Grid
-            item
-            className={classes.answerPanelItem}
-            style={{ flexGrow: 1 }}
-          >
-            {children}
-          </Grid>
-        </Grid>
-      </Collapse>
     </>
   );
 };
