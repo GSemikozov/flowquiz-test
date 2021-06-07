@@ -51,9 +51,9 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "50%",
     border: `2px solid ${theme.palette.primary.main}`,
     position: "absolute",
-    top: "50%",
+    top: theme.spacing(2),
     left: theme.spacing(2),
-    transform: "translate(0, -50%)",
+    marginTop: theme.spacing(0.1),
     boxSizing: "border-box",
     "&:before": {
       content: "counter(alphabeticList, upper-alpha)",
@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
     paddingLeft: theme.spacing(6),
-    paddingRight: theme.spacing(3),
+    paddingRight: theme.spacing(5),
     boxSizing: "border-box",
     zIndex: 1,
     position: "relative",
@@ -126,7 +126,7 @@ export const OptionalQuestionItem = ({ isTrue = false, isOpen, value, isSubmitte
           } />
           <div className={`${classes.listItemIcon} ${value === text && classes.listItemCheckedIcon}`} />
         </ListItemText>
-        <ListItemSecondaryAction>
+        <ListItemSecondaryAction style={{top: "16px", transform: "translateY(0)"}}>
           {!isOpen && value === text && (
             <Tooltip title="Chosen" aria-label="Chosen">
               <Check color="primary" />
