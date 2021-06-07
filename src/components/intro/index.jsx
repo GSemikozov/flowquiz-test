@@ -1,13 +1,12 @@
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { Facebook, LinkedIn, Twitter } from '@material-ui/icons';
-import SubdirectoryArrowLeftIcon from '@material-ui/icons/SubdirectoryArrowLeft';
 import React, {useRef} from 'react';
 
 import { CardHeading } from '../card-heading';
+import CustomButton from "../button";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -119,18 +118,17 @@ export const Intro = ({handleClick}) => {
         component="div"
         style={{ justifyContent: "flex-start", width: "100%" }}
       >
-        <Button
+        <CustomButton
           ref={section1continueBtnRef}
           type="submit"
           variant="contained"
           color="primary"
-          size="small"
-          endIcon={<SubdirectoryArrowLeftIcon />}
+          size="large"
           onClick={handleСontinue}
           style={{ marginTop: 40 }}
         >
           Let’s go
-        </Button>
+        </CustomButton>
       </Box>
     </Box>
   );

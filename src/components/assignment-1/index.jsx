@@ -4,8 +4,6 @@ import Box from "@material-ui/core/Box";
 import {Message} from "../message";
 import {makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import SubdirectoryArrowLeftIcon from "@material-ui/icons/SubdirectoryArrowLeft";
-import Button from "@material-ui/core/Button";
 import {OptionalQuestionItem} from "../optional-question-item";
 import List from "@material-ui/core/List";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -14,6 +12,7 @@ import FormControl from "@material-ui/core/FormControl";
 import {OptionalQuestionAnswers} from "../optional-question-answers";
 // import {OptionalQuestionAnswer} from "../optional-question-answer";
 import {Answers} from "./answers";
+import CustomButton from "../button";
 
 const useStyles = makeStyles((theme) => ({
   section: {
@@ -61,7 +60,7 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
     ref.current.classList.add(classes.visible);
     ref.current.scrollIntoView({
       behavior: 'smooth',
-      block: 'start',
+      block: 'center',
       inline: 'center',
     });
     buttonRef.current.style.display = "none";
@@ -120,21 +119,20 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
               But no sooner does the coffee touch your lips than you suddenly get a message from Nathan, the CEO of Educately Inc.
             </Typography>
           </Box>
-          <Box mt={2}>
+          <Box my={2}>
             <Typography variant="body1">
               Uh-oh, are you in trouble already?
             </Typography>
           </Box>
-          <Button
+          <CustomButton
             ref={section1RefButton}
             type="submit"
             variant="contained"
             color="primary"
-            size="small"
-            endIcon={<SubdirectoryArrowLeftIcon />}
-            onClick={(event) => handleInnerSectionScroll(section1Ref, section1RefButton)}
+            size="large"
+            onClick={() => handleInnerSectionScroll(section1Ref, section1RefButton)}
             style={{marginTop: "20px"}}
-          >Ok</Button>
+          >Ok</CustomButton>
         </Box>
         <Box ref={section1Ref} className={`${classes.sectionBlock}`}>
           <Box>
@@ -163,16 +161,15 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
           {/*    handleConfirm={() => handleClick(targetRef)}*/}
           {/*  />*/}
           {/*</Box>*/}
-          <Button
+          <CustomButton
             ref={section2RefButton}
             type="submit"
             variant="contained"
             color="primary"
-            size="small"
-            endIcon={<SubdirectoryArrowLeftIcon />}
+            size="large"
             onClick={() => handleInnerSectionScroll(section2Ref, section2RefButton)}
-            style={{marginTop: "20px"}}
-          >Continue</Button>
+            style={{marginTop: "32px"}}
+          >Continue</CustomButton>
         </Box>
         <Box ref={section2Ref} className={`${classes.sectionBlock}`}>
           <Box mt={2}>
@@ -251,31 +248,28 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
             </OptionalQuestionAnswers>
             {error && <div style={{ color: "red", marginBottom: "20px", marginTop: "-10px"}}>choose option</div>}
             {!isSubmitted && (
-              <Button
+              <CustomButton
                 type="submit"
                 variant="contained"
                 color="primary"
-                size="small"
-                endIcon={<SubdirectoryArrowLeftIcon />}
+                size="large"
                 disabled={!isSubmitActive}
               >
                 Check Answer
-              </Button>
+              </CustomButton>
             )}
           </form>
         </Box>
-        {isSubmitted && isContinueActive && (<Button
+        {isSubmitted && isContinueActive && (<CustomButton
           type="button"
           variant="contained"
           color="primary"
-          size="small"
-          // className={classes.button}
-          endIcon={<SubdirectoryArrowLeftIcon />}
+          size="large"
           onClick={handleContinue}
           style={{marginTop: "8px"}}
         >
           Continue
-        </Button>)}
+        </CustomButton>)}
       </Card>
     </Box>
   )

@@ -2,7 +2,7 @@ import { ListItem, ListItemSecondaryAction, ListItemText, Tooltip } from '@mater
 import { makeStyles } from '@material-ui/core/styles';
 import {Check, Close} from '@material-ui/icons';
 // import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import React from 'react';
+import React, {useEffect} from 'react';
 import Radio from "@material-ui/core/Radio";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import green from '@material-ui/core/colors/green';
@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
   listItemSelected: {
     borderColor: theme.palette.action.selected,
+    opacity: "1 !important",
   },
   listItemIcon: {
     width: 20,
@@ -80,6 +81,8 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(6),
     paddingRight: theme.spacing(3),
     boxSizing: "border-box",
+    zIndex: 1,
+    position: "relative",
   },
   successColor: {
     color: greenColor,
@@ -91,15 +94,19 @@ export const OptionalQuestionItem = ({ isTrue = false, isOpen, value, isSubmitte
 
   const labelId = `input-list-label-${id}`;
 
+  useEffect( () => {
+    console.log("isSubmitted + value === text", isSubmitted, value === text)
+  }, [isSubmitted, value, text])
+
   return (
     <>
       <ListItem
         button={true}
         className={`
           ${classes.listItem}
-          ${error && classes.listItemError}
-          ${!isSubmitted && value === text && classes.listItemActive}
-          ${isSubmitted && value === text && classes.listItemSelected}
+          ${error ? classes.listItemError: ""}
+          ${!isSubmitted && value === text ? classes.listItemActive : ""}
+          ${isSubmitted && value === text ? classes.listItemSelected : ""}
         `}
         disabled={isSubmitted}
       >

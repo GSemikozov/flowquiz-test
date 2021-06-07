@@ -4,7 +4,7 @@
 }
 
 .wrapper {
-  background: #e5e5e5;
+  /*background: #e5e5e5;*/ /* currently - on body */
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -15,4 +15,5 @@
 .main {
   max-width: 600px;
   margin: 0 auto;
+  flex-grow: 1;
 }
