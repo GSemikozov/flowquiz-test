@@ -48,7 +48,7 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
   const [isTrue, setIsTrue] = useState(false);
   const [selectedOptionId, setSelectedOptionId] = useState(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isSubmitActive, setIsSubmitActive] = useState(true);
+  const [isSubmitActive, setIsSubmitActive] = useState(false);
   const [isContinueActive, setIsContinueActive] = useState(true);
 
   const section1Ref = useRef();
@@ -56,13 +56,15 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
   const section1RefButton = useRef();
   const section2RefButton = useRef();
 
-  const handleInnerSectionScroll = (ref, buttonRef) => {
+  const handleInnerSectionScroll = (ref, buttonRef, alignType) => {
     ref.current.classList.add(classes.visible);
-    ref.current.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-      inline: 'center',
-    });
+    setTimeout(() => {
+      ref.current.scrollIntoView({
+        behavior: 'smooth',
+        block: alignType,
+        inline: 'start',
+      });
+    }, 100)
     buttonRef.current.style.display = "none";
   }
 
@@ -70,6 +72,7 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
     setValue(event.target.value);
     setSelectedOptionId(event.target.id);
     setError(false);
+    setIsSubmitActive(true);
     console.log("handleRadioChange", event.target.id, typeof event.target.id);
   };
 
@@ -84,6 +87,7 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
       !error && setIsSubmitActive(false);
       !error && showAnswer(true);
     } else {
+      setIsSubmitActive(false);
       setError(true);
     }
   };
@@ -130,7 +134,7 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
             variant="contained"
             color="primary"
             size="large"
-            onClick={() => handleInnerSectionScroll(section1Ref, section1RefButton)}
+            onClick={() => handleInnerSectionScroll(section1Ref, section1RefButton, "center")}
             style={{marginTop: "20px"}}
           >Ok</CustomButton>
         </Box>
@@ -167,7 +171,7 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
             variant="contained"
             color="primary"
             size="large"
-            onClick={() => handleInnerSectionScroll(section2Ref, section2RefButton)}
+            onClick={() => handleInnerSectionScroll(section2Ref, section2RefButton, "start")}
             style={{marginTop: "32px"}}
           >Continue</CustomButton>
         </Box>

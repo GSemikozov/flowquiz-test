@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     width: 20,
     height: 20,
     borderRadius: "50%",
-    border: `2px solid ${theme.palette.primary.main}`,
+    border: `1px solid ${theme.palette.primary.main}`,
     position: "absolute",
     top: theme.spacing(2),
     left: theme.spacing(2),
