@@ -2,7 +2,7 @@ import { ListItem, ListItemSecondaryAction, ListItemText, Tooltip } from '@mater
 import { makeStyles } from '@material-ui/core/styles';
 import {Check, Close} from '@material-ui/icons';
 // import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import React, {useEffect} from 'react';
+import React, {forwardRef, useEffect} from 'react';
 import Radio from "@material-ui/core/Radio";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import green from '@material-ui/core/colors/green';
@@ -89,14 +89,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const OptionalQuestionItem = ({ isTrue = false, isOpen, value, isSubmitted, id, error, text, children }) => {
+export const OptionalQuestionItem = forwardRef((props, ref) => {
   const classes = useStyles();
 
-  const labelId = `input-list-label-${id}`;
+  const labelId = `input-list-label-${props.id}`;
 
   useEffect( () => {
-    console.log("isSubmitted + value === text", isSubmitted, value === text)
-  }, [isSubmitted, value, text])
+    console.log("isSubmitted + value === text", props.isSubmitted, props.value === props.text)
+  }, [props.isSubmitted, props.value, props.text])
+
+  useEffect(() => {
+    window.addEventListener("keypress", (event) => {
+      if (props.symbol === event.key) {
+        console.log("--a-- clicked")
+        ref.current.click();
+      }
+    })
+  }, [ref, props.symbol]);
 
   return (
     <>
@@ -104,40 +113,40 @@ export const OptionalQuestionItem = ({ isTrue = false, isOpen, value, isSubmitte
         button={true}
         className={`
           ${classes.listItem}
-          ${error ? classes.listItemError: ""}
-          ${!isSubmitted && value === text ? classes.listItemActive : ""}
-          ${isSubmitted && value === text ? classes.listItemSelected : ""}
+          ${props.error ? classes.listItemError: ""}
+          ${!props.isSubmitted && props.value === props.text ? classes.listItemActive : ""}
+          ${props.isSubmitted && props.value === props.text ? classes.listItemSelected : ""}
         `}
-        disabled={isSubmitted}
+        disabled={props.isSubmitted}
       >
         <ListItemText id={labelId} style={{ listStyleType: "none", margin: 0, position:'relative' }}>
-          <FormControlLabel className={classes.formControlLabel} label={text} control={
+          <FormControlLabel ref={ref} className={classes.formControlLabel} label={props.text} control={
             <Radio
               edge="start"
               tabIndex={-1}
               disableRipple
-              value={text}
+              value={props.text}
               color={"primary"}
-              id={id}
+              id={props.id}
               inputProps={{ 'aria-labelledby': labelId }}
               className={classes.radio}
               style={{position: "absolute", width: "1px", height: "1px", opacity: 0}}
             />
           } />
-          <div className={`${classes.listItemIcon} ${value === text && classes.listItemCheckedIcon}`} />
+          <div className={`${classes.listItemIcon} ${props.value === props.text && classes.listItemCheckedIcon}`} />
         </ListItemText>
         <ListItemSecondaryAction style={{top: "16px", transform: "translateY(0)"}}>
-          {!isOpen && value === text && (
+          {!props.isOpen && props.value === props.text && (
             <Tooltip title="Chosen" aria-label="Chosen">
               <Check color="primary" />
             </Tooltip>
           )}
-          {isOpen && isTrue && (
+          {props.isOpen && props.isTrue && (
             <Tooltip title="Correct" aria-label="Correct">
               <Check className={classes.successColor} />
             </Tooltip>
           )}
-          {isOpen && !isTrue && (
+          {props.isOpen && !props.isTrue && (
             <Tooltip title="Incorrect" aria-label="Incorrect">
               <Close color="error" />
             </Tooltip>
@@ -146,4 +155,4 @@ export const OptionalQuestionItem = ({ isTrue = false, isOpen, value, isSubmitte
       </ListItem>
     </>
   );
-};
+});

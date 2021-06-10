@@ -95,6 +95,11 @@ function App() {
     console.log("state changed", isSection2Shown);
     console.log("state changed", isSection3Shown);
     console.log("state changed", isSection4Shown);
+    window.addEventListener("keypress", (event) => {
+      if (event.key === 'Enter') {
+        console.log("enter pressed")
+      }
+    })
   }, [isSection1Shown, isSection2Shown, isSection3Shown, isSection4Shown]);
 
   return (

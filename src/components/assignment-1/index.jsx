@@ -21,6 +21,10 @@ const useStyles = makeStyles((theme) => ({
   sectionBlock: {
     visibility: "hidden",
     height: 0,
+    transition: "all 200ms linear",
+    "& > *": {
+      visibility: "hidden",
+    },
   },
   button: {
     marginTop: theme.spacing(3),
@@ -33,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
     visibility: "visible",
     height: "auto",
     transition: "all 200ms linear",
+    "& > *": {
+      visibility: "visible",
+    },
   }
 }));
 
@@ -50,11 +57,21 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitActive, setIsSubmitActive] = useState(false);
   const [isContinueActive, setIsContinueActive] = useState(true);
+  const [isContinueBtn1Active, setIsContinueBtn1Active] = useState(true);
+  const [isContinueBtn2Active, setIsContinueBtn2Active] = useState(false);
 
   const section1Ref = useRef();
   const section2Ref = useRef();
   const section1RefButton = useRef();
   const section2RefButton = useRef();
+  const continueRefButton = useRef();
+  const chooseOptionRefBtn = useRef();
+  const option1ref = useRef();
+  const option2ref = useRef();
+  const option3ref = useRef();
+  const option4ref = useRef();
+  const option5ref = useRef();
+  const option6ref = useRef();
 
   const handleInnerSectionScroll = (ref, buttonRef, alignType) => {
     ref.current.classList.add(classes.visible);
@@ -109,6 +126,31 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
     console.log("isTrue index", isTrue);
   }, [isTrue]);
 
+  useEffect(() => {
+    window.addEventListener("keypress", (event) => {
+      console.log("event.key", event.key)
+      if (event.key === 'Enter') {
+        console.log("enter pressed")
+        console.log("section1Ref", section1Ref.current)
+        console.log("section2Ref", section2Ref.current)
+        console.log("section2RefButton", section2RefButton.current)
+
+        if (isContinueBtn1Active) {
+          console.log("isContinueBtn1Active clicked")
+          section1RefButton.current.click();
+          setIsContinueBtn1Active(false);
+          setIsContinueBtn2Active(true);
+        }
+
+        if (isContinueBtn2Active) {
+          console.log("isContinueBtn2Active clicked")
+          section2RefButton.current.click();
+          setIsContinueBtn2Active(false);
+        }
+      }
+    })
+  }, [isContinueBtn1Active, isContinueBtn2Active]);
+
   return (
     <Box ref={sectionRef} className={classes.section}>
       <Card count={1} countAmount={10} isCounted={true}>
@@ -138,14 +180,14 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
             style={{marginTop: "20px"}}
           >Ok</CustomButton>
         </Box>
-        <Box ref={section1Ref} className={`${classes.sectionBlock}`}>
-          <Box>
+        <Box ref={section1Ref} className={`${classes.sectionBlock}`} style={{marginBottom: "-60px"}}>
+          <Box style={{transition: "visibility 1s"}}>
             <Message avatar={systemMessageAvatar} text="Hey Frank, welcome aboard!" type="system" />
           </Box>
-          <Box>
+          <Box style={{transition: "visibility 2s"}}>
             <Message avatar={systemMessageAvatar} text="I know it's your first day, but could you do me a solid?" type="system" />
           </Box>
-          <Box>
+          <Box style={{transition: "visibility 3s"}}>
             <Message avatar={systemMessageAvatar} text="Take a look at our new financial course for women. It's been performing badly." type="system" />
           </Box>
           {/*<Box>*/}
@@ -175,7 +217,7 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
             style={{marginTop: "32px"}}
           >Continue</CustomButton>
         </Box>
-        <Box ref={section2Ref} className={`${classes.sectionBlock}`}>
+        <Box ref={section2Ref} className={`${classes.sectionBlock}`} style={{paddingTop: "60px"}}>
           <Box mt={2}>
             <Typography variant="body1">
               With a deep sigh, you sink back into your chair. “The early bird gets the worm? Yeah, right.”
@@ -191,56 +233,68 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
               <RadioGroup aria-label="quiz" name="quiz" value={value} onChange={handleRadioChange}>
                 <List style={{ counterReset: "alphabeticList" }}>
                   <OptionalQuestionItem
+                    ref={option1ref}
                     isTrue={false}
                     isOpen={isOpen}
                     value={value}
                     isSubmitted={isSubmitted}
                     id="1"
+                    symbol="a"
                     // error={error}
                     text="NPS (Net Promoter Score)"
                   />
                   <OptionalQuestionItem
+                    ref={option2ref}
                     isTrue={false}
                     isOpen={isOpen}
                     value={value}
                     isSubmitted={isSubmitted}
                     id="2"
+                    symbol="b"
                     // error={error}
                     text="CSAT (Customer Satisfaction Index)"
                   />
                   <OptionalQuestionItem
+                    ref={option3ref}
                     isTrue={false}
                     isOpen={isOpen}
                     value={value}
                     isSubmitted={isSubmitted}
                     id="3"
+                    symbol="c"
                     // error={error}
                     text="Number of signups"
                   />
                   <OptionalQuestionItem
+                    ref={option4ref}
                     isTrue={false}
                     isOpen={isOpen}
                     value={value}
                     isSubmitted={isSubmitted}
                     id="4"
+                    symbol="d"
                     // error={error}
                     text="Revenue"
                   />
                   <OptionalQuestionItem
+                    ref={option5ref}
                     isTrue={false}
                     isOpen={isOpen}
                     value={value}
                     isSubmitted={isSubmitted}
                     id="5"
+                    symbol="e"
                     // error={error}
                     text="COR (Completion Rate)"
                   />
                   <OptionalQuestionItem
+                    ref={option6ref}
                     isTrue={true}
                     isOpen={isOpen}
                     value={value}
                     isSubmitted={isSubmitted}
                     id="6"
+                    symbol="f"
                     // error={error}
                     text="All of the above"
                   />
@@ -253,6 +307,7 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
             {error && <div style={{ color: "red", marginBottom: "20px", marginTop: "-10px"}}>choose option</div>}
             {!isSubmitted && (
               <CustomButton
+                ref={chooseOptionRefBtn}
                 type="submit"
                 variant="contained"
                 color="primary"
@@ -265,6 +320,7 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
           </form>
         </Box>
         {isSubmitted && isContinueActive && (<CustomButton
+          ref={continueRefButton}
           type="button"
           variant="contained"
           color="primary"

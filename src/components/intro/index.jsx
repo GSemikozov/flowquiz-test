@@ -3,7 +3,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { Facebook, LinkedIn, Twitter } from '@material-ui/icons';
-import React, {useRef} from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 
 import { CardHeading } from '../card-heading';
 import CustomButton from "../button";
@@ -31,11 +31,20 @@ export const Intro = ({handleClick}) => {
 
   const section1continueBtnRef = useRef();
 
-  const handleСontinue = () => {
+  const handleСontinue = useCallback(() => {
     handleClick();
     console.log("section1continueBtnRef", section1continueBtnRef.current)
     section1continueBtnRef.current.style.display = "none";
-  }
+  }, [handleClick]);
+
+  useEffect(() => {
+    window.addEventListener("keypress", (event) => {
+      if (event.key === 'Enter') {
+        console.log("enter pressed")
+        handleСontinue();
+      }
+    })
+  }, [handleСontinue]);
 
   return (
     <Box component="div" className={classes.wrapper}>
