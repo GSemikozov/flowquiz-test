@@ -234,7 +234,7 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
           </Grow>
           <Grow
             in={isAnimateChatMassages}
-            {...(isAnimateChatMassages ? {timeout: 500} : {})}
+            {...(isAnimateChatMassages ? {timeout: 800} : {})}
           >
             <Box>
               <Message avatar={systemMessageAvatar} text="I know it's your first day, but could you do me a solid?" type="system" />
@@ -242,7 +242,7 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
           </Grow>
           <Grow
             in={isAnimateChatMassages}
-            {...(isAnimateChatMassages ? {timeout: 1000} : {})}
+            {...(isAnimateChatMassages ? {timeout: 1600} : {})}
           >
             <Box>
               <Message avatar={systemMessageAvatar} text="Take a look at our new financial course for women. It's been performing badly." type="system" />
@@ -250,7 +250,7 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
           </Grow>
           <Grow
             in={isAnimateChatMassages}
-            {...(isAnimateChatMassages ? {timeout: 1500} : {})}
+            {...(isAnimateChatMassages ? {timeout: 2400} : {})}
           >
             <Box>
               <Message avatar={userAvatar} text="Badly how? Can you be more specific pls?" type="default" />
@@ -258,7 +258,7 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
           </Grow>
           <Grow
             in={isAnimateChatMassages}
-            {...(isAnimateChatMassages ? {timeout: 2000} : {})}
+            {...(isAnimateChatMassages ? {timeout: 3200} : {})}
           >
             <Box>
               <Message avatar={systemMessageAvatar} text="Sorry, no can do. On a meeting right now. You'll figure it out." type="system" />
