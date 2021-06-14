@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import {Card} from "../card";
 import Box from "@material-ui/core/Box";
 import {Message} from "../message";
@@ -14,6 +14,8 @@ import {OptionalQuestionAnswers} from "../optional-question-answers";
 import {Answers} from "./answers";
 import CustomButton from "../button";
 import Grow from "@material-ui/core/Grow";
+import Image from "material-ui-image";
+import img1 from "./img1.gif";
 
 const useStyles = makeStyles((theme) => ({
   section: {
@@ -22,9 +24,6 @@ const useStyles = makeStyles((theme) => ({
   sectionBlock: {
     height: 0,
     overflow: "hidden",
-    "& > $animated": {
-      // animation: `$appearing 2000ms ${theme.transitions.easing.easeInOut}`,
-    },
   },
   button: {
     marginTop: theme.spacing(3),
@@ -35,9 +34,6 @@ const useStyles = makeStyles((theme) => ({
   },
   visible: {
     height: "auto",
-    "& > $animated": {
-      // animation: `$appearing 2000ms ${theme.transitions.easing.easeInOut}`,
-    },
   },
   animated: {
     opacity: 0,
@@ -77,6 +73,7 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
   const [isContinueActive, setIsContinueActive] = useState(true);
   const [isContinueBtn1Active, setIsContinueBtn1Active] = useState(true);
   const [isContinueBtn2Active, setIsContinueBtn2Active] = useState(false);
+  const [isFinalContinueBntActive, setIsFinalContinueBntActive] = useState(false);
   const [isAnimateChatMassages, setIsAnimateChatMassages] = useState(false);
 
   const section1Ref = useRef();
@@ -102,6 +99,7 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
       });
     }, 100)
     buttonRef.current.style.display = "none";
+    buttonRef === section1RefButton && setIsAnimateChatMassages(true);
   }
 
   const handleRadioChange = (event) => {
@@ -109,7 +107,6 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
     setSelectedOptionId(event.target.id);
     setError(false);
     setIsSubmitActive(true);
-    console.log("handleRadioChange", event.target.id, typeof event.target.id);
   };
 
   const handleSubmit = (event) => {
@@ -118,7 +115,6 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
     if (value !== "") {
       setError(false);
       setIsSubmitted(true);
-      console.log("selectedOptionId === \"6\"", selectedOptionId === "6")
       selectedOptionId === "6" && setIsTrue(true);
       !error && setIsSubmitActive(false);
       !error && showAnswer(true);
@@ -133,6 +129,39 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
     setIsContinueActive(false);
     event.target.style.display = "none";
   }
+
+  const handleOnEnterContinue = useCallback((event) => {
+    if (event.key === 'Enter') {
+      console.log("enter pressed")
+      console.log("----isContinueBtn1Active----", isContinueBtn1Active);
+      console.log("----isContinueBtn2Active----", isContinueBtn2Active);
+      console.log("----isFinalContinueBntActive----", isFinalContinueBntActive);
+
+      if (isContinueBtn1Active) {
+        console.log("isContinueBtn1Active clicked")
+        section1RefButton.current.click();
+        setIsAnimateChatMassages(true);
+        setIsContinueBtn1Active(false);
+        setIsContinueBtn2Active(true);
+      }
+
+      if (isContinueBtn2Active) {
+        console.log("isContinueBtn2Active clicked")
+        section2RefButton.current.click();
+        setIsContinueBtn2Active(false);
+        setIsFinalContinueBntActive(true)
+      }
+
+      if (isFinalContinueBntActive && continueRefButton.current) {
+        console.log("isContinueActive clicked", continueRefButton)
+        continueRefButton.current && continueRefButton.current.click();
+        setIsContinueBtn1Active(false);
+        setIsContinueBtn2Active(false);
+        setIsFinalContinueBntActive(false);
+      }
+    }
+  }, [isContinueBtn1Active, isContinueBtn2Active, isFinalContinueBntActive]);
+
   useEffect(() => {
     sectionRef.current.scrollIntoView({
       behavior: 'smooth',
@@ -142,43 +171,29 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
   }, [sectionRef]);
 
   useEffect(() => {
-    console.log("isTrue index", isTrue);
-  }, [isTrue]);
+    window.addEventListener("keypress", handleOnEnterContinue, false);
 
-  useEffect(() => {
-    window.addEventListener("keypress", (event) => {
-      console.log("event.key", event.key)
-      if (event.key === 'Enter') {
-        console.log("enter pressed")
-        console.log("section1Ref", section1Ref.current)
-        console.log("section2Ref", section2Ref.current)
-        console.log("section2RefButton", section2RefButton.current)
-
-        if (isContinueBtn1Active) {
-          console.log("isContinueBtn1Active clicked")
-          section1RefButton.current.click();
-          setIsAnimateChatMassages(true);
-          setIsContinueBtn1Active(false);
-          setIsContinueBtn2Active(true);
-        }
-
-        if (isContinueBtn2Active) {
-          console.log("isContinueBtn2Active clicked")
-          section2RefButton.current.click();
-          setIsContinueBtn2Active(false);
-        }
-      }
-    })
-  }, [isContinueBtn1Active, isContinueBtn2Active]);
+    // cleanup this component
+    return () => {
+      window.removeEventListener("keypress", handleOnEnterContinue, false);
+    };
+  }, [isContinueBtn1Active, isContinueBtn2Active, isFinalContinueBntActive, continueRefButton, handleOnEnterContinue]);
 
   return (
     <Box ref={sectionRef} className={classes.section}>
       <Card count={1} countAmount={10} isCounted={true}>
         <Box>
-          <Box>
+          <Box mb={2}>
             <Typography variant="body1">
-              It’s your first day at Educately Inc, the leading platform for courses and educational content. You came to the office a bit earlier to enjoy your customary cup of coffee.
+              It’s your first day at Educately Inc, the leading platform for courses and educational content.
+              You came to the office a bit earlier to enjoy your customary cup of coffee.
             </Typography>
+          </Box>
+          <Box>
+            <Image
+              src={img1}
+              aspectRatio={2/1.5}
+            />
           </Box>
           <Box mt={2}>
             <Typography variant="body1">
@@ -198,38 +213,12 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
             size="large"
             onClick={() => handleInnerSectionScroll(section1Ref, section1RefButton, "center")}
             style={{marginTop: "20px"}}
-          >Ok</CustomButton>
+          >Yep</CustomButton>
         </Box>
         <Box ref={section1Ref} className={`${classes.sectionBlock}`} style={{marginBottom: "-60px"}}>
-          {/*<Box className={classes.animated}>*/}
-          {/*  <Message avatar={systemMessageAvatar} text="Hey Frank, welcome aboard!" type="system" />*/}
-          {/*</Box>*/}
-          {/*<Box className={classes.animated}>*/}
-          {/*  <Message avatar={systemMessageAvatar} text="I know it's your first day, but could you do me a solid?" type="system" />*/}
-          {/*</Box>*/}
-          {/*<Box className={classes.animated}>*/}
-          {/*  <Message avatar={systemMessageAvatar} text="Take a look at our new financial course for women. It's been performing badly." type="system" />*/}
-          {/*</Box>*/}
-          {/*<Box>*/}
-          {/*  <Message avatar="" text="card" type="write" />*/}
-          {/*</Box>*/}
-          {/*<Box className={classes.animated}>*/}
-          {/*  <Message avatar={userAvatar} text="Badly how? Can you be more specific pls?" type="default" />*/}
-          {/*</Box>*/}
-          {/*<Box className={classes.animated}>*/}
-          {/*  <Message avatar={systemMessageAvatar} text="Sorry, no can do. On a meeting right now. You'll figure it out." type="system" />*/}
-          {/*</Box>*/}
-          {/*<Box>*/}
-          {/*  <Message*/}
-          {/*    avatar=""*/}
-          {/*    text="confirm please"*/}
-          {/*    type="system"*/}
-          {/*    handleConfirm={() => handleClick(targetRef)}*/}
-          {/*  />*/}
-          {/*</Box>*/}
           <Grow in={isAnimateChatMassages}>
             <Box>
-              <Message avatar={systemMessageAvatar} text="Hey Frank, welcome aboard!" type="system" />
+              <Message avatar={systemMessageAvatar} text="Hi and welcome aboard!👏" type="system" />
             </Box>
           </Grow>
           <Grow
@@ -237,7 +226,7 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
             {...(isAnimateChatMassages ? {timeout: 1000} : {})}
           >
             <Box>
-              <Message avatar={systemMessageAvatar} text="I know it's your first day, but could you do me a solid?" type="system" />
+              <Message avatar={systemMessageAvatar} text="I know it's your first day but I want you to do me a solid 🙏" type="system" />
             </Box>
           </Grow>
           <Grow
@@ -245,7 +234,7 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
             {...(isAnimateChatMassages ? {timeout: 2000} : {})}
           >
             <Box>
-              <Message avatar={systemMessageAvatar} text="Take a look at our new financial course for women. It's been performing badly." type="system" />
+              <Message avatar={systemMessageAvatar} text="Take a look at Wallet Detox. It's our new financial course for women, and it's been performing badly." type="system" />
             </Box>
           </Grow>
           <Grow
@@ -253,7 +242,7 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
             {...(isAnimateChatMassages ? {timeout: 3000} : {})}
           >
             <Box>
-              <Message avatar={userAvatar} text="Badly how? Can you be more specific pls?" type="default" />
+              <Message avatar={userAvatar} text="Sure, but badly how? Can you be more specific pls?" type="default" />
             </Box>
           </Grow>
           <Grow
@@ -261,7 +250,7 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
             {...(isAnimateChatMassages ? {timeout: 4000} : {})}
           >
             <Box>
-              <Message avatar={systemMessageAvatar} text="Sorry, no can do. On a meeting right now. You'll figure it out." type="system" />
+              <Message avatar={systemMessageAvatar} text="Sorry, no can do. On a meeting right now. You'll figure it out😉" type="system" />
             </Box>
           </Grow>
           <CustomButton
