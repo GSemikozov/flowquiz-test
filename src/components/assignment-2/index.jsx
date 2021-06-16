@@ -36,9 +36,12 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
   },
   table: {
+    borderCollapse: "collapse",
+    borderRadius: "8px",
     "& tr td, & tr th": {
       textAlign: "center",
       padding: theme.spacing(1),
+      borderColor: theme.palette.action.active,
     },
   },
 }));
@@ -177,7 +180,7 @@ export const Assignment2 = ({ sectionRef, targetRef, handleClick, children }) =>
             <tr>
               <th>Score</th>
               <th>Respondents</th>
-              <th>Percentag</th>
+              <th>Percentage</th>
             </tr>
             </thead>
             <tbody>
@@ -202,7 +205,7 @@ export const Assignment2 = ({ sectionRef, targetRef, handleClick, children }) =>
               <td>2</td>
             </tr>
             <tr>
-              <td>>6</td>
+              <td>{`<6`}</td>
               <td>10</td>
               <td>1%</td>
             </tr>
