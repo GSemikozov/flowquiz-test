@@ -23,6 +23,7 @@ import {Assignment2} from "./components/assignment-2";
 import {Review} from "./components/review";
 import {Assignment3} from "./components/assignment-3";
 import {Assignment4} from "./components/assignment-4";
+import {Assignment5} from "./components/assignment-5";
 
 // import Grid from "@material-ui/core/Grid";
 
@@ -54,12 +55,14 @@ function App() {
   const [isSection2Shown, setIsSection2Shown] = useState(false);
   const [isSection3Shown, setIsSection3Shown] = useState(false);
   const [isSection4Shown, setIsSection4Shown] = useState(false);
+  const [isSection5Shown, setIsSection5Shown] = useState(false);
   const [isSectionReviewShown, setIsSectionReviewShown] = useState(false);
 
   const section1Ref = useRef();
   const section2Ref = useRef();
   const section3Ref = useRef();
   const section4Ref = useRef();
+  const section5Ref = useRef();
   const sectionReviewRef = useRef();
 
   const openCorrectSection = (ref) => {
@@ -72,6 +75,8 @@ function App() {
         return setIsSection3Shown(true);
       case section4Ref:
         return setIsSection4Shown(true);
+      case section5Ref:
+        return setIsSection5Shown(true);
       case sectionReviewRef:
         return setIsSectionReviewShown(true);
       default:
@@ -144,7 +149,8 @@ function App() {
           {isSection1Shown && (<Assignment1 sectionRef={section1Ref} targetRef={section2Ref} handleClick={moveToSection} />)}
           {isSection2Shown && (<Assignment2 sectionRef={section2Ref} targetRef={section3Ref} handleClick={moveToSection} />)}
           {isSection3Shown && (<Assignment3 sectionRef={section3Ref} targetRef={section4Ref} handleClick={moveToSection} />)}
-          {isSection4Shown && (<Assignment4 sectionRef={section4Ref} targetRef={sectionReviewRef} handleClick={moveToSection} />)}
+          {isSection4Shown && (<Assignment4 sectionRef={section4Ref} targetRef={section5Ref} handleClick={moveToSection} />)}
+          {isSection5Shown && (<Assignment5 sectionRef={section5Ref} targetRef={sectionReviewRef} handleClick={moveToSection} />)}
           {/*<Ads />*/}
           {isSectionReviewShown && (<Review sectionRef={sectionReviewRef} />)}
         </Container>
