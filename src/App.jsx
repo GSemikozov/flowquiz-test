@@ -145,7 +145,7 @@ function App() {
           {isSection4Shown && (<Assignment4 sectionRef={section4Ref} targetRef={section5Ref} handleClick={moveToSection} />)}
           {isSection5Shown && (<Assignment5 sectionRef={section5Ref} targetRef={section6Ref} handleClick={moveToSection} />)}
           {isSection6Shown && (<Assignment6 sectionRef={section6Ref} targetRef={sectionReviewRef} handleClick={moveToSection} />)}
-          <Assignment6 sectionRef={section6Ref} targetRef={sectionReviewRef} handleClick={moveToSection} />
+          {/*<Assignment6 sectionRef={section6Ref} targetRef={sectionReviewRef} handleClick={moveToSection} />*/}
           {/*<Ads />*/}
           {isSectionReviewShown && (<Review sectionRef={sectionReviewRef} />)}
         </Container>
