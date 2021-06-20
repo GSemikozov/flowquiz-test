@@ -16,7 +16,7 @@ import { Intro } from './components/intro';
 // import { OptionalQuestion } from './components/optional-question';
 // import { QuestionWithAnswer } from './components/question-with-answer';
 // import { Statistics } from './components/statistics';
-import {useEffect, useRef, useState} from "react";
+import {useRef, useState} from "react";
 import {Assignment1} from "./components/assignment-1";
 import {Assignment2} from "./components/assignment-2";
 // import {Ads} from "./components/ads";
@@ -24,6 +24,7 @@ import {Review} from "./components/review";
 import {Assignment3} from "./components/assignment-3";
 import {Assignment4} from "./components/assignment-4";
 import {Assignment5} from "./components/assignment-5";
+import {Assignment6} from "./components/assignment-6";
 
 // import Grid from "@material-ui/core/Grid";
 
@@ -56,6 +57,7 @@ function App() {
   const [isSection3Shown, setIsSection3Shown] = useState(false);
   const [isSection4Shown, setIsSection4Shown] = useState(false);
   const [isSection5Shown, setIsSection5Shown] = useState(false);
+  const [isSection6Shown, setIsSection6Shown] = useState(false);
   const [isSectionReviewShown, setIsSectionReviewShown] = useState(false);
 
   const section1Ref = useRef();
@@ -63,6 +65,7 @@ function App() {
   const section3Ref = useRef();
   const section4Ref = useRef();
   const section5Ref = useRef();
+  const section6Ref = useRef();
   const sectionReviewRef = useRef();
 
   const openCorrectSection = (ref) => {
@@ -77,6 +80,8 @@ function App() {
         return setIsSection4Shown(true);
       case section5Ref:
         return setIsSection5Shown(true);
+      case section6Ref:
+        return setIsSection6Shown(true);
       case sectionReviewRef:
         return setIsSectionReviewShown(true);
       default:
@@ -94,18 +99,6 @@ function App() {
     //   inline: 'center',
     // });
   }
-
-  useEffect(() => {
-    console.log("state changed", isSection1Shown);
-    console.log("state changed", isSection2Shown);
-    console.log("state changed", isSection3Shown);
-    console.log("state changed", isSection4Shown);
-    window.addEventListener("keypress", (event) => {
-      if (event.key === 'Enter') {
-        console.log("enter pressed")
-      }
-    })
-  }, [isSection1Shown, isSection2Shown, isSection3Shown, isSection4Shown]);
 
   return (
     <div className="wrapper">
@@ -150,7 +143,9 @@ function App() {
           {isSection2Shown && (<Assignment2 sectionRef={section2Ref} targetRef={section3Ref} handleClick={moveToSection} />)}
           {isSection3Shown && (<Assignment3 sectionRef={section3Ref} targetRef={section4Ref} handleClick={moveToSection} />)}
           {isSection4Shown && (<Assignment4 sectionRef={section4Ref} targetRef={section5Ref} handleClick={moveToSection} />)}
-          {isSection5Shown && (<Assignment5 sectionRef={section5Ref} targetRef={sectionReviewRef} handleClick={moveToSection} />)}
+          {isSection5Shown && (<Assignment5 sectionRef={section5Ref} targetRef={section6Ref} handleClick={moveToSection} />)}
+          {isSection6Shown && (<Assignment6 sectionRef={section6Ref} targetRef={sectionReviewRef} handleClick={moveToSection} />)}
+          <Assignment6 sectionRef={section6Ref} targetRef={sectionReviewRef} handleClick={moveToSection} />
           {/*<Ads />*/}
           {isSectionReviewShown && (<Review sectionRef={sectionReviewRef} />)}
         </Container>

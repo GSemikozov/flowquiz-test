@@ -3,9 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import {Check, Close} from '@material-ui/icons';
 // import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import React, {forwardRef, useEffect} from 'react';
-import Radio from "@material-ui/core/Radio";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import green from '@material-ui/core/colors/green';
+import Checkbox from "@material-ui/core/Checkbox";
 
 const greenColor = green[500];
 
@@ -45,10 +45,10 @@ const useStyles = makeStyles((theme) => ({
     borderColor: theme.palette.action.selected,
     opacity: "1 !important",
   },
-  listItemIcon: {
+  listItemIconCheckbox: {
     width: 20,
     height: 20,
-    borderRadius: "50%",
+    borderRadius: "6px",
     border: `1px solid ${theme.palette.primary.main}`,
     position: "absolute",
     top: theme.spacing(2),
@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const OptionalQuestionItem = forwardRef((props, ref) => {
+export const OptionalQuestionItemCheckbox = forwardRef((props, ref) => {
   const classes = useStyles();
 
   const labelId = `input-list-label-${props.id}`;
@@ -109,18 +109,20 @@ export const OptionalQuestionItem = forwardRef((props, ref) => {
         className={`
           ${classes.listItem}
           ${props.error ? classes.listItemError: ""}
-          ${!props.isSubmitted && props.value === props.text ? classes.listItemActive : ""}
-          ${props.isSubmitted && props.value === props.text ? classes.listItemSelected : ""}
+          ${props.isChecked ? classes.listItemActive : ""}
+          ${props.isChecked && props.isSubmitted ? classes.listItemSelected : ""}
         `}
         disabled={props.isSubmitted}
       >
         <ListItemText id={labelId} style={{ listStyleType: "none", margin: 0, position:'relative' }}>
           <FormControlLabel ref={ref} className={classes.formControlLabel} label={props.text} control={
-            <Radio
+            <Checkbox
               edge="start"
               tabIndex={-1}
               disableRipple
               value={props.text}
+              checked={props.isChecked}
+              onChange={props.handleChange}
               color={"primary"}
               id={props.id}
               inputProps={{ 'aria-labelledby': labelId }}
@@ -129,16 +131,11 @@ export const OptionalQuestionItem = forwardRef((props, ref) => {
             />
           } />
           <div className={`
-            ${classes.listItemIcon}
-            ${props.value === props.text && classes.listItemCheckedIcon}
+            ${classes.listItemIconCheckbox}
+            ${props.isChecked && classes.listItemCheckedIcon}
           `} />
         </ListItemText>
         <ListItemSecondaryAction style={{top: "16px", transform: "translateY(0)"}}>
-          {!props.isOpen && props.value === props.text && (
-            <Tooltip title="Chosen" aria-label="Chosen">
-              <Check color="primary" />
-            </Tooltip>
-          )}
           {props.isOpen && props.isTrue && (
             <Tooltip title="Correct" aria-label="Correct">
               <Check className={classes.successColor} />
