@@ -9,66 +9,71 @@ export const Answers = ({isError}) => {
   return (
     <>
       <OptionalQuestionAnswer id="1" isVisible={!isError}>
-        <Typography variant="body1" style={{marginTop: 0}}>True.</Typography>
+        <Typography variant="body1" style={{marginTop: 0}}>Correct.</Typography>
         <Typography variant="body1">
-          NPS is a good choice, but it only gets you so far. It measures the satisfaction of people who have completed the course, but not the people who bought but didn’t finish it.
+          To create a detailed persona of your buyer, you need to understand what makes them tick. And to do that, you need to learn their:
         </Typography>
-        <Typography variant="body1">Other metrics are as one-sided as NPS:</Typography>
         <ul>
           <li>
-            <Typography variant="body1" component="span">CSAT measures customer experience.</Typography>
-          </li>
-          <li>
             <Typography variant="body1" component="span">
-              Completion rate measures your course’s success at prompting the audience to complete it.
+              Age and marital status
             </Typography>
           </li>
           <li>
             <Typography variant="body1" component="span">
-              The number of signups measures how well you are marketing the course.
+              Education and work experience
             </Typography>
           </li>
           <li>
             <Typography variant="body1" component="span">
-              Revenue measures the income generated from people buying the course.
+              Relevant likes and habits
+            </Typography>
+          </li>
+          <li>
+            <Typography variant="body1" component="span">
+              Goals, needs and concerns
+            </Typography>
+          </li>
+          <li>
+            <Typography variant="body1" component="span">
+              Use of social media channels
             </Typography>
           </li>
         </ul>
-        <Typography variant="body1" style={{marginBottom: 0}}>
-          The correct answer is “all of the above”. You need all metrics to decide what went right and what went wrong.
-        </Typography>
       </OptionalQuestionAnswer>
       <OptionalQuestionAnswer id="2" isVisible={isError}>
         <Typography variant="body1" style={{marginTop: 0}}>Wrong.</Typography>
         <Typography variant="body1">
-          CSAT measures the experience of the existing audience. It doesn’t tell you anything about why people decided not to buy your course or how many people completed it.
+          While you’re encouraged to include as much information as you want in your buyer persona, this information needs to be relevant.
         </Typography>
-        <Typography variant="body1">Each metric helps paint a fuller picture:</Typography>
+        <Typography variant="body1">It is best to include:</Typography>
         <ul>
           <li>
             <Typography variant="body1" component="span">
-              NPS measures customer loyalty.
+              Age and marital status
             </Typography>
           </li>
           <li>
             <Typography variant="body1" component="span">
-              Completion rate measures your course’s success at prompting the audience to complete it.
+              Education and work experience
             </Typography>
           </li>
           <li>
             <Typography variant="body1" component="span">
-              The number of signups measures how well you are marketing the course.
+              Education and work experience
             </Typography>
           </li>
           <li>
             <Typography variant="body1" component="span">
-              Revenue measures the income generated from people buying the course.
+              Goals, needs and concerns
+            </Typography>
+          </li>
+          <li>
+            <Typography variant="body1" component="span">
+              Use of social media channels
             </Typography>
           </li>
         </ul>
-        <Typography variant="body1" style={{marginBottom: 0}}>
-          The correct answer is “all of the above”. To understand why this course is performing as badly as it is, you need to look at it from all angles.
-        </Typography>
       </OptionalQuestionAnswer>
     </>
   )
