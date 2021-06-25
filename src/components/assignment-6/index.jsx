@@ -11,11 +11,11 @@ import {OptionalQuestionAnswers} from "../optional-question-answers";
 // import {OptionalQuestionAnswer} from "../optional-question-answer";
 import {Answers} from "./answers";
 import CustomButton from "../button";
-import Grow from "@material-ui/core/Grow";
 import Image from "material-ui-image";
 import img6 from "./img6.gif";
 import FormGroup from "@material-ui/core/FormGroup";
 import {OptionalQuestionItemCheckbox} from "../optional-question-item-checkbox";
+import Fade from "@material-ui/core/Fade";
 
 const useStyles = makeStyles((theme) => ({
   section: {
@@ -77,6 +77,7 @@ export const Assignment6 = ({ sectionRef, targetRef, handleClick, children }) =>
     new Array(7).fill(false)
   );
   const [error, setError] = useState(false);
+  const [hasError, setHasError] = useState(false);
   const [isOpen, showAnswer] = useState(false);
   const [isTrue, setIsTrue] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -114,25 +115,15 @@ export const Assignment6 = ({ sectionRef, targetRef, handleClick, children }) =>
     buttonRef === section1RefButton && setIsAnimateChatMassages(true);
   }
 
-  const isError = checkedState.filter((v, i) =>
-    (v === checkedState[0] && v !== true)
-      || (v === checkedState[1] && v !== true)
-      || (v === checkedState[2] && v !== true)
-      || (v === checkedState[3] && v !== false)
-      || (v === checkedState[4] && v !== true)
-      || (v === checkedState[5] && v !== true)
-      || (v === checkedState[6] && v !== false)
-  );
-
   const handleOnChange = (position) => {
-    console.log("handleOnChange", position)
     const updatedCheckedState = checkedState.map((item, index) =>
       index === position ? !item : item
     );
+    const hasChecked = updatedCheckedState.filter((v) => v).length > 0;
 
+    hasChecked ? setError(false) : setError(true);
+    hasChecked ? setIsSubmitActive(true) :  setIsSubmitActive(false);
     setCheckedState(updatedCheckedState);
-    setError(false);
-    setIsSubmitActive(true);
   }
 
   const handleSubmit = (event) => {
@@ -140,10 +131,10 @@ export const Assignment6 = ({ sectionRef, targetRef, handleClick, children }) =>
 
     if (!error) {
       setError(false);
-      setIsTrue(true);
       setIsSubmitted(true);
       setIsSubmitActive(false);
       showAnswer(true);
+      !hasError && setIsTrue(true);
     } else {
       setIsSubmitActive(false);
       setError(true);
@@ -155,6 +146,18 @@ export const Assignment6 = ({ sectionRef, targetRef, handleClick, children }) =>
     setIsContinueActive(false);
     event.target.style.display = "none";
   }
+
+  const checkError = useCallback(() => {
+    return checkedState.some((v, i) =>
+      (v === checkedState[0] && v !== true)
+      || (v === checkedState[1] && v !== true)
+      || (v === checkedState[2] && v !== true)
+      || (v === checkedState[3] && v !== false)
+      || (v === checkedState[4] && v !== true)
+      || (v === checkedState[5] && v !== true)
+      || (v === checkedState[6] && v !== false)
+    );
+  }, [checkedState])
 
   const handleOnEnterContinue = useCallback((event) => {
     if (event.key === 'Enter') {
@@ -197,6 +200,12 @@ export const Assignment6 = ({ sectionRef, targetRef, handleClick, children }) =>
     };
   }, [isContinueBtn1Active, isContinueBtn2Active, isFinalContinueBntActive, continueRefButton, handleOnEnterContinue]);
 
+  useEffect(() => {
+    const isError = checkError();
+
+    isError ? setHasError(true) : setHasError(false);
+  }, [checkedState, checkError]);
+
   return (
     <Box ref={sectionRef} className={classes.section}>
       <Card count={6} countAmount={10} isCounted={true}>
@@ -234,61 +243,61 @@ export const Assignment6 = ({ sectionRef, targetRef, handleClick, children }) =>
           >Yep</CustomButton>
         </Box>
         <Box ref={section1Ref} className={`${classes.sectionBlock}`} style={{marginBottom: "-60px"}}>
-          <Grow
+          <Fade
             in={isAnimateChatMassages}
           >
             <Box>
               <Message avatar={userAvatar} text="Wow, I got so many replies already!" type="default" />
             </Box>
-          </Grow>
-          <Grow
+          </Fade>
+          <Fade
             in={isAnimateChatMassages}
-            {...(isAnimateChatMassages ? {timeout: 1000} : {})}
+            style={{ transitionDelay: isAnimateChatMassages ? '400ms' : '0ms' }}
           >
             <Box>
               <Message avatar={userAvatar} text="Maybe I should buy Wallet Detox too😜" type="default" />
             </Box>
-          </Grow>
-          <Grow
+          </Fade>
+          <Fade
             in={isAnimateChatMassages}
-            {...(isAnimateChatMassages ? {timeout: 2000} : {})}
+            style={{ transitionDelay: isAnimateChatMassages ? '1000ms' : '0ms' }}
           >
             <Box>
               <Message avatar={systemMessageAvatar} text="😂😂😂" type="system" />
             </Box>
-          </Grow>
-          <Grow
+          </Fade>
+          <Fade
             in={isAnimateChatMassages}
-            {...(isAnimateChatMassages ? {timeout: 3000} : {})}
+            style={{ transitionDelay: isAnimateChatMassages ? '1600ms' : '0ms' }}
           >
             <Box>
               <Message avatar={systemMessageAvatar} text="It's pretty good, huh?😁" type="system" />
             </Box>
-          </Grow>
-          <Grow
+          </Fade>
+          <Fade
             in={isAnimateChatMassages}
-            {...(isAnimateChatMassages ? {timeout: 4000} : {})}
+            style={{ transitionDelay: isAnimateChatMassages ? '1800ms' : '0ms' }}
           >
             <Box>
               <Message avatar={systemMessageAvatar} text="Know what, you should design ad audience persona now" type="system" />
             </Box>
-          </Grow>
-          <Grow
+          </Fade>
+          <Fade
             in={isAnimateChatMassages}
-            {...(isAnimateChatMassages ? {timeout: 5000} : {})}
+            style={{ transitionDelay: isAnimateChatMassages ? '3000ms' : '0ms' }}
           >
             <Box>
               <Message avatar={systemMessageAvatar} text="It's like a short bio of a fictional customer who embodies the traits of your real clients" type="system" />
             </Box>
-          </Grow>
-          <Grow
+          </Fade>
+          <Fade
             in={isAnimateChatMassages}
-            {...(isAnimateChatMassages ? {timeout: 2000} : {})}
+            style={{ transitionDelay: isAnimateChatMassages ? '4000ms' : '0ms' }}
           >
             <Box>
               <Message avatar={systemMessageAvatar} text="Things like age? language, social status, interests, pain points, preffered channels of communication" type="system" />
             </Box>
-          </Grow>
+          </Fade>
           <CustomButton
             ref={section2RefButton}
             type="submit"
@@ -422,7 +431,7 @@ export const Assignment6 = ({ sectionRef, targetRef, handleClick, children }) =>
               </FormGroup>
             </FormControl>
             <OptionalQuestionAnswers isOpen={isOpen} isTrue={isTrue}>
-              <Answers isTrue={isError} />
+              <Answers isTrue={isTrue} />
             </OptionalQuestionAnswers>
             {error && <div style={{ color: "red", marginBottom: "20px", marginTop: "-10px"}}>choose option</div>}
             {!isSubmitted && (

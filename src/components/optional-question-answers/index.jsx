@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 export const OptionalQuestionAnswers = ({isTrue, isOpen, children}) => {
   const classes = useStyles();
   useEffect(() => {
-    console.log("isTrue", isTrue);
+    console.log("isTrue optional question", isTrue);
   }, [isTrue]);
 
   return (

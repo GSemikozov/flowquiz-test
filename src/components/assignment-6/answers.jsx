@@ -2,13 +2,13 @@ import React, {useEffect} from "react";
 import {OptionalQuestionAnswer} from "../optional-question-answer";
 import Typography from "@material-ui/core/Typography";
 
-export const Answers = ({isError}) => {
+export const Answers = ({isTrue}) => {
   useEffect(() => {
-    console.log("isError", isError);
-  }, [isError])
+    console.log("isTrue answers", isTrue);
+  }, [isTrue])
   return (
     <>
-      <OptionalQuestionAnswer id="1" isVisible={!isError}>
+      <OptionalQuestionAnswer id="1" isVisible={isTrue}>
         <Typography variant="body1" style={{marginTop: 0}}>Correct.</Typography>
         <Typography variant="body1">
           To create a detailed persona of your buyer, you need to understand what makes them tick. And to do that, you need to learn their:
@@ -41,7 +41,7 @@ export const Answers = ({isError}) => {
           </li>
         </ul>
       </OptionalQuestionAnswer>
-      <OptionalQuestionAnswer id="2" isVisible={isError}>
+      <OptionalQuestionAnswer id="2" isVisible={!isTrue}>
         <Typography variant="body1" style={{marginTop: 0}}>Wrong.</Typography>
         <Typography variant="body1">
           While you’re encouraged to include as much information as you want in your buyer persona, this information needs to be relevant.
