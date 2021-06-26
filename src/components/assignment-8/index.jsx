@@ -207,7 +207,7 @@ export const Assignment8 = ({ sectionRef, targetRef, handleClick, children }) =>
                     ref={option3ref}
                     isTrue={false}
                     isOpen={isOpen}
-                    value={value}
+                    hasIcons={true} value={value}
                     isSubmitted={isSubmitted}
                     id="3"
                     symbol="c"
@@ -218,7 +218,7 @@ export const Assignment8 = ({ sectionRef, targetRef, handleClick, children }) =>
                     ref={option4ref}
                     isTrue={true}
                     isOpen={isOpen}
-                    value={value}
+                    hasIcons={true} value={value}
                     isSubmitted={isSubmitted}
                     id="4"
                     symbol="d"

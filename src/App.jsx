@@ -28,6 +28,7 @@ import {Assignment6} from "./components/assignment-6";
 import {Assignment8} from "./components/assignment-8";
 import {Assignment9} from "./components/assignment-9";
 import {Assignment10} from "./components/assignment-10";
+import {Assignment7} from "./components/assignment-7";
 
 // import Grid from "@material-ui/core/Grid";
 
@@ -61,7 +62,7 @@ function App() {
   const [isSection4Shown, setIsSection4Shown] = useState(false);
   const [isSection5Shown, setIsSection5Shown] = useState(false);
   const [isSection6Shown, setIsSection6Shown] = useState(false);
-  // const [isSection7Shown, setIsSection7Shown] = useState(false);
+  const [isSection7Shown, setIsSection7Shown] = useState(false);
   const [isSection8Shown, setIsSection8Shown] = useState(false);
   const [isSection9Shown, setIsSection9Shown] = useState(false);
   const [isSection10Shown, setIsSection10Shown] = useState(false);
@@ -73,7 +74,7 @@ function App() {
   const section4Ref = useRef();
   const section5Ref = useRef();
   const section6Ref = useRef();
-  // const section7Ref = useRef();
+  const section7Ref = useRef();
   const section8Ref = useRef();
   const section9Ref = useRef();
   const section10Ref = useRef();
@@ -93,8 +94,8 @@ function App() {
         return setIsSection5Shown(true);
       case section6Ref:
         return setIsSection6Shown(true);
-      // case section7Ref:
-      //   return setIsSection7Shown(true);
+      case section7Ref:
+        return setIsSection7Shown(true);
       case section8Ref:
         return setIsSection8Shown(true);
       case section9Ref:
@@ -164,8 +165,8 @@ function App() {
           {isSection4Shown && (<Assignment4 sectionRef={section4Ref} targetRef={section5Ref} handleClick={moveToSection} />)}
           {isSection5Shown && (<Assignment5 sectionRef={section5Ref} targetRef={section6Ref} handleClick={moveToSection} />)}
           {isSection6Shown && (<Assignment6 sectionRef={section6Ref} targetRef={section8Ref} handleClick={moveToSection} />)}
-          {/*<Assignment6 sectionRef={section6Ref} targetRef={section8Ref} handleClick={moveToSection} />*/}
-          {/*<Assignment7 sectionRef={section6Ref} targetRef={sectionReviewRef} handleClick={moveToSection} />*/}
+          {/*<Assignment7 sectionRef={section7Ref} targetRef={section8Ref} handleClick={moveToSection} />*/}
+          {isSection7Shown && (<Assignment7 sectionRef={section7Ref} targetRef={section8Ref} handleClick={moveToSection} />)}
           {isSection8Shown && (<Assignment8 sectionRef={section8Ref} targetRef={section9Ref} handleClick={moveToSection} />)}
           {isSection9Shown && (<Assignment9 sectionRef={section9Ref} targetRef={section10Ref} handleClick={moveToSection} />)}
           {isSection10Shown && (<Assignment10 sectionRef={section10Ref} targetRef={sectionReviewRef} handleClick={moveToSection} />)}

@@ -187,7 +187,7 @@ export const Assignment9 = ({ sectionRef, targetRef, handleClick, children }) =>
                     ref={option1ref}
                     isTrue={false}
                     isOpen={isOpen}
-                    value={value}
+                    hasIcons={true} value={value}
                     isSubmitted={isSubmitted}
                     id="1"
                     symbol="a"
@@ -198,7 +198,7 @@ export const Assignment9 = ({ sectionRef, targetRef, handleClick, children }) =>
                     ref={option2ref}
                     isTrue={false}
                     isOpen={isOpen}
-                    value={value}
+                    hasIcons={true} value={value}
                     isSubmitted={isSubmitted}
                     id="2"
                     symbol="b"
@@ -209,7 +209,7 @@ export const Assignment9 = ({ sectionRef, targetRef, handleClick, children }) =>
                     ref={option3ref}
                     isTrue={true}
                     isOpen={isOpen}
-                    value={value}
+                    hasIcons={true} value={value}
                     isSubmitted={isSubmitted}
                     id="3"
                     symbol="c"
@@ -220,7 +220,7 @@ export const Assignment9 = ({ sectionRef, targetRef, handleClick, children }) =>
                     ref={option4ref}
                     isTrue={false}
                     isOpen={isOpen}
-                    value={value}
+                    hasIcons={true} value={value}
                     isSubmitted={isSubmitted}
                     id="4"
                     symbol="d"
@@ -234,7 +234,7 @@ export const Assignment9 = ({ sectionRef, targetRef, handleClick, children }) =>
                     ref={option5ref}
                     isTrue={false}
                     isOpen={isOpen}
-                    value={value}
+                    hasIcons={true} value={value}
                     isSubmitted={isSubmitted}
                     id="3"
                     symbol="e"
@@ -245,7 +245,7 @@ export const Assignment9 = ({ sectionRef, targetRef, handleClick, children }) =>
                     ref={option6ref}
                     isTrue={false}
                     isOpen={isOpen}
-                    value={value}
+                    hasIcons={true} value={value}
                     isSubmitted={isSubmitted}
                     id="3"
                     symbol="f"

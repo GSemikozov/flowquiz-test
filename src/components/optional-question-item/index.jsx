@@ -2,7 +2,7 @@ import { ListItem, ListItemSecondaryAction, ListItemText, Tooltip } from '@mater
 import { makeStyles } from '@material-ui/core/styles';
 import {Check, Close} from '@material-ui/icons';
 // import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import React, {forwardRef, useEffect} from 'react';
+import React, {forwardRef, useCallback, useEffect} from 'react';
 import Radio from "@material-ui/core/Radio";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import green from '@material-ui/core/colors/green';
@@ -94,13 +94,22 @@ export const OptionalQuestionItem = forwardRef((props, ref) => {
 
   const labelId = `input-list-label-${props.id}`;
 
+  const handleClickOnPressButton = useCallback((event) => {
+    console.log("EVENTS", event, ref.current);
+    if (props.symbol === event.key) {
+      ref.current.click();
+    }
+  }, [ref, props.symbol])
+
   useEffect(() => {
-    window.addEventListener("keypress", (event) => {
-      if (props.symbol === event.key) {
-        ref.current.click();
-      }
-    })
-  }, [ref, props.symbol]);
+    console.log("Add event listener", ref.current)
+    window.addEventListener("keypress", handleClickOnPressButton, false);
+
+    // cleanup this component
+    return () => {
+      window.removeEventListener("keypress", handleClickOnPressButton, false);
+    };
+  }, [handleClickOnPressButton, ref]);
 
   return (
     <>
@@ -133,23 +142,25 @@ export const OptionalQuestionItem = forwardRef((props, ref) => {
             ${props.value === props.text && classes.listItemCheckedIcon}
           `} />
         </ListItemText>
-        <ListItemSecondaryAction style={{top: "16px", transform: "translateY(0)"}}>
-          {!props.isOpen && props.value === props.text && (
-            <Tooltip title="Chosen" aria-label="Chosen">
-              <Check color="primary" />
-            </Tooltip>
-          )}
-          {props.isOpen && props.isTrue && (
-            <Tooltip title="Correct" aria-label="Correct">
-              <Check className={classes.successColor} />
-            </Tooltip>
-          )}
-          {props.isOpen && !props.isTrue && (
-            <Tooltip title="Incorrect" aria-label="Incorrect">
-              <Close color="error" />
-            </Tooltip>
-          )}
-        </ListItemSecondaryAction>
+        {props.hasIcons && (
+          <ListItemSecondaryAction style={{top: "16px", transform: "translateY(0)"}}>
+            {!props.isOpen && props.value === props.text && (
+              <Tooltip title="Chosen" aria-label="Chosen">
+                <Check color="primary" />
+              </Tooltip>
+            )}
+            {props.isOpen && props.isTrue && (
+              <Tooltip title="Correct" aria-label="Correct">
+                <Check className={classes.successColor} />
+              </Tooltip>
+            )}
+            {props.isOpen && !props.isTrue && (
+              <Tooltip title="Incorrect" aria-label="Incorrect">
+                <Close color="error" />
+              </Tooltip>
+            )}
+          </ListItemSecondaryAction>
+        )}
       </ListItem>
     </>
   );
