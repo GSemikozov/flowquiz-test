@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
     whiteSpace: "nowrap",
     [theme.breakpoints.down("sm")]: {
       width: "100%",
+      color: "#fff",
       "& $icon": {
         display: "none",
       },
