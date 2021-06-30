@@ -2,7 +2,7 @@ import { ListItem, ListItemSecondaryAction, ListItemText, Tooltip } from '@mater
 import { makeStyles } from '@material-ui/core/styles';
 import {Check, Close} from '@material-ui/icons';
 // import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import React, {forwardRef, useEffect} from 'react';
+import React, {forwardRef, useCallback, useEffect} from 'react';
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import green from '@material-ui/core/colors/green';
 import Checkbox from "@material-ui/core/Checkbox";
@@ -94,13 +94,24 @@ export const OptionalQuestionItemCheckbox = forwardRef((props, ref) => {
 
   const labelId = `input-list-label-${props.id}`;
 
+  const handleClickOnPressButton = useCallback((event) => {
+    if (props.symbol === event.key) {
+      ref.current.click();
+    }
+  }, [ref, props.symbol])
+
   useEffect(() => {
-    window.addEventListener("keypress", (event) => {
-      if (props.symbol === event.key) {
-        ref.current.click();
-      }
-    })
-  }, [ref, props.symbol]);
+    window.addEventListener("keypress", handleClickOnPressButton, false);
+
+    // cleanup this component
+    return () => {
+      window.removeEventListener("keypress", handleClickOnPressButton, false);
+    };
+  }, [handleClickOnPressButton, ref]);
+
+  useEffect(() => {
+    window.removeEventListener("keypress", handleClickOnPressButton, false);
+  }, [handleClickOnPressButton, props.isSubmitted]);
 
   return (
     <>

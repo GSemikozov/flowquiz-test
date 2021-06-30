@@ -2,6 +2,7 @@ import React, {forwardRef, useState} from "react";
 import {CardTitle} from "../card-title";
 import {TextField} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
+import CustomButton from "../button";
 
 const useStyles = makeStyles((theme) => ({
   formTitle: {
@@ -10,6 +11,9 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     width: "100%",
+  },
+  button: {
+    marginTop: theme.spacing(2),
   },
 }));
 
@@ -23,11 +27,24 @@ export const FormAnswer = forwardRef((props, ref) => {
     setIsSubmitted(true);
   }
 
+  const handleChange = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
   return (
     <>
       <CardTitle className={classes.formTitle}>Enter your answer here</CardTitle>
       <form noValidate autoComplete="off" onSubmit={handleSubmit} ref={ref}>
-        <TextField label="Your answer" className={classes.input} disabled={isSubmitted} />
+        <TextField label="Your answer" className={classes.input} disabled={isSubmitted} onChange={handleChange} />
+        <CustomButton
+          type="submit"
+          variant="contained"
+          color="primary"
+          size="large"
+          onClick={handleSubmit}
+          className={classes.button}
+        >Continue</CustomButton>
       </form>
     </>
   );

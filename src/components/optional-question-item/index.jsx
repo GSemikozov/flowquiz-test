@@ -95,14 +95,12 @@ export const OptionalQuestionItem = forwardRef((props, ref) => {
   const labelId = `input-list-label-${props.id}`;
 
   const handleClickOnPressButton = useCallback((event) => {
-    console.log("EVENTS", event, ref.current);
     if (props.symbol === event.key) {
       ref.current.click();
     }
   }, [ref, props.symbol])
 
   useEffect(() => {
-    console.log("Add event listener", ref.current)
     window.addEventListener("keypress", handleClickOnPressButton, false);
 
     // cleanup this component
@@ -110,6 +108,10 @@ export const OptionalQuestionItem = forwardRef((props, ref) => {
       window.removeEventListener("keypress", handleClickOnPressButton, false);
     };
   }, [handleClickOnPressButton, ref]);
+
+  useEffect(() => {
+    window.removeEventListener("keypress", handleClickOnPressButton, false);
+  }, [handleClickOnPressButton, props.isSubmitted]);
 
   return (
     <>
