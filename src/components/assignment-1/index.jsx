@@ -13,9 +13,9 @@ import {OptionalQuestionAnswers} from "../optional-question-answers";
 // import {OptionalQuestionAnswer} from "../optional-question-answer";
 import {Answers} from "./answers";
 import CustomButton from "../button";
-import Grow from "@material-ui/core/Grow";
 import Image from "material-ui-image";
 import img1 from "./img1.gif";
+import Fade from "@material-ui/core/Fade";
 
 const useStyles = makeStyles((theme) => ({
   section: {
@@ -222,43 +222,46 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
           >Yep</CustomButton>
         </Box>
         <Box ref={section1Ref} className={`${classes.sectionBlock}`} style={{marginBottom: "-60px"}}>
-          <Grow in={isAnimateChatMassages}>
+          <Fade
+            in={isAnimateChatMassages}
+            style={{ transitionDelay: isAnimateChatMassages ? '400ms' : '0ms' }}
+          >
             <Box>
               <Message avatar={systemMessageAvatar} text="Hi and welcome aboard!👏" type="system" />
             </Box>
-          </Grow>
-          <Grow
+          </Fade>
+          <Fade
             in={isAnimateChatMassages}
-            {...(isAnimateChatMassages ? {timeout: 1000} : {})}
+            style={{ transitionDelay: isAnimateChatMassages ? '2000ms' : '0ms' }}
           >
             <Box>
               <Message avatar={systemMessageAvatar} text="I know it's your first day but I want you to do me a solid 🙏" type="system" />
             </Box>
-          </Grow>
-          <Grow
+          </Fade>
+          <Fade
             in={isAnimateChatMassages}
-            {...(isAnimateChatMassages ? {timeout: 2000} : {})}
+            style={{ transitionDelay: isAnimateChatMassages ? '4000ms' : '0ms' }}
           >
             <Box>
               <Message avatar={systemMessageAvatar} text="Take a look at Wallet Detox. It's our new financial course for women, and it's been performing badly." type="system" />
             </Box>
-          </Grow>
-          <Grow
+          </Fade>
+          <Fade
             in={isAnimateChatMassages}
-            {...(isAnimateChatMassages ? {timeout: 3000} : {})}
+            style={{ transitionDelay: isAnimateChatMassages ? '6000ms' : '0ms' }}
           >
             <Box>
               <Message avatar={userAvatar} text="Sure, but badly how? Can you be more specific pls?" type="default" />
             </Box>
-          </Grow>
-          <Grow
+          </Fade>
+          <Fade
             in={isAnimateChatMassages}
-            {...(isAnimateChatMassages ? {timeout: 4000} : {})}
+            style={{ transitionDelay: isAnimateChatMassages ? '8000ms' : '0ms' }}
           >
             <Box>
               <Message avatar={systemMessageAvatar} text="Sorry, no can do. On a meeting right now. You'll figure it out😉" type="system" />
             </Box>
-          </Grow>
+          </Fade>
           <CustomButton
             ref={section2RefButton}
             type="submit"

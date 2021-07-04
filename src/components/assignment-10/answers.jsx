@@ -27,10 +27,10 @@ export const Answers = ({selectedOptionId}) => {
         <Typography variant="body1">
           The cost of generating one customer is the cost per click divided by the signup rate multiplied by the conversion rate.
         </Typography>
-        <Typography variant="body1" component="span">
+        <Typography variant="body1">
           Using this simple formula, we get $0.5 / (0.1 x 0.05) = 100 USD.
         </Typography>
-        <Typography variant="body1" component="span">
+        <Typography variant="body1">
           A hundred dollars spent on acquiring one customer isn’t much bigger than the current price of the course, but there’s still a difference.
         </Typography>
       </OptionalQuestionAnswer>

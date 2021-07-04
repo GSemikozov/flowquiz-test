@@ -112,6 +112,7 @@ function App() {
   const moveToSection = (ref) => {
     // const section = ref.current;
     // section.style.display = "block";
+    console.log("will move to next section: ", ref.current);
     openCorrectSection(ref);
     // section.scrollIntoView({
     //   behavior: 'smooth',
@@ -166,7 +167,7 @@ function App() {
           {isSection5Shown && (<Assignment5 sectionRef={section5Ref} targetRef={section6Ref} handleClick={moveToSection} />)}
           {isSection6Shown && (<Assignment6 sectionRef={section6Ref} targetRef={section7Ref} handleClick={moveToSection} />)}
           {/*<Assignment6 sectionRef={section6Ref} targetRef={section7Ref} handleClick={moveToSection} />*/}
-          {/*<Assignment7 sectionRef={section7Ref} targetRef={section8Ref} handleClick={moveToSection} />*/}
+          {/*<Assignment7 sectionRef={section7Ref} targetRef={sectionReviewRef} handleClick={moveToSection} />*/}
           {isSection7Shown && (<Assignment7 sectionRef={section7Ref} targetRef={section8Ref} handleClick={moveToSection} />)}
           {isSection8Shown && (<Assignment8 sectionRef={section8Ref} targetRef={section9Ref} handleClick={moveToSection} />)}
           {isSection9Shown && (<Assignment9 sectionRef={section9Ref} targetRef={section10Ref} handleClick={moveToSection} />)}

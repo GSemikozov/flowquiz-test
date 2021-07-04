@@ -98,7 +98,11 @@ export const OptionalQuestionItem = forwardRef((props, ref) => {
     if (props.symbol === event.key) {
       ref.current.click();
     }
-  }, [ref, props.symbol])
+  }, [ref, props.symbol]);
+
+  useEffect(() => {
+    props.isSubmitted && window.removeEventListener("keypress", handleClickOnPressButton, false);
+  }, [handleClickOnPressButton, props.isSubmitted]);
 
   useEffect(() => {
     window.addEventListener("keypress", handleClickOnPressButton, false);
@@ -108,10 +112,6 @@ export const OptionalQuestionItem = forwardRef((props, ref) => {
       window.removeEventListener("keypress", handleClickOnPressButton, false);
     };
   }, [handleClickOnPressButton, ref]);
-
-  useEffect(() => {
-    window.removeEventListener("keypress", handleClickOnPressButton, false);
-  }, [handleClickOnPressButton, props.isSubmitted]);
 
   return (
     <>

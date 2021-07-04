@@ -245,6 +245,7 @@ export const Assignment6 = ({ sectionRef, targetRef, handleClick, children }) =>
         <Box ref={section1Ref} className={`${classes.sectionBlock}`} style={{marginBottom: "-60px"}}>
           <Fade
             in={isAnimateChatMassages}
+            style={{ transitionDelay: isAnimateChatMassages ? '200ms' : '0ms' }}
           >
             <Box>
               <Message avatar={userAvatar} text="Wow, I got so many replies already!" type="default" />
@@ -252,7 +253,7 @@ export const Assignment6 = ({ sectionRef, targetRef, handleClick, children }) =>
           </Fade>
           <Fade
             in={isAnimateChatMassages}
-            style={{ transitionDelay: isAnimateChatMassages ? '400ms' : '0ms' }}
+            style={{ transitionDelay: isAnimateChatMassages ? '800ms' : '0ms' }}
           >
             <Box>
               <Message avatar={userAvatar} text="Maybe I should buy Wallet Detox too😜" type="default" />
@@ -260,7 +261,7 @@ export const Assignment6 = ({ sectionRef, targetRef, handleClick, children }) =>
           </Fade>
           <Fade
             in={isAnimateChatMassages}
-            style={{ transitionDelay: isAnimateChatMassages ? '1000ms' : '0ms' }}
+            style={{ transitionDelay: isAnimateChatMassages ? '1600ms' : '0ms' }}
           >
             <Box>
               <Message avatar={systemMessageAvatar} text="😂😂😂" type="system" />
@@ -268,7 +269,7 @@ export const Assignment6 = ({ sectionRef, targetRef, handleClick, children }) =>
           </Fade>
           <Fade
             in={isAnimateChatMassages}
-            style={{ transitionDelay: isAnimateChatMassages ? '1600ms' : '0ms' }}
+            style={{ transitionDelay: isAnimateChatMassages ? '2800ms' : '0ms' }}
           >
             <Box>
               <Message avatar={systemMessageAvatar} text="It's pretty good, huh?😁" type="system" />
@@ -276,7 +277,7 @@ export const Assignment6 = ({ sectionRef, targetRef, handleClick, children }) =>
           </Fade>
           <Fade
             in={isAnimateChatMassages}
-            style={{ transitionDelay: isAnimateChatMassages ? '1800ms' : '0ms' }}
+            style={{ transitionDelay: isAnimateChatMassages ? '400ms' : '0ms' }}
           >
             <Box>
               <Message avatar={systemMessageAvatar} text="Know what, you should design ad audience persona now" type="system" />
@@ -284,7 +285,7 @@ export const Assignment6 = ({ sectionRef, targetRef, handleClick, children }) =>
           </Fade>
           <Fade
             in={isAnimateChatMassages}
-            style={{ transitionDelay: isAnimateChatMassages ? '3000ms' : '0ms' }}
+            style={{ transitionDelay: isAnimateChatMassages ? '5500ms' : '0ms' }}
           >
             <Box>
               <Message avatar={systemMessageAvatar} text="It's like a short bio of a fictional customer who embodies the traits of your real clients" type="system" />
@@ -292,7 +293,7 @@ export const Assignment6 = ({ sectionRef, targetRef, handleClick, children }) =>
           </Fade>
           <Fade
             in={isAnimateChatMassages}
-            style={{ transitionDelay: isAnimateChatMassages ? '4000ms' : '0ms' }}
+            style={{ transitionDelay: isAnimateChatMassages ? '7000ms' : '0ms' }}
           >
             <Box>
               <Message avatar={systemMessageAvatar} text="Things like age? language, social status, interests, pain points, preffered channels of communication" type="system" />

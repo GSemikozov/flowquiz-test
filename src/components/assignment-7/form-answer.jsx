@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const FormAnswer = forwardRef((props, ref) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isFieldEmpty, setIsFieldEmpty] = useState(true);
   const classes = useStyles();
 
   const handleSubmit = (event) => {
@@ -28,8 +29,9 @@ export const FormAnswer = forwardRef((props, ref) => {
   }
 
   const handleChange = (event) => {
-    event.preventDefault();
-    event.stopPropagation();
+    event.target.value === ""
+      ? setIsFieldEmpty(true)
+      : setIsFieldEmpty(false);
   }
 
   return (
@@ -43,6 +45,7 @@ export const FormAnswer = forwardRef((props, ref) => {
           color="primary"
           size="large"
           onClick={handleSubmit}
+          disabled={isSubmitted || isFieldEmpty}
           className={classes.button}
         >Continue</CustomButton>
       </form>

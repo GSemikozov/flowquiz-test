@@ -69,26 +69,6 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
     borderLeft: "10px solid #ccc",
-    // "&:before": {
-    //   content: "open-quote",
-    //   position: "absolute",
-    //   left: theme.spacing(1),
-    //   top: 0,
-    //   color: theme.palette.primary.light,
-    //   fontSize: "5em",
-    //   lineHeight: 1,
-    //   height: "30px",
-    // },
-    // "&:after": {
-    //   content: "close-quote",
-    //   position: "absolute",
-    //   right: theme.spacing(1),
-    //   bottom: theme.spacing(1),
-    //   color: theme.palette.primary.light,
-    //   fontSize: "5em",
-    //   lineHeight: 1,
-    //   height: "30px",
-    // },
   },
 }));
 
@@ -97,10 +77,8 @@ export const Assignment7 = ({ sectionRef, targetRef, handleClick, children }) =>
 
   const [value, setValue] = useState('');
   const [error, setError] = useState(false);
-  // const [selectedOptionId, setSelectedOptionId] = useState(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitActive, setIsSubmitActive] = useState(false);
-  // const [isContinueActive, setIsContinueActive] = useState(true);
   const [isHiddenOptionsVisible, setHiddenOptionsVisible] = useState(false);
   const [isContinueBtn1Active, setIsContinueBtn1Active] = useState(true);
   const [isContinueBtn2Active, setIsContinueBtn2Active] = useState(false);
@@ -115,7 +93,6 @@ export const Assignment7 = ({ sectionRef, targetRef, handleClick, children }) =>
   const hiddenOptionsRef = useRef();
   const section1RefButton = useRef();
   const section2RefButton = useRef();
-  const section3RefButton = useRef();
   const section4RefButton = useRef();
   const continueRefButton = useRef();
   const chooseOptionRefBtn = useRef();
@@ -145,7 +122,6 @@ export const Assignment7 = ({ sectionRef, targetRef, handleClick, children }) =>
 
   const handleRadioChange = (event) => {
     setValue(event.target.value);
-    // setSelectedOptionId(event.target.id);
     setError(false);
     setIsSubmitActive(true);
   };
@@ -163,14 +139,11 @@ export const Assignment7 = ({ sectionRef, targetRef, handleClick, children }) =>
       setError(true);
     }
 
-    setTimeout(() => {
-      handleContinue(event);
-    }, 1000)
+    handleContinue(event);
   };
 
   const handleContinue = (event) => {
     handleClick(targetRef);
-    // setIsContinueActive(false);
     event.target.style.display = "none";
   }
 
@@ -185,13 +158,12 @@ export const Assignment7 = ({ sectionRef, targetRef, handleClick, children }) =>
       if (isContinueBtn2Active) {
         section2RefButton.current.click();
         setIsContinueBtn2Active(false);
-        setIsContinueBtn3Active(false);
+        setIsContinueBtn3Active(true);
       }
 
       if (isContinueBtn3Active) {
-        section3RefButton.current.click();
         setIsContinueBtn3Active(false);
-        setIsContinueBtn4Active(false);
+        setIsContinueBtn4Active(true);
       }
 
       if (isContinueBtn4Active) {
@@ -584,17 +556,6 @@ export const Assignment7 = ({ sectionRef, targetRef, handleClick, children }) =>
             </form>
           )}
         </Box>
-        {/*{isSubmitted && isContinueActive && (<CustomButton*/}
-        {/*  ref={continueRefButton}*/}
-        {/*  type="button"*/}
-        {/*  variant="contained"*/}
-        {/*  color="primary"*/}
-        {/*  size="large"*/}
-        {/*  onClick={handleContinue}*/}
-        {/*  style={{marginTop: "8px"}}*/}
-        {/*>*/}
-        {/*  Continue*/}
-        {/*</CustomButton>)}*/}
       </Card>
     </Box>
   )

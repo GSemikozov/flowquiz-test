@@ -134,39 +134,29 @@ export const Assignment9 = ({ sectionRef, targetRef, handleClick, children }) =>
       <Card count={9} countAmount={10} isCounted={true}>
         <Box mb={2}>
           <Typography variant="body1">
-            You let out a tired sigh as you slouch back into your chair. The new copy looks competent, but there’s still something missing.
+            The landing page looks better by the minute. You feel like this is going to be a big success,
+            especially considering that everyone who has taken the course loved it.
           </Typography>
         </Box>
         <Box mb={2}>
           <Typography variant="body1">
-            A second opinion is what you need — one straight from the horse’s mouth.
+            Come to think of it, there were so many glowing reviews from the learners. It’d be a waste not to use them to market the course.
           </Typography>
         </Box>
         <Box mb={2}>
           <Typography variant="body1">
-            You have no shortage of positive responses about the course, but how about feedback from the people who were this close to signing up for Wallet Detox?
+            What did that colleague of yours use to say? “Social proof is one of the best ways to build trust in your product.”
           </Typography>
         </Box>
         <Box mb={2}>
           <Typography variant="body1">
-            You look up a list of all potential learners and the interactions they’ve had with the marketing campaign messages.
-            You want to find a person who was the furthest along in your acquisition cycle.
+            After a few minutes, you end up with six quotes you think are the strongest.
+            Including all five on a single landing page would be overkill, so you decide to settle on just one.
           </Typography>
         </Box>
         <Box mb={2}>
           <Typography variant="body1">
-            Alright, here’s one — Jenny, 35. She initially signed up for the course and even opened all the newsletters but ultimately did not buy it.
-          </Typography>
-        </Box>
-        <Box mb={2}>
-          <Typography variant="body1">
-            You call her up and hear an unenthused “Hello?” on the other end.
-            Judging by Jenny’s tone, she’s not too thrilled about receiving this call. You’d better make this quick.
-          </Typography>
-        </Box>
-        <Box mb={2}>
-          <Typography variant="body1">
-            Which question should you ask her?
+            Which one would it be?
           </Typography>
         </Box>
         <CustomButton
