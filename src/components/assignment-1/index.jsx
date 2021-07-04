@@ -84,6 +84,7 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
 
   const section1Ref = useRef();
   const section2Ref = useRef();
+  const formRef = useRef();
   const section1RefButton = useRef();
   const section2RefButton = useRef();
   const continueRefButton = useRef();
@@ -128,6 +129,13 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
       setIsSubmitActive(false);
       setError(true);
     }
+
+    // won't work in section close to page end
+    formRef.current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'start',
+    });
   };
 
   const handleContinue = (event) => {
@@ -169,6 +177,7 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
   }, [isContinueBtn1Active, isContinueBtn2Active, isFinalContinueBntActive]);
 
   useEffect(() => {
+    console.log("useEffect")
     sectionRef.current.scrollIntoView({
       behavior: 'smooth',
       block: 'start',
@@ -283,6 +292,8 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
               You pull up the information on the course that Nathan mentioned, Wallet Detox. Which of its performance metrics are you going to look at?
             </Typography>
           </Box>
+          <Box ref={formRef}>
+
           <form onSubmit={handleSubmit}>
             <FormControl component="fieldset" error={error} style={{width: "100%"}}>
               <RadioGroup aria-label="quiz" name="quiz" value={value} onChange={handleRadioChange}>
@@ -374,6 +385,7 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
               </CustomButton>
             )}
           </form>
+          </Box>
         </Box>
         {isSubmitted && isContinueActive && (<CustomButton
           ref={continueRefButton}
