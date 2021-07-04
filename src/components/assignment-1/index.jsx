@@ -208,6 +208,7 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
             <Image
               src={img1}
               aspectRatio={2/1.5}
+              animationDuration={0}
             />
           </Box>
           <Box mt={2}>

@@ -155,6 +155,7 @@ export const Assignment5 = ({ sectionRef, targetRef, handleClick, children }) =>
           <ImageComponent
             src={img3}
             aspectRatio={2/1.25}
+            animationDuration={0}
             className={classes.img}
           />
         </Box>
