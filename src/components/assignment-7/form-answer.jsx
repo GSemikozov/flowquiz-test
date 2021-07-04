@@ -38,7 +38,13 @@ export const FormAnswer = forwardRef((props, ref) => {
     <>
       <CardTitle className={classes.formTitle}>Enter your answer here</CardTitle>
       <form noValidate autoComplete="off" onSubmit={handleSubmit} ref={ref}>
-        <TextField label="Your answer" className={classes.input} disabled={isSubmitted} onChange={handleChange} />
+        <TextField
+          label="Your answer"
+          multiline={true}
+          className={classes.input}
+          disabled={isSubmitted}
+          onChange={handleChange}
+        />
         <CustomButton
           type="submit"
           variant="contained"
