@@ -90,6 +90,7 @@ export const Assignment6 = ({ sectionRef, targetRef, handleClick, children }) =>
 
   const section1Ref = useRef();
   const section2Ref = useRef();
+  const formRef = useRef();
   const section1RefButton = useRef();
   const section2RefButton = useRef();
   const continueRefButton = useRef();
@@ -139,6 +140,15 @@ export const Assignment6 = ({ sectionRef, targetRef, handleClick, children }) =>
       setIsSubmitActive(false);
       setError(true);
     }
+
+    // won't work in section close to page end
+    setTimeout(() => {
+      formRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'start',
+      });
+    }, 300);
   };
 
   const handleContinue = (event) => {
@@ -278,7 +288,7 @@ export const Assignment6 = ({ sectionRef, targetRef, handleClick, children }) =>
           </Fade>
           <Fade
             in={isAnimateChatMassages}
-            style={{ transitionDelay: isAnimateChatMassages ? '400ms' : '0ms' }}
+            style={{ transitionDelay: isAnimateChatMassages ? '4000ms' : '0ms' }}
           >
             <Box>
               <Message avatar={systemMessageAvatar} text="Know what, you should design ad audience persona now" type="system" />
@@ -327,7 +337,7 @@ export const Assignment6 = ({ sectionRef, targetRef, handleClick, children }) =>
               Pick one or more points that should be in your audience persona.
             </Typography>
           </Box>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} ref={formRef}>
             <FormControl component="fieldset" error={error} style={{width: "100%"}}>
               <FormGroup aria-label="quiz">
                 <List style={{ counterReset: "alphabeticList" }}>

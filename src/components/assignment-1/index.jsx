@@ -131,11 +131,13 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
     }
 
     // won't work in section close to page end
-    formRef.current.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-      inline: 'start',
-    });
+    setTimeout(() => {
+      formRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'start',
+      });
+    }, 300);
   };
 
   const handleContinue = (event) => {
@@ -177,7 +179,7 @@ export const Assignment1 = ({ sectionRef, targetRef, handleClick, children }) =>
   }, [isContinueBtn1Active, isContinueBtn2Active, isFinalContinueBntActive]);
 
   useEffect(() => {
-    console.log("useEffect")
+    console.log("useEffect runs")
     sectionRef.current.scrollIntoView({
       behavior: 'smooth',
       block: 'start',

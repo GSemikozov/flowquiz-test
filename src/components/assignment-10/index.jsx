@@ -46,6 +46,7 @@ export const Assignment10 = ({ sectionRef, targetRef, handleClick, children }) =
   const [isFinalContinueBntActive, setIsFinalContinueBntActive] = useState(false);
 
   const section1Ref = useRef();
+  const formRef = useRef();
   const section1RefButton = useRef();
   const continueRefButton = useRef();
   const chooseOptionRefBtn = useRef();
@@ -85,6 +86,15 @@ export const Assignment10 = ({ sectionRef, targetRef, handleClick, children }) =
       setIsSubmitActive(false);
       setError(true);
     }
+
+    // won't work in section close to page end
+    setTimeout(() => {
+      formRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'start',
+      });
+    }, 300);
   };
 
   const handleContinue = (event) => {
@@ -172,7 +182,7 @@ export const Assignment10 = ({ sectionRef, targetRef, handleClick, children }) =
           style={{marginTop: "20px"}}
         >Continue</CustomButton>
         <Box ref={section1Ref} className={`${classes.sectionBlock}`}>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} ref={formRef}>
             <FormControl component="fieldset" error={error} style={{width: "100%"}}>
               <RadioGroup aria-label="quiz" name="quiz" value={value} onChange={handleRadioChange}>
                 <List style={{ counterReset: "alphabeticList" }}>

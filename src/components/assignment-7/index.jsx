@@ -11,6 +11,7 @@ import CustomButton from "../button";
 import Image from "material-ui-image";
 import img7 from "./img7.gif";
 import {FormAnswer} from "./form-answer";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
   section: {
@@ -59,16 +60,6 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(1),
       borderColor: theme.palette.action.active,
     },
-  },
-  blockquote: {
-    position: "relative",
-    background: "#f9f9f9",
-    margin: 0,
-    paddingLeft: theme.spacing(5),
-    paddingRight: theme.spacing(5),
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
-    borderLeft: "10px solid #ccc",
   },
 }));
 
@@ -258,7 +249,7 @@ export const Assignment7 = ({ sectionRef, targetRef, handleClick, children }) =>
         </Box>
         <Box ref={section1Ref} className={`${classes.sectionBlock}`} style={{marginBottom: "-60px"}}>
           <Box>
-            <blockquote className={classes.blockquote}>
+            <blockquote>
               <Box mb={2}>
                 <Typography variant="body1">
                   Ladies, women and girls! Whether you work from home or go to college, Wallet Detox is a course that you need in your life!
@@ -339,153 +330,170 @@ export const Assignment7 = ({ sectionRef, targetRef, handleClick, children }) =>
               Please grade how well you think you have answered the question by looking at our version and then choosing one of the options below.
             </Typography>
           </Box>
-          <Box mb={2} style={{background: "#f9f9f9", padding: "16px"}}>
-            <Box mb={2}>
-              <Typography variant="body1">
-                There are many ways you can fix a landing page,
-                but the main thing is that you need to emphasize the value your clients will be getting out of your product or service.
-              </Typography>
-            </Box>
-            <Box mb={2}>
-              <Typography variant="body1">
-                The value is not how long/short or how good the course is. The value is directly linked to solving a pain point of a client.
-              </Typography>
-            </Box>
-            <Box mb={2}>
-              <Typography variant="body1">
-                Compare these two descriptions:
-              </Typography>
-            </Box>
-            <Box mb={2}>
-              <table width="100%" border={1} className={classes.table}>
-                <thead>
-                <tr>
-                  <th>Focus on the product</th>
-                  <th>Focus on the value and benefits</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>
-                    Learn how to live your life with a dog. In 32 engaging lessons,
-                    you will learn the techniques for balancing yourself and your pet and take your relationship with your dog to the next level.
-                  </td>
-                  <td>
-                    Fix your dog's behavior problems, such as barking at the door,
-                    spoiling things, being afraid of fireworks, poor hygiene, and extortion of treats.
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-            </Box>
-            <Box mb={2}>
-              <Typography variant="body1">
-                See how the second example focuses on specific problems the client has? Your landing page should follow the same principle.
-              </Typography>
-            </Box>
-            <Box mb={2}>
-              <Typography variant="body1">
-                First, let’s identify the main problems our clients experience:
-              </Typography>
-            </Box>
-            <Box mb={2}>
-              <ol>
-                <li>
-                  I have a relatively high salary, but never enough money.
-                </li>
-                <li>
-                  I buy a lot of stuff which I barely use.
-                </li>
-                <li>
-                  I am afraid that if I lose my job, I will have no way to pay my bills.
-                </li>
-              </ol>
-            </Box>
-            <Box mb={2}>
-              <Typography variant="body1">
-                Now, let’s identify the main obstacles to solving these problems:
-              </Typography>
-            </Box>
-            <Box mb={2}>
-              <ol>
-                <li>
-                  I don’t understand finance, it is too complicated.
-                </li>
-                <li>
-                  I don’t want to give up my lifestyle.
-                </li>
-                <li>
-                  My partner handles all the finances.
-                </li>
-              </ol>
-            </Box>
-            <Box mb={2}>
-              <Typography variant="body1">
-                We  should clearly answer these 5 questions on the landing page, preferably at the top.
-              </Typography>
-            </Box>
-            <Box mb={2}>
-              <ol>
-                <li>
-                  <b>What is it?</b> What the product is exactly, in no ambiguous terms.
-                </li>
-                <li>
-                  <b>Who is this for?</b> Who the product is aimed at and who benefits from it the most.
-                </li>
-                <li>
-                  <b>Who/what is it against?</b> The main problems the product was made to solve.
-                </li>
-                <li>
-                  <b>What is the benefit?</b> What changes should a client expect once they have used the product?
-                  Why are these changes a good thing?
-                </li>
-                <li>
-                  <b>How to use it?</b> Come up with real-life situations where the benefits will be useful.
-                </li>
-              </ol>
-            </Box>
-            <Box mb={2}>
-              <Typography variant="body1">
-                Here is one way:
-              </Typography>
-            </Box>
-            <Box mb={2}>
-              <Typography variant="body1">
-                <b>Wallet detox</b>
-              </Typography>
-              <Typography variant="body1">
-                A personal finance online course for women.
-              </Typography>
-            </Box>
-            <Box mb={2}>
-              <Typography variant="body1">
-                Stop living from paycheck to paycheck. In 3 weeks, you will learn how to achieve financial wellness and literacy.
-              </Typography>
-            </Box>
-            <Box mb={2}>
-              <Typography variant="body1">
-                Wallet Detox will teach you how to:
-              </Typography>
-            </Box>
-            <Box mb={2}>
-              <ul>
-                <li>Understand personal finance and accounting</li>
-                <li>Stop buying stuff you don’t need</li>
-                <li>Get off the credit hook</li>
-                <li>Handle losing your job or getting divorced without stress</li>
-              </ul>
-            </Box>
-            <Box mb={2}>
-              <Typography variant="body1">
-                You will join a community of like-minded women and get your knowledge tested in a safe, friendly environment
-              </Typography>
-            </Box>
-            <Box>
-              <Typography variant="body1">
-                Ditch debt. Save money. Build wealth.
-              </Typography>
-            </Box>
-          </Box>
+          <Grid container spacing={0}>
+            <Grid item xs={1} style={{textAlign: "center"}}>
+              <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect y="0.984863" width="16" height="16" rx="8" fill="#8792A2"/>
+                <g clipPath="url(#clip0)">
+                  <path d="M8 5.30322C8.61523 5.30322 9.12109 4.81104 9.12109 4.1958C9.12109 3.57373 8.61523 3.08154 8 3.08154C7.38477 3.08154 6.87207 3.57373 6.87207 4.1958C6.87207 4.81104 7.38477 5.30322 8 5.30322ZM7.00195 13.9849H8.99121V6.4585H7.00195V13.9849Z" fill="white"/>
+                </g>
+                <defs>
+                  <clipPath id="clip0">
+                    <rect width="12" height="12" fill="white" transform="translate(2 2.98486)"/>
+                  </clipPath>
+                </defs>
+              </svg>
+            </Grid>
+            <Grid item xs>
+              <Box mb={2} className={"answer"}>
+                <Box mb={2}>
+                  <Typography variant="body1">
+                    There are many ways you can fix a landing page,
+                    but the main thing is that you need to emphasize the value your clients will be getting out of your product or service.
+                  </Typography>
+                </Box>
+                <Box mb={2}>
+                  <Typography variant="body1">
+                    The value is not how long/short or how good the course is. The value is directly linked to solving a pain point of a client.
+                  </Typography>
+                </Box>
+                <Box mb={2}>
+                  <Typography variant="body1">
+                    Compare these two descriptions:
+                  </Typography>
+                </Box>
+                <Box mb={2}>
+                  <table width="100%" border={1} className={classes.table}>
+                    <thead>
+                    <tr>
+                      <th>Focus on the product</th>
+                      <th>Focus on the value and benefits</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>
+                        Learn how to live your life with a dog. In 32 engaging lessons,
+                        you will learn the techniques for balancing yourself and your pet and take your relationship with your dog to the next level.
+                      </td>
+                      <td>
+                        Fix your dog's behavior problems, such as barking at the door,
+                        spoiling things, being afraid of fireworks, poor hygiene, and extortion of treats.
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </Box>
+                <Box mb={2}>
+                  <Typography variant="body1">
+                    See how the second example focuses on specific problems the client has? Your landing page should follow the same principle.
+                  </Typography>
+                </Box>
+                <Box mb={2}>
+                  <Typography variant="body1">
+                    First, let’s identify the main problems our clients experience:
+                  </Typography>
+                </Box>
+                <Box mb={2}>
+                  <ol>
+                    <li>
+                      I have a relatively high salary, but never enough money.
+                    </li>
+                    <li>
+                      I buy a lot of stuff which I barely use.
+                    </li>
+                    <li>
+                      I am afraid that if I lose my job, I will have no way to pay my bills.
+                    </li>
+                  </ol>
+                </Box>
+                <Box mb={2}>
+                  <Typography variant="body1">
+                    Now, let’s identify the main obstacles to solving these problems:
+                  </Typography>
+                </Box>
+                <Box mb={2}>
+                  <ol>
+                    <li>
+                      I don’t understand finance, it is too complicated.
+                    </li>
+                    <li>
+                      I don’t want to give up my lifestyle.
+                    </li>
+                    <li>
+                      My partner handles all the finances.
+                    </li>
+                  </ol>
+                </Box>
+                <Box mb={2}>
+                  <Typography variant="body1">
+                    We  should clearly answer these 5 questions on the landing page, preferably at the top.
+                  </Typography>
+                </Box>
+                <Box mb={2}>
+                  <ol>
+                    <li>
+                      <b>What is it?</b> What the product is exactly, in no ambiguous terms.
+                    </li>
+                    <li>
+                      <b>Who is this for?</b> Who the product is aimed at and who benefits from it the most.
+                    </li>
+                    <li>
+                      <b>Who/what is it against?</b> The main problems the product was made to solve.
+                    </li>
+                    <li>
+                      <b>What is the benefit?</b> What changes should a client expect once they have used the product?
+                      Why are these changes a good thing?
+                    </li>
+                    <li>
+                      <b>How to use it?</b> Come up with real-life situations where the benefits will be useful.
+                    </li>
+                  </ol>
+                </Box>
+                <Box mb={2}>
+                  <Typography variant="body1">
+                    Here is one way:
+                  </Typography>
+                </Box>
+                <Box mb={2}>
+                  <Typography variant="body1">
+                    <b>Wallet detox</b>
+                  </Typography>
+                  <Typography variant="body1">
+                    A personal finance online course for women.
+                  </Typography>
+                </Box>
+                <Box mb={2}>
+                  <Typography variant="body1">
+                    Stop living from paycheck to paycheck. In 3 weeks, you will learn how to achieve financial wellness and literacy.
+                  </Typography>
+                </Box>
+                <Box mb={2}>
+                  <Typography variant="body1">
+                    Wallet Detox will teach you how to:
+                  </Typography>
+                </Box>
+                <Box mb={2}>
+                  <ul>
+                    <li>Understand personal finance and accounting</li>
+                    <li>Stop buying stuff you don’t need</li>
+                    <li>Get off the credit hook</li>
+                    <li>Handle losing your job or getting divorced without stress</li>
+                  </ul>
+                </Box>
+                <Box mb={2}>
+                  <Typography variant="body1">
+                    You will join a community of like-minded women and get your knowledge tested in a safe, friendly environment
+                  </Typography>
+                </Box>
+                <Box>
+                  <Typography variant="body1">
+                    Ditch debt. Save money. Build wealth.
+                  </Typography>
+                </Box>
+              </Box>
+            </Grid>
+          </Grid>
           <CustomButton
             ref={section4RefButton}
             type="submit"

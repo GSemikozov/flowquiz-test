@@ -17,3 +17,29 @@
   margin: 0 auto;
   flex-grow: 1;
 }
+
+.main blockquote,
+.main .answer * {
+  font-family: 'Source Serif Pro', serif;
+  line-height: 1.4;
+}
+
+.answer p,
+.answer table tr td,
+.answer table tr th {
+  text-align: left;
+  vertical-align: top;
+}
+
+.answer ul li,
+.answer ol li {
+  margin-bottom: 4px;
+}
+
+.main blockquote {
+  font-style: italic;
+  border-left: 3px solid #3C4257;
+  padding-left: 12px;
+  margin: 1em 0;
+  box-sizing: border-box;
+}
