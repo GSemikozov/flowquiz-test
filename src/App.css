@@ -19,6 +19,7 @@
 }
 
 .main blockquote,
+.main blockquote *,
 .main .answer * {
   font-family: 'Source Serif Pro', serif;
   line-height: 1.4;
@@ -37,6 +38,7 @@
 }
 
 .main blockquote {
+  font-family: 'Source Serif Pro', serif;
   font-style: italic;
   border-left: 3px solid #3C4257;
   padding-left: 12px;

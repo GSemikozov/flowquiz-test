@@ -12,6 +12,8 @@ import Image from "material-ui-image";
 import img7 from "./img7.gif";
 import {FormAnswer} from "./form-answer";
 import Grid from "@material-ui/core/Grid";
+import {Answers} from "./answers";
+import {OptionalQuestionAnswers} from "../optional-question-answers";
 
 const useStyles = makeStyles((theme) => ({
   section: {
@@ -68,8 +70,12 @@ export const Assignment7 = ({ sectionRef, targetRef, handleClick, children }) =>
 
   const [value, setValue] = useState('');
   const [error, setError] = useState(false);
+  const [isOpen, showAnswer] = useState(false);
+  const [isTrue, setIsTrue] = useState(false);
+  const [selectedOptionId, setSelectedOptionId] = useState(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitActive, setIsSubmitActive] = useState(false);
+  const [isContinueActive, setIsContinueActive] = useState(true);
   const [isHiddenOptionsVisible, setHiddenOptionsVisible] = useState(false);
   const [isContinueBtn1Active, setIsContinueBtn1Active] = useState(true);
   const [isContinueBtn2Active, setIsContinueBtn2Active] = useState(false);
@@ -113,6 +119,7 @@ export const Assignment7 = ({ sectionRef, targetRef, handleClick, children }) =>
 
   const handleRadioChange = (event) => {
     setValue(event.target.value);
+    setSelectedOptionId(event.target.id);
     setError(false);
     setIsSubmitActive(true);
   };
@@ -123,18 +130,28 @@ export const Assignment7 = ({ sectionRef, targetRef, handleClick, children }) =>
     if (value !== "") {
       setError(false);
       setIsSubmitted(true);
-      // selectedOptionId === "6" && setIsTrue(true); // TODO: submit this part without true value
+      (selectedOptionId === "1" || selectedOptionId === "2") && setIsTrue(true);
       !error && setIsSubmitActive(false);
+      !error && showAnswer(true);
     } else {
       setIsSubmitActive(false);
       setError(true);
     }
 
-    handleContinue(event);
+    // handleContinue(event);
+    // won't work in section close to page end
+    setTimeout(() => {
+      hiddenOptionsRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'start',
+      });
+    }, 300);
   };
 
   const handleContinue = (event) => {
     handleClick(targetRef);
+    setIsContinueActive(false);
     event.target.style.display = "none";
   }
 
@@ -505,6 +522,9 @@ export const Assignment7 = ({ sectionRef, targetRef, handleClick, children }) =>
           >Continue</CustomButton>
         </Box>
         <Box ref={section4Ref} className={`${classes.sectionBlock}`}>
+          <Typography variant="body1">
+            Now, when you know the correct answer, please evaluate your answer:
+          </Typography>
           {isHiddenOptionsVisible && (
             <form ref={hiddenOptionsRef} onSubmit={handleSubmit}>
               <FormControl component="fieldset" error={error} style={{width: "100%"}}>
@@ -549,6 +569,9 @@ export const Assignment7 = ({ sectionRef, targetRef, handleClick, children }) =>
                   </List>
                 </RadioGroup>
               </FormControl>
+              <OptionalQuestionAnswers isOpen={isOpen} isTrue={isTrue}>
+                <Answers selectedOptionId={selectedOptionId} />
+              </OptionalQuestionAnswers>
               {error && <div style={{ color: "red", marginBottom: "20px", marginTop: "-10px"}}>choose option</div>}
               {!isSubmitted && (
                 <CustomButton
@@ -565,6 +588,17 @@ export const Assignment7 = ({ sectionRef, targetRef, handleClick, children }) =>
             </form>
           )}
         </Box>
+        {isSubmitted && isContinueActive && (<CustomButton
+          ref={continueRefButton}
+          type="button"
+          variant="contained"
+          color="primary"
+          size="large"
+          onClick={handleContinue}
+          style={{marginTop: "8px"}}
+        >
+          Continue
+        </CustomButton>)}
       </Card>
     </Box>
   )

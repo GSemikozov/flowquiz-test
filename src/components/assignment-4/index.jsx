@@ -176,19 +176,21 @@ export const Assignment4 = ({ sectionRef, targetRef, handleClick, children }) =>
             You’re a bit stumped with what you’re supposed to do now, so you open up a quick guide on the internet.
           </Typography>
         </Box>
-        <Box mb={2} style={{border: "1px solid grey", padding: "12px 16px 8px"}}>
-          <Typography variant="body1">
-            A <b>target audience</b> refers to the group of people that are most likely to be interested in your product, service or offer.
-          </Typography>
-          <Typography variant="body1">
-            It usually includes the following data points:
-          </Typography>
-          <ul>
-            <li>Demographic data: age, gender, social class</li>
-            <li>Education and career background</li>
-            <li>Pain points (challenges, issues, problems)</li>
-            <li>Behavior and consumption habits</li>
-          </ul>
+        <Box mb={2}>
+          <blockquote>
+            <Typography variant="body1">
+              A <b>target audience</b> refers to the group of people that are most likely to be interested in your product, service or offer.
+            </Typography>
+            <Typography variant="body1">
+              It usually includes the following data points:
+            </Typography>
+            <ul>
+              <li>Demographic data: age, gender, social class</li>
+              <li>Education and career background</li>
+              <li>Pain points (challenges, issues, problems)</li>
+              <li>Behavior and consumption habits</li>
+            </ul>
+          </blockquote>
         </Box>
         <Box mb={2}>
           <Typography variant="body1">

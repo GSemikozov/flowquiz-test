@@ -1,4 +1,4 @@
-import React, {forwardRef, useState} from "react";
+import React, {forwardRef, useCallback, useEffect, useState} from "react";
 import {CardTitle} from "../card-title";
 import {TextField} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
@@ -21,10 +21,11 @@ export const FormAnswer = forwardRef((props, ref) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isFieldEmpty, setIsFieldEmpty] = useState(true);
   const classes = useStyles();
+  const {onSubmit} = props;
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.onSubmit();
+    onSubmit();
     setIsSubmitted(true);
   }
 
@@ -33,6 +34,23 @@ export const FormAnswer = forwardRef((props, ref) => {
       ? setIsFieldEmpty(true)
       : setIsFieldEmpty(false);
   }
+
+  const handleSubmitFromKeyboard = useCallback((event) => {
+    if ((event.ctrlKey && event.key === 'Enter') || (event.metaKey && event.key === 'Enter')) {
+      console.log("cmd + enter");
+      onSubmit();
+      setIsSubmitted(true);
+    }
+  }, [onSubmit]);
+
+  useEffect(() => {
+    window.addEventListener("keypress", handleSubmitFromKeyboard, false);
+
+    // cleanup this component
+    return () => {
+      window.removeEventListener("keypress", handleSubmitFromKeyboard, false);
+    };
+  }, [handleSubmitFromKeyboard]);
 
   return (
     <>
@@ -53,7 +71,7 @@ export const FormAnswer = forwardRef((props, ref) => {
           onClick={handleSubmit}
           disabled={isSubmitted || isFieldEmpty}
           className={classes.button}
-        >Continue</CustomButton>
+        >Continue <span style={{fontSize: "20px", marginLeft: "16px"}}>⌘ +</span></CustomButton>
       </form>
     </>
   );
