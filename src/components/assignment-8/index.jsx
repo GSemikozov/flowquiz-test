@@ -63,7 +63,7 @@ export const Assignment8 = ({ sectionRef, targetRef, handleClick, children }) =>
         block: alignType,
         inline: 'start',
       });
-    }, 100)
+    }, 300)
     buttonRef.current.style.display = "none";
   }
 

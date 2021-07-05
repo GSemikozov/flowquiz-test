@@ -111,7 +111,7 @@ export const Assignment6 = ({ sectionRef, targetRef, handleClick, children }) =>
         block: alignType,
         inline: 'start',
       });
-    }, 100)
+    }, 300)
     buttonRef.current.style.display = "none";
     buttonRef === section1RefButton && setIsAnimateChatMassages(true);
   }

@@ -104,7 +104,7 @@ export const Assignment7 = ({ sectionRef, targetRef, handleClick, children }) =>
         block: alignType,
         inline: 'start',
       });
-    }, 100);
+    }, 300);
 
     if (buttonRef) {
       buttonRef.current.style.display = "none";
