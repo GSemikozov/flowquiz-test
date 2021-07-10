@@ -57,11 +57,17 @@ const useStyles = makeStyles((theme) => ({
   // },
 }));
 
-export const UserInfoSection = ({sectionRef, targetRef, handleClick}) => {
+export const UserInfoSection = ({
+  sectionRef,
+  targetRef,
+  handleClick,
+  username,
+  handleSetUsername,
+  handleSetEmail,
+  email,
+}) => {
   const classes = useStyles();
 
-  const [username, setUsername] = useState(null);
-  const [email, setEmail] = useState(null);
   const [isContinueActive, setIsContinueActive] = useState(false);
   // const [isContinueBtn1Active, setIsContinueBtn1Active] = useState(true);
 
@@ -89,7 +95,7 @@ export const UserInfoSection = ({sectionRef, targetRef, handleClick}) => {
   }, [isContinueActive]);
 
   const handleUsernameSubmit = (value) => {
-    setUsername(value);
+    handleSetUsername(value);
     section2Ref.current.classList.add(classes.visible);
 
     // won't work in section close to page end
@@ -103,7 +109,7 @@ export const UserInfoSection = ({sectionRef, targetRef, handleClick}) => {
   };
 
   const handleEmailSubmit = (value) => {
-    setEmail(value);
+    handleSetEmail(value);
     setIsContinueActive(true);
 
     // won't work in section close to page end
@@ -157,7 +163,12 @@ export const UserInfoSection = ({sectionRef, targetRef, handleClick}) => {
           </Box>
           <Box ref={section2Ref} className={`${classes.sectionBlock}`}>
             <Box mb={2}>
-              <Message avatar={systemMessageAvatar} name="Fred Pedersen" text="And what’s your email?" type="system" />
+              <Message
+                avatar={systemMessageAvatar}
+                name="Fred Pedersen"
+                text="What’s your email? No marketing bullshit, I promise."
+                type="system"
+              />
             </Box>
             <Box mb={2}>
               <Message
@@ -174,8 +185,11 @@ export const UserInfoSection = ({sectionRef, targetRef, handleClick}) => {
           <Box
             component="div"
             ref={section3Ref}
-            style={{ justifyContent: "flex-start", width: "100%" }}
+            // style={{ justifyContent: "flex-start", width: "100%" }}
           >
+            <Box mb={2}>
+              <Message avatar={systemMessageAvatar} name="Fred Pedersen" text="Excellent, let’s get going!" type="system" />
+            </Box>
             <CustomButton
               ref={section1continueBtnRef}
               type="submit"

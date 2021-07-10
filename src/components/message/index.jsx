@@ -56,7 +56,7 @@ export const Message = ({
   }, [handleSubmit])
 
   return (
-    <Box py={1}>
+    <Box>
       <Grid
         container
         spacing={1}

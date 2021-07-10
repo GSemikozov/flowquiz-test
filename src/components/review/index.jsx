@@ -1,10 +1,12 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Card} from "../card";
 import Box from "@material-ui/core/Box";
 import {Message} from "../message";
 import {makeStyles} from "@material-ui/core/styles";
 import {CardHeading} from "../card-heading";
-import {CustomRating} from "../custom-rating";
+import Rating from "@material-ui/lab/Rating";
+import StarBorderIcon from "@material-ui/icons/StarBorder";
+import {ChatMessageSubmit} from "../chat-message-submit";
 
 const useStyles = makeStyles((theme) => ({
   section: {
@@ -12,8 +14,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Review = ({ sectionRef }) => {
+export const Review = ({ sectionRef, email, username, systemMessageAvatar }) => {
   const classes = useStyles();
+
+  const [rating, setRating] = useState(0);
+  const [ratingDisabled, setRatingDisabled] = useState(false);
+  const [answer, setAnswer] = useState(null);
+
+  const handleRatingSubmit = (event) => {
+    event.preventDefault();
+    setRating(+event.target.value);
+    setRatingDisabled(true);
+  }
+
+  const handleAnswerSubmit = (value) => {
+    setAnswer(value);
+  }
 
   useEffect(() => {
     sectionRef.current.scrollIntoView({
@@ -23,41 +39,46 @@ export const Review = ({ sectionRef }) => {
     });
   }, [sectionRef]);
 
+  useEffect(() => {
+    console.log("review answer", answer);
+  }, [answer]);
+
   return (
     <Box ref={sectionRef} className={classes.section}>
       <Box>
         <Card>
           <CardHeading style={{ textAlign: "center" }}>
-            How was the quiz?
+            {`How was the quiz, ${username}?`}
           </CardHeading>
-          <Box>
+          <Box mt={3}>
             <Message
-              avatar=""
-              text="Fred, how was the quiz? Was it useful and interesting?"
+              avatar={systemMessageAvatar}
+              name="Fred Pedersen"
+              text="Hey, Herman, how was the quiz?"
               type="system"
             />
           </Box>
-          <Box>
-            <CustomRating title="How useful?" />
-          </Box>
-          <Box>
-            <CustomRating title="How interesting?" defaultValue={3} />
+          <Box my={2} style={{textAlign: "center"}}>
+            <Rating
+              name="rating"
+              size="large"
+              value={rating}
+              precision={1}
+              emptyIcon={<StarBorderIcon fontSize="inherit" />}
+              onChange={handleRatingSubmit}
+              disabled={ratingDisabled}
+            />
           </Box>
           <Box>
             <Message
-              avatar=""
-              text="What could we do better?"
+              avatar={systemMessageAvatar}
+              name="Fred Pedersen"
+              text="What did you like the most?"
               type="system"
             />
           </Box>
-          <Box>
-            <Message
-              avatar=""
-              text="What could we do better?"
-              type="write"
-              btnText="Submit"
-              placeholder="What could we do better?"
-            />
+          <Box mt={2}>
+            <ChatMessageSubmit onSubmit={handleAnswerSubmit} />
           </Box>
         </Card>
       </Box>
