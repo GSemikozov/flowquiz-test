@@ -31,7 +31,7 @@ export const Intro = ({handleClick}) => {
 
   const section1continueBtnRef = useRef();
 
-  const handleСontinue = useCallback(() => {
+  const handleContinue = useCallback(() => {
     handleClick();
     console.log("section1continueBtnRef", section1continueBtnRef.current)
     section1continueBtnRef.current.style.display = "none";
@@ -41,10 +41,10 @@ export const Intro = ({handleClick}) => {
     window.addEventListener("keypress", (event) => {
       if (event.key === 'Enter') {
         console.log("enter pressed")
-        handleСontinue();
+        handleContinue();
       }
     })
-  }, [handleСontinue]);
+  }, [handleContinue]);
 
   return (
     <Box component="div" className={classes.wrapper}>
@@ -133,7 +133,7 @@ export const Intro = ({handleClick}) => {
           variant="contained"
           color="primary"
           size="large"
-          onClick={handleСontinue}
+          onClick={handleContinue}
           style={{ marginTop: 40 }}
         >
           Let’s go

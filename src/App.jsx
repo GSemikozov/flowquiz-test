@@ -29,6 +29,7 @@ import {Assignment8} from "./components/assignment-8";
 import {Assignment9} from "./components/assignment-9";
 import {Assignment10} from "./components/assignment-10";
 import {Assignment7} from "./components/assignment-7";
+import {UserInfoSection} from "./components/user-info-section";
 
 // import Grid from "@material-ui/core/Grid";
 
@@ -56,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles();
 
+  const [isUserInfoSectionShown, setIsUserInfoSectionShown] = useState(false);
   const [isSection1Shown, setIsSection1Shown] = useState(false);
   const [isSection2Shown, setIsSection2Shown] = useState(false);
   const [isSection3Shown, setIsSection3Shown] = useState(false);
@@ -68,6 +70,7 @@ function App() {
   const [isSection10Shown, setIsSection10Shown] = useState(false);
   const [isSectionReviewShown, setIsSectionReviewShown] = useState(false);
 
+  const userInfoSectionRef = useRef();
   const section1Ref = useRef();
   const section2Ref = useRef();
   const section3Ref = useRef();
@@ -82,6 +85,8 @@ function App() {
 
   const openCorrectSection = (ref) => {
     switch(ref) {
+      case userInfoSectionRef:
+        return setIsUserInfoSectionShown(true);
       case section1Ref:
         return setIsSection1Shown(true);
       case section2Ref:
@@ -157,9 +162,10 @@ function App() {
         <Container fixed={true} maxWidth="md">
           <Box>
             <Card className={classes.card}>
-              <Intro handleClick={() => moveToSection(section1Ref)} />
+              <Intro handleClick={() => moveToSection(userInfoSectionRef)} />
             </Card>
           </Box>
+          {isUserInfoSectionShown && (<UserInfoSection sectionRef={userInfoSectionRef} targetRef={section1Ref} handleClick={moveToSection} />)}
           {isSection1Shown && (<Assignment1 sectionRef={section1Ref} targetRef={section2Ref} handleClick={moveToSection} />)}
           {isSection2Shown && (<Assignment2 sectionRef={section2Ref} targetRef={section3Ref} handleClick={moveToSection} />)}
           {isSection3Shown && (<Assignment3 sectionRef={section3Ref} targetRef={section4Ref} handleClick={moveToSection} />)}
