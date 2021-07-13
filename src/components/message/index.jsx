@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import SubdirectoryArrowLeftIcon from '@material-ui/icons/SubdirectoryArrowLeft';
-import React, {useEffect} from 'react';
+import React, {memo} from 'react';
 import Typography from "@material-ui/core/Typography";
 import Gravatar from "react-gravatar";
 import {MessageFeedbackForm} from "./message-feedback-form";
@@ -21,6 +21,8 @@ const useStyles = makeStyles((theme) => ({
   },
   name: {
     color: theme.palette.primary.main,
+    lineHeight: 1,
+    paddingTop: theme.spacing(0.5),
   },
   system: {
     color: theme.palette.action.active,
@@ -51,9 +53,9 @@ export const Message = ({
 }) => {
   const classes = useStyles();
 
-  useEffect(() => {
-    handleSubmit && console.log("message handleSubmit", handleSubmit)
-  }, [handleSubmit])
+  const AvatarComponent = memo(() => (
+      <>{!email ? <Avatar src={avatar} sizes={"120"} /> : <Gravatar size={40} email={email} className={classes.avatar} />}</>
+  ));
 
   return (
     <Box>
@@ -64,7 +66,7 @@ export const Message = ({
         style={{ flexWrap: "nowrap" }}
       >
         <Grid item>
-          {!email ? <Avatar src={avatar} sizes={"120"} /> : <Gravatar size={40} email={email} className={classes.avatar} />}
+          <AvatarComponent email={email} />
         </Grid>
         <Grid item style={{ flexGrow: 1 }}>
           {name && (<Typography variant="body1" className={`${classes.name} ${

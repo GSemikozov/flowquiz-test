@@ -10,10 +10,12 @@ import FormControl from "@material-ui/core/FormControl";
 import CustomButton from "../button";
 import Image from "material-ui-image";
 import img7 from "./img7.gif";
-import {FormAnswer} from "./form-answer";
+// import {FormAnswer} from "./form-answer";
 import Grid from "@material-ui/core/Grid";
 import {Answers} from "./answers";
 import {OptionalQuestionAnswers} from "../optional-question-answers";
+import {ChatMessageSubmit} from "../chat-message-submit";
+import {Message} from "../message";
 
 const useStyles = makeStyles((theme) => ({
   section: {
@@ -65,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Assignment7 = ({ sectionRef, targetRef, handleClick, children }) => {
+export const Assignment7 = ({ username, email, sectionRef, targetRef, handleClick, children }) => {
   const classes = useStyles();
 
   const [value, setValue] = useState('');
@@ -82,6 +84,8 @@ export const Assignment7 = ({ sectionRef, targetRef, handleClick, children }) =>
   const [isContinueBtn3Active, setIsContinueBtn3Active] = useState(false);
   const [isContinueBtn4Active, setIsContinueBtn4Active] = useState(false);
   const [isFinalContinueBntActive, setIsFinalContinueBntActive] = useState(false);
+  const [isAnswerShow, setIsAnswerShow] = useState(false);
+  const [answer, setAnswer] = useState("");
 
   const section1Ref = useRef();
   const section2Ref = useRef();
@@ -97,7 +101,7 @@ export const Assignment7 = ({ sectionRef, targetRef, handleClick, children }) =>
   const option2ref = useRef();
   const option3ref = useRef();
 
-  const handleInnerSectionScroll = (ref, buttonRef, alignType, hasOptions = false) => {
+  const handleInnerSectionScroll = useCallback((ref, buttonRef, alignType, hasOptions = false) => {
     ref.current.classList.add(classes.visible);
 
     if (hasOptions) {
@@ -115,7 +119,14 @@ export const Assignment7 = ({ sectionRef, targetRef, handleClick, children }) =>
     if (buttonRef) {
       buttonRef.current.style.display = "none";
     }
-  }
+  }, [classes.visible]);
+
+  const handleSubmitAnswer = useCallback((value) => {
+    handleInnerSectionScroll(section3Ref, false, "start", true);
+    setIsAnswerShow(true);
+    setAnswer(value);
+
+  }, [handleInnerSectionScroll]);
 
   const handleRadioChange = (event) => {
     setValue(event.target.value);
@@ -220,6 +231,14 @@ export const Assignment7 = ({ sectionRef, targetRef, handleClick, children }) =>
     continueRefButton,
     handleOnEnterContinue
   ]);
+
+  const AnswerMessage = useCallback(() => (
+    <Message
+      name={username}
+      email={email}
+      text={answer}
+    />
+  ), [username, email, answer]);
 
   return (
     <Box ref={sectionRef} className={classes.section}>
@@ -338,7 +357,18 @@ export const Assignment7 = ({ sectionRef, targetRef, handleClick, children }) =>
               Keep in mind what you’ve learned about the course’s target audience: their interests, backgrounds, needs and wants.
             </Typography>
           </Box>
-          <FormAnswer onSubmit={() => handleInnerSectionScroll(section3Ref, false, "start", true)} />
+          {/*<FormAnswer onSubmit={() => handleInnerSectionScroll(section3Ref, false, "start", true)} />*/}
+          <Box>
+            {isAnswerShow && (
+              <Box mb={2}>
+                <AnswerMessage />
+              </Box>
+            )}
+            <ChatMessageSubmit
+              onSubmit={handleSubmitAnswer}
+              isMultipleSubmitLogic={false}
+            />
+          </Box>
         </Box>
         <Box ref={section3Ref} className={`${classes.sectionBlock}`}>
           <Box mb={2} mt={3}>

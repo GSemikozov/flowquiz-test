@@ -178,11 +178,20 @@ function App() {
 
       <main className="main">
         <Container fixed={true} maxWidth="md">
-          <Box>
-            <Card className={classes.card}>
-              <Intro handleClick={() => moveToSection(userInfoSectionRef)} />
-            </Card>
-          </Box>
+          {/*<Box>*/}
+          {/*  <Card className={classes.card}>*/}
+          {/*    <Intro handleClick={() => moveToSection(userInfoSectionRef)} />*/}
+          {/*  </Card>*/}
+          {/*</Box>*/}
+          <UserInfoSection
+            sectionRef={userInfoSectionRef}
+            targetRef={section1Ref}
+            handleClick={moveToSection}
+            username={username}
+            handleSetUsername={handleSetUsername}
+            email={email}
+            handleSetEmail={handleSetEmail}
+          />
           {isUserInfoSectionShown && (
             <UserInfoSection
               sectionRef={userInfoSectionRef}
@@ -191,10 +200,13 @@ function App() {
               username={username}
               handleSetUsername={handleSetUsername}
               email={email}
-              handleSetEmail={handleSetEmail} />
+              handleSetEmail={handleSetEmail}
+            />
           )}
           {isSection1Shown && (
             <Assignment1
+              username={username}
+              email={email}
               systemMessageAvatar={systemMessageAvatar}
               sectionRef={section1Ref}
               targetRef={section2Ref}
@@ -205,14 +217,42 @@ function App() {
           {isSection3Shown && (<Assignment3 sectionRef={section3Ref} targetRef={section4Ref} handleClick={moveToSection} />)}
           {isSection4Shown && (<Assignment4 sectionRef={section4Ref} targetRef={section5Ref} handleClick={moveToSection} />)}
           {isSection5Shown && (<Assignment5 sectionRef={section5Ref} targetRef={section6Ref} handleClick={moveToSection} />)}
-          {isSection6Shown && (<Assignment6 sectionRef={section6Ref} targetRef={section7Ref} handleClick={moveToSection} />)}
+          {isSection6Shown && (
+            <Assignment6
+              username={username}
+              email={email}
+              sectionRef={section6Ref}
+              targetRef={section7Ref}
+              handleClick={moveToSection}
+            />
+          )}
           {/*<Assignment6 sectionRef={section6Ref} targetRef={section7Ref} handleClick={moveToSection} />*/}
-          {/*<Assignment7 sectionRef={section7Ref} targetRef={sectionReviewRef} handleClick={moveToSection} />*/}
-          {isSection7Shown && (<Assignment7 sectionRef={section7Ref} targetRef={section8Ref} handleClick={moveToSection} />)}
+          {/*<Assignment7*/}
+          {/*  username={username}*/}
+          {/*  email={email}*/}
+          {/*  sectionRef={section7Ref}*/}
+          {/*  targetRef={sectionReviewRef}*/}
+          {/*  handleClick={moveToSection}*/}
+          {/*/>*/}
+          {isSection7Shown && (
+            <Assignment7
+              username={username}
+              email={email}
+              sectionRef={section7Ref}
+              targetRef={section8Ref}
+              handleClick={moveToSection}
+            />
+          )}
           {isSection8Shown && (<Assignment8 sectionRef={section8Ref} targetRef={section9Ref} handleClick={moveToSection} />)}
           {isSection9Shown && (<Assignment9 sectionRef={section9Ref} targetRef={section10Ref} handleClick={moveToSection} />)}
           {isSection10Shown && (<Assignment10 sectionRef={section10Ref} targetRef={sectionReviewRef} handleClick={moveToSection} />)}
           {/*<Ads />*/}
+          {/*<Review*/}
+          {/*  sectionRef={sectionReviewRef}*/}
+          {/*  username={username}*/}
+          {/*  email={email}*/}
+          {/*  systemMessageAvatar={systemMessageAvatar}*/}
+          {/*/>*/}
           {isSectionReviewShown && (
             <Review
               sectionRef={sectionReviewRef}

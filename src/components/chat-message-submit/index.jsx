@@ -14,7 +14,8 @@ const useStyles = makeStyles((theme) => ({
     // width: "100%",
   },
   button: {
-    // marginTop: theme.spacing(2),
+    marginLeft: theme.spacing(1),
+    padding: 0
   },
 }));
 
@@ -22,13 +23,24 @@ export const ChatMessageSubmit = forwardRef((props, ref) => {
   const [value, setValue] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isFieldEmpty, setIsFieldEmpty] = useState(true);
+  const [submitStep, setSubmitStep] = useState(1);
   const classes = useStyles();
-  const {onSubmit} = props;
+  const {onSubmit, isMultipleSubmitLogic} = props;
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onSubmit(value);
+    console.log("isMultipleSubmitLogic", isMultipleSubmitLogic)
+    console.log("submitStep", submitStep)
+    if (isMultipleSubmitLogic) {
+      submitStep === 2 ? onSubmit(value, true) : onSubmit(value, false);
+    } else {
+      onSubmit(value);
+    }
     setIsSubmitted(true);
+    setSubmitStep(prev => prev + 1);
+    setTimeout(() => {
+      setValue("");
+    }, 0);
   }
 
   const handleChange = (event) => {
@@ -41,10 +53,15 @@ export const ChatMessageSubmit = forwardRef((props, ref) => {
   const handleSubmitFromKeyboard = useCallback((event) => {
     if ((event.ctrlKey && event.key === 'Enter') || (event.metaKey && event.key === 'Enter')) {
       console.log("cmd + enter");
-      onSubmit();
+      if (isMultipleSubmitLogic) {
+        submitStep === 2 ? onSubmit(value, true) : onSubmit(value, false);
+      } else {
+        onSubmit(value);
+      }
       setIsSubmitted(true);
+      setSubmitStep(prev => prev + 1);
     }
-  }, [onSubmit]);
+  }, [onSubmit, isMultipleSubmitLogic, submitStep, value]);
 
   useEffect(() => {
     window.addEventListener("keypress", handleSubmitFromKeyboard, false);
@@ -64,10 +81,11 @@ export const ChatMessageSubmit = forwardRef((props, ref) => {
               size="medium"
               multiline={true}
               className={classes.input}
-              disabled={isSubmitted}
+              disabled={(!isMultipleSubmitLogic && isSubmitted) || (isMultipleSubmitLogic && submitStep > 2)}
               onChange={handleChange}
               value={value}
               fullWidth={true}
+              InputProps={{ disableUnderline: true }}
             />
           </Grid>
           <Grid item>
@@ -75,7 +93,7 @@ export const ChatMessageSubmit = forwardRef((props, ref) => {
               color="primary"
               type="submit"
               size="medium"
-              disabled={isSubmitted || isFieldEmpty}
+              disabled={(!isMultipleSubmitLogic && isSubmitted) || (isMultipleSubmitLogic && submitStep > 2) || isFieldEmpty}
               className={classes.button}
             >
               <Send />
