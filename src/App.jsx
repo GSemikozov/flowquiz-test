@@ -183,15 +183,15 @@ function App() {
               <Intro handleClick={() => moveToSection(userInfoSectionRef)} />
             </Card>
           </Box>
-          <UserInfoSection
-            sectionRef={userInfoSectionRef}
-            targetRef={section1Ref}
-            handleClick={moveToSection}
-            username={username}
-            handleSetUsername={handleSetUsername}
-            email={email}
-            handleSetEmail={handleSetEmail}
-          />
+          {/*<UserInfoSection*/}
+          {/*  sectionRef={userInfoSectionRef}*/}
+          {/*  targetRef={section1Ref}*/}
+          {/*  handleClick={moveToSection}*/}
+          {/*  username={username}*/}
+          {/*  handleSetUsername={handleSetUsername}*/}
+          {/*  email={email}*/}
+          {/*  handleSetEmail={handleSetEmail}*/}
+          {/*/>*/}
           {isUserInfoSectionShown && (
             <UserInfoSection
               sectionRef={userInfoSectionRef}
