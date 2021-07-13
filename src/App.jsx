@@ -178,11 +178,11 @@ function App() {
 
       <main className="main">
         <Container fixed={true} maxWidth="md">
-          {/*<Box>*/}
-          {/*  <Card className={classes.card}>*/}
-          {/*    <Intro handleClick={() => moveToSection(userInfoSectionRef)} />*/}
-          {/*  </Card>*/}
-          {/*</Box>*/}
+          <Box>
+            <Card className={classes.card}>
+              <Intro handleClick={() => moveToSection(userInfoSectionRef)} />
+            </Card>
+          </Box>
           <UserInfoSection
             sectionRef={userInfoSectionRef}
             targetRef={section1Ref}
