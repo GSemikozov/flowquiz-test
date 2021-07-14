@@ -84,6 +84,7 @@ export const Assignment7 = ({ username, email, sectionRef, targetRef, handleClic
   const [isContinueBtn3Active, setIsContinueBtn3Active] = useState(false);
   const [isContinueBtn4Active, setIsContinueBtn4Active] = useState(false);
   const [isFinalContinueBntActive, setIsFinalContinueBntActive] = useState(false);
+  const [isSubmitInputShow, setIsSubmitInputShow] = useState(false);
   const [isAnswerShow, setIsAnswerShow] = useState(false);
   const [answer, setAnswer] = useState("");
 
@@ -103,6 +104,10 @@ export const Assignment7 = ({ username, email, sectionRef, targetRef, handleClic
 
   const handleInnerSectionScroll = useCallback((ref, buttonRef, alignType, hasOptions = false) => {
     ref.current.classList.add(classes.visible);
+
+    if (ref === section2Ref) {
+      setIsSubmitInputShow(true);
+    }
 
     if (hasOptions) {
       setHiddenOptionsVisible(true);
@@ -364,10 +369,12 @@ export const Assignment7 = ({ username, email, sectionRef, targetRef, handleClic
                 <AnswerMessage />
               </Box>
             )}
-            <ChatMessageSubmit
-              onSubmit={handleSubmitAnswer}
-              isMultipleSubmitLogic={false}
-            />
+            {isSubmitInputShow && (
+              <ChatMessageSubmit
+                onSubmit={handleSubmitAnswer}
+                isMultipleSubmitLogic={false}
+              />
+            )}
           </Box>
         </Box>
         <Box ref={section3Ref} className={`${classes.sectionBlock}`}>

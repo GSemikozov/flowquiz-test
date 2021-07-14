@@ -86,6 +86,7 @@ export const ChatMessageSubmit = forwardRef((props, ref) => {
               value={value}
               fullWidth={true}
               InputProps={{ disableUnderline: true }}
+              autoFocus={true}
             />
           </Grid>
           <Grid item>

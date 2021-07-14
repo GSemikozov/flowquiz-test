@@ -247,12 +247,6 @@ function App() {
           {isSection9Shown && (<Assignment9 sectionRef={section9Ref} targetRef={section10Ref} handleClick={moveToSection} />)}
           {isSection10Shown && (<Assignment10 sectionRef={section10Ref} targetRef={sectionReviewRef} handleClick={moveToSection} />)}
           {/*<Ads />*/}
-          {/*<Review*/}
-          {/*  sectionRef={sectionReviewRef}*/}
-          {/*  username={username}*/}
-          {/*  email={email}*/}
-          {/*  systemMessageAvatar={systemMessageAvatar}*/}
-          {/*/>*/}
           {isSectionReviewShown && (
             <Review
               sectionRef={sectionReviewRef}

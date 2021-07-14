@@ -75,6 +75,7 @@ export const UserInfoSection = ({
   const section1continueBtnRef = useRef();
   const section2Ref = useRef();
   const section3Ref = useRef();
+  const submitInputRef = useRef();
 
   const handleContinue = useCallback((event) => {
     handleClick(targetRef);
@@ -127,6 +128,7 @@ export const UserInfoSection = ({
   const handleSubmit = useCallback((value, isEmailSubmit) => {
     if (isEmailSubmit) {
       handleEmailSubmit(value);
+      submitInputRef.current.style.display = "none";
     } else {
       handleUsernameSubmit(value);
     }
@@ -191,7 +193,9 @@ export const UserInfoSection = ({
             <Message avatar={systemMessageAvatar} name="Fred Pedersen" text="Excellent, let’s get going!" type="system" />
           </Box>
         </Box>
-        <ChatMessageSubmit onSubmit={handleSubmit} isMultipleSubmitLogic={true} />
+        <Box ref={submitInputRef}>
+          <ChatMessageSubmit onSubmit={handleSubmit} isMultipleSubmitLogic={true} />
+        </Box>
         {isContinueActive && (
           <CustomButton
             ref={section1continueBtnRef}

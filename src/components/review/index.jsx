@@ -1,4 +1,4 @@
-import React, {memo, useEffect, useState} from "react";
+import React, {memo, useEffect, useRef, useState} from "react";
 import {Card} from "../card";
 import Box from "@material-ui/core/Box";
 import {Message} from "../message";
@@ -22,6 +22,8 @@ export const Review = ({ sectionRef, email, username, systemMessageAvatar }) => 
   const [isAnswerShow, setIsAnswerShow] = useState(false);
   const [answer, setAnswer] = useState(null);
 
+  const submitInputRef = useRef();
+
   const handleRatingSubmit = (event) => {
     event.preventDefault();
     setRating(+event.target.value);
@@ -31,6 +33,7 @@ export const Review = ({ sectionRef, email, username, systemMessageAvatar }) => 
 
   const handleAnswerSubmit = (value) => {
     setAnswer(value);
+    submitInputRef.current.style.display = "none";
   }
 
   useEffect(() => {
@@ -82,7 +85,7 @@ export const Review = ({ sectionRef, email, username, systemMessageAvatar }) => 
             <Message
               avatar={systemMessageAvatar}
               name="Fred Pedersen"
-              text={`Hey, ${username}, how was the quiz?`}
+              text={`Hey ${username}, I will show you your results in just a second, but before I do do you mind letting me know how was the quiz?`}
               type="system"
             />
           </Box>
@@ -108,11 +111,21 @@ export const Review = ({ sectionRef, email, username, systemMessageAvatar }) => 
                 />
               </Box>
               {answer && (
-                <Box mb={2}>
-                  <AnswerComponent />
-                </Box>
+                <>
+                  <Box mb={2}>
+                    <AnswerComponent />
+                  </Box>
+                  <Box>
+                    <Message
+                      avatar={systemMessageAvatar}
+                      name="Fred Pedersen"
+                      text="thank you for your feedback, here are some stats."
+                      type="system"
+                    />
+                  </Box>
+                </>
               )}
-              <Box>
+              <Box ref={submitInputRef}>
                 <ChatMessageSubmit onSubmit={handleAnswerSubmit} />
               </Box>
             </>
