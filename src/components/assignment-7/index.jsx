@@ -107,6 +107,8 @@ export const Assignment7 = ({ username, email, sectionRef, targetRef, handleClic
 
     if (ref === section2Ref) {
       setIsSubmitInputShow(true);
+    } else {
+      setIsSubmitInputShow(false);
     }
 
     if (hasOptions) {
