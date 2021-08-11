@@ -33,7 +33,11 @@ import {UserInfoSection} from "./components/user-info-section";
 
 // import Grid from "@material-ui/core/Grid";
 
-import { withAuthenticator } from '@aws-amplify/ui-react'
+// AWS
+import { API, Storage } from 'aws-amplify';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import { listTodos } from './graphql/queries';
+import { createTodo } from "./graphql/mutations";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -56,8 +60,53 @@ const useStyles = makeStyles((theme) => ({
 //   return [state, show];
 // }
 
+const initialFormState = { name: '', description: '', image: '' }
+
 function App() {
   const classes = useStyles();
+
+  const [todos, setTodos] = useState([]);
+  const [formData, setFormData] = useState(initialFormState);
+
+  useEffect(() => {
+    fetchNotes().then(r => console.log("response", r));
+  }, []);
+
+  useEffect(() => {
+    console.log("todos: ", todos);
+  }, [todos])
+
+  async function fetchNotes() {
+    const apiData = await API.graphql({ query: listTodos });
+    const todosFromAPI = apiData.data.listTodos.items;
+    await Promise.all(todosFromAPI.map(async todo => {
+      if (todo.image) {
+        const image = await Storage.get(todo.image);
+        todo.image = image;
+      }
+      return todo;
+    }))
+    setTodos(apiData.data.listTodos.items);
+  }
+
+  async function createNote() {
+    if (!formData.name || !formData.description) return;
+    await API.graphql({ query: createTodo, variables: { input: formData } });
+    if (formData.image) {
+      const image = await Storage.get(formData.image);
+      formData.image = image;
+    }
+    setTodos([ ...todos, formData ]);
+    setFormData(initialFormState);
+  }
+
+  async function onChange(e) {
+    if (!e.target.files[0]) return
+    const file = e.target.files[0];
+    setFormData({ ...formData, image: file.name });
+    await Storage.put(file.name, file);
+    fetchNotes();
+  }
 
   const [username, setUsername] = useState(null);
   const [email, setEmail] = useState(null);
@@ -180,6 +229,21 @@ function App() {
 
       <main className="main">
         <Container fixed={true} maxWidth="md">
+          <input
+            onChange={e => setFormData({ ...formData, 'name': e.target.value})}
+            placeholder="Note name"
+            value={formData.name}
+          />
+          <input
+            onChange={e => setFormData({ ...formData, 'description': e.target.value})}
+            placeholder="Note description"
+            value={formData.description}
+          />
+          <input
+            type="file"
+            onChange={onChange}
+          />
+          <button onClick={createNote}>Create Note</button>
           <Box>
             <Card className={classes.card}>
               <Intro handleClick={() => moveToSection(userInfoSectionRef)} />
