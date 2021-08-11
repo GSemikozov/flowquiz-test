@@ -33,6 +33,8 @@ import {UserInfoSection} from "./components/user-info-section";
 
 // import Grid from "@material-ui/core/Grid";
 
+import { withAuthenticator } from '@aws-amplify/ui-react'
+
 const useStyles = makeStyles((theme) => ({
   card: {
     //
@@ -261,4 +263,4 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthenticator(App);
