@@ -12,7 +12,7 @@ export const handler = async event => {
         // Generate a new secret login code and mail it to the user
         secretLoginCode = randomDigits(6).join('');
         await console.log('Will send: ', secretLoginCode);
-        await sendEmail(event.request.userAttributes.email, secretLoginCode);
+        // await sendEmail(event.request.userAttributes.email, secretLoginCode);
 
     } else {
 
