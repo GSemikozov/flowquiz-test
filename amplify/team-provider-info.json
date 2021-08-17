@@ -13,7 +13,25 @@
     },
     "categories": {
       "auth": {
-        "flowquiztest75b95ee1": {}
+        "flowquiztestlogin": {}
+      },
+      "function": {
+        "verifyAuthChallenge": {
+          "deploymentBucketName": "amplify-amplify84fc1cb7aa184-staging-123247-deployment",
+          "s3Key": "amplify-builds/verifyAuthChallenge-697362586b6f535a3368-build.zip"
+        },
+        "createAuthChallenge": {
+          "deploymentBucketName": "amplify-amplify84fc1cb7aa184-staging-123247-deployment",
+          "s3Key": "amplify-builds/createAuthChallenge-50487861515136757570-build.zip"
+        },
+        "defineAuthChallenge": {
+          "deploymentBucketName": "amplify-amplify84fc1cb7aa184-staging-123247-deployment",
+          "s3Key": "amplify-builds/defineAuthChallenge-67476173585438523731-build.zip"
+        },
+        "preSignUp": {
+          "deploymentBucketName": "amplify-amplify84fc1cb7aa184-staging-123247-deployment",
+          "s3Key": "amplify-builds/preSignUp-436b686f334d4e6d4f35-build.zip"
+        }
       }
     }
   }

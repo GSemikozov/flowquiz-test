@@ -34,7 +34,7 @@ import {UserInfoSection} from "./components/user-info-section";
 // import Grid from "@material-ui/core/Grid";
 
 // AWS
-import { API, Storage } from 'aws-amplify';
+import { API, Storage, Auth } from 'aws-amplify';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import { listTodos } from './graphql/queries';
 import { createTodo } from "./graphql/mutations";
@@ -65,12 +65,66 @@ const initialFormState = { name: '', description: '', image: '' }
 function App() {
   const classes = useStyles();
 
+  // sign up | in
+  const signIn = () => {
+    Auth.signIn("semikozovgerman@gmail.com")
+      .then((result) => {
+        console.log("waiting for email", result);
+      })
+      .catch((e) => {
+        if (e.code === 'UserNotFoundException') {
+          signUp(); // Note that this is a new function to be created later
+        } else if (e.code === 'UsernameExistsException') {
+          console.log("waiting for email")
+          signIn();
+        } else {
+          console.log(e.code);
+          console.error(e);
+        }
+      });
+  };
+
+  function signUp() {
+    const params = {
+      username: "semikozovgerman@gmail.com",
+      password: "qwerty123",
+      attributes: {
+        email: "semikozovgerman@gmail.com"
+      }
+    };
+    Auth.signUp(params).then(() => signIn());
+  }
+
+  useEffect(() => {
+    verifyAuth()
+  }, []);
+
+  const verifyAuth = () => {
+    Auth.currentAuthenticatedUser()
+      .then((user) => {
+        console.log("verify user", user)
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  // function getRandomString(bytes) {
+  //   const randomValues = new Uint8Array(bytes);
+  //   window.crypto.getRandomValues(randomValues);
+  //   return Array.from(randomValues).map(intToHex).join('');
+  // }
+  //
+  // function intToHex(nr) {
+  //   return nr.toString(16).padStart(2, '0');
+  // }
+
   const [todos, setTodos] = useState([]);
   const [formData, setFormData] = useState(initialFormState);
 
-  useEffect(() => {
-    fetchNotes().then(r => console.log("response", r));
-  }, []);
+  // useEffect(() => {
+  //   fetchNotes().then(r => console.log("response", r));
+  // }, []);
 
   useEffect(() => {
     console.log("todos: ", todos);
@@ -229,6 +283,12 @@ function App() {
 
       <main className="main">
         <Container fixed={true} maxWidth="md">
+          <form onSubmit={signIn}>
+            <input type="email" value="semikozovgerman@gmail.com"/>
+            <button type="submit" onClick={createNote}>sign in</button>
+          </form>
+          <br/>
+          <br/>
           <input
             onChange={e => setFormData({ ...formData, 'name': e.target.value})}
             placeholder="Note name"
@@ -327,4 +387,6 @@ function App() {
   );
 }
 
-export default withAuthenticator(App);
+export default App;
+
+// export default withAuthenticator(App);

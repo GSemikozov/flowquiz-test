@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "flowquiztest75b95ee1_identitypool_75b95ee1",
+    "identityPoolName": "flowquiztest_identitypool",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "flowqu75b95ee1",
-    "userPoolName": "flowquiztest75b95ee1_userpool_75b95ee1",
+    "resourceNameTruncated": "flowqu7c405b7b",
+    "userPoolName": "flowquiztest_userpool",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -21,17 +21,17 @@
         "email"
     ],
     "userpoolClientGenerateSecret": false,
-    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientRefreshTokenValidity": "3",
     "userpoolClientWriteAttributes": [
         "email"
     ],
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "flowqu75b95ee1_userpoolclient_lambda_role",
-    "userpoolClientSetAttributes": false,
-    "sharedId": "75b95ee1",
-    "resourceName": "flowquiztest75b95ee1",
+    "userpoolClientLambdaRole": "flowqu7c405b7b_userpoolclient_lambda_role",
+    "userpoolClientSetAttributes": true,
+    "sharedId": "7c405b7b",
+    "resourceName": "flowquiztestlogin",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -45,12 +45,22 @@
             "Arn"
         ]
     },
-    "useDefault": "default",
+    "useDefault": "manual",
+    "thirdPartyAuth": false,
     "usernameAttributes": [
         "email"
     ],
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "triggers": "{}",
+    "hostedUI": false,
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "breakCircularDependency": true,
+    "permissions": [],
     "dependsOn": []
 }

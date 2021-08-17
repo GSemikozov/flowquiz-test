@@ -1,6 +1,6 @@
 {
   "auth": {
-    "flowquiztest75b95ee1": {
+    "flowquiztestlogin": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -29,6 +29,28 @@
     "content": {
       "service": "S3",
       "providerPlugin": "awscloudformation"
+    }
+  },
+  "function": {
+    "defineAuthChallenge": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "createAuthChallenge": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "verifyAuthChallenge": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "preSignUp": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   }
 }

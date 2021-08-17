@@ -75,10 +75,10 @@ Parameters:
   userpoolClientGenerateSecret:
     Type: String
             
-    
   userpoolClientRefreshTokenValidity:
-    Type: Number
-          
+    Type: String
+  
+            
         
   userpoolClientWriteAttributes:
     Type: CommaDelimitedList
@@ -113,10 +113,30 @@ Parameters:
     Type: String
   
             
+  
+  thirdPartyAuth:
+    Type: String
+            
         
   usernameAttributes:
     Type: CommaDelimitedList
       
+  
+  userPoolGroups:
+    Type: String
+            
+  
+  adminQueries:
+    Type: String
+            
+  triggers:
+    Type: String
+  
+            
+  
+  hostedUI:
+    Type: String
+            
         
   userPoolGroupList:
     Type: CommaDelimitedList
@@ -130,6 +150,18 @@ Parameters:
   usernameCaseSensitive:
     Type: String
             
+      
+  parentStack:
+    Type: String
+        
+  
+  breakCircularDependency:
+    Type: String
+            
+        
+  permissions:
+    Type: CommaDelimitedList
+      
         
   dependsOn:
     Type: CommaDelimitedList
@@ -148,7 +180,7 @@ Resources:
   # Created to allow the UserPool SMS Config to publish via the Simple Notification Service during MFA Process
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !If [ShouldNotCreateEnvResources, 'flowqu75b95ee1_sns-role', !Join ['',[ 'sns', '75b95ee1', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
+      RoleName: !If [ShouldNotCreateEnvResources, 'flowqu7c405b7b_sns-role', !Join ['',[ 'sns', '7c405b7b', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
@@ -160,10 +192,10 @@ Resources:
               - "sts:AssumeRole"
             Condition:
               StringEquals:
-                sts:ExternalId: flowqu75b95ee1_role_external_id
+                sts:ExternalId: flowqu7c405b7b_role_external_id
       Policies:
         -
-          PolicyName: flowqu75b95ee1-sns-policy
+          PolicyName: flowqu7c405b7b-sns-policy
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
@@ -216,7 +248,7 @@ Resources:
       SmsAuthenticationMessage: !Ref smsAuthenticationMessage
       SmsConfiguration:
         SnsCallerArn: !GetAtt SNSRole.Arn
-        ExternalId: flowqu75b95ee1_role_external_id
+        ExternalId: flowqu7c405b7b_role_external_id
     
   
   UserPoolClientWeb:
@@ -224,7 +256,10 @@ Resources:
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: flowqu75b95ee1_app_clientWeb
+      ClientName: flowqu7c405b7b_app_clientWeb
+      
+      ReadAttributes: !Ref userpoolClientReadAttributes
+      WriteAttributes: !Ref userpoolClientWriteAttributes
       
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
       UserPoolId: !Ref UserPool
@@ -234,7 +269,10 @@ Resources:
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: flowqu75b95ee1_app_client
+      ClientName: flowqu7c405b7b_app_client
+      
+      ReadAttributes: !Ref userpoolClientReadAttributes
+      WriteAttributes: !Ref userpoolClientWriteAttributes
       
       GenerateSecret: !Ref userpoolClientGenerateSecret
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
@@ -245,7 +283,7 @@ Resources:
   # Created to execute Lambda which gets userpool app client config values
     Type: 'AWS::IAM::Role'
     Properties:
-      RoleName: !If [ShouldNotCreateEnvResources, !Ref userpoolClientLambdaRole, !Join ['',['upClientLambdaRole', '75b95ee1', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
+      RoleName: !If [ShouldNotCreateEnvResources, !Ref userpoolClientLambdaRole, !Join ['',['upClientLambdaRole', '7c405b7b', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -299,7 +337,7 @@ Resources:
   # Marked as depending on UserPoolClientRole for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: flowqu75b95ee1_userpoolclient_lambda_iam_policy
+      PolicyName: flowqu7c405b7b_userpoolclient_lambda_iam_policy
       Roles:
         - !Ref UserPoolClientRole
       PolicyDocument:
@@ -316,7 +354,7 @@ Resources:
   # Marked as depending on UserPoolClientLambdaPolicy for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: flowqu75b95ee1_userpoolclient_lambda_log_policy
+      PolicyName: flowqu7c405b7b_userpoolclient_lambda_log_policy
       Roles:
         - !Ref UserPoolClientRole
       PolicyDocument:
@@ -356,7 +394,7 @@ Resources:
   # Always created
     Type: AWS::Cognito::IdentityPool
     Properties:
-      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'flowquiztest75b95ee1_identitypool_75b95ee1', !Join ['',['flowquiztest75b95ee1_identitypool_75b95ee1', '__', !Ref env]]]
+      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'flowquiztest_identitypool', !Join ['',['flowquiztest_identitypool', '__', !Ref env]]]
       
       CognitoIdentityProviders:
         - ClientId:  !Ref UserPoolClient
