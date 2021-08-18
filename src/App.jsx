@@ -34,10 +34,9 @@ import {UserInfoSection} from "./components/user-info-section";
 // import Grid from "@material-ui/core/Grid";
 
 // AWS
-import { API, Storage, Auth } from 'aws-amplify';
-import { withAuthenticator } from '@aws-amplify/ui-react';
-import { listTodos } from './graphql/queries';
-import { createTodo } from "./graphql/mutations";
+// import { API, Storage, Auth } from 'aws-amplify';
+// import { listTodos } from './graphql/queries';
+// import { createTodo } from "./graphql/mutations";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -66,48 +65,48 @@ function App() {
   const classes = useStyles();
 
   // sign up | in
-  const signIn = () => {
-    Auth.signIn("semikozovgerman@gmail.com")
-      .then((result) => {
-        console.log("waiting for email", result);
-      })
-      .catch((e) => {
-        if (e.code === 'UserNotFoundException') {
-          signUp(); // Note that this is a new function to be created later
-        } else if (e.code === 'UsernameExistsException') {
-          console.log("waiting for email")
-          signIn();
-        } else {
-          console.log(e.code);
-          console.error(e);
-        }
-      });
-  };
-
-  function signUp() {
-    const params = {
-      username: "semikozovgerman@gmail.com",
-      password: "qwerty123",
-      attributes: {
-        email: "semikozovgerman@gmail.com"
-      }
-    };
-    Auth.signUp(params).then(() => signIn());
-  }
-
-  useEffect(() => {
-    verifyAuth()
-  }, []);
-
-  const verifyAuth = () => {
-    Auth.currentAuthenticatedUser()
-      .then((user) => {
-        console.log("verify user", user)
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+  // const signIn = () => {
+  //   Auth.signIn("semikozovgerman@gmail.com")
+  //     .then((result) => {
+  //       console.log("waiting for email", result);
+  //     })
+  //     .catch((e) => {
+  //       if (e.code === 'UserNotFoundException') {
+  //         signUp(); // Note that this is a new function to be created later
+  //       } else if (e.code === 'UsernameExistsException') {
+  //         console.log("waiting for email")
+  //         signIn();
+  //       } else {
+  //         console.log(e.code);
+  //         console.error(e);
+  //       }
+  //     });
+  // };
+  //
+  // function signUp() {
+  //   const params = {
+  //     username: "semikozovgerman@gmail.com",
+  //     password: "qwerty123",
+  //     attributes: {
+  //       email: "semikozovgerman@gmail.com"
+  //     }
+  //   };
+  //   Auth.signUp(params).then(() => signIn());
+  // }
+  //
+  // useEffect(() => {
+  //   verifyAuth()
+  // }, []);
+  //
+  // const verifyAuth = () => {
+  //   Auth.currentAuthenticatedUser()
+  //     .then((user) => {
+  //       console.log("verify user", user)
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // };
 
   // function getRandomString(bytes) {
   //   const randomValues = new Uint8Array(bytes);
@@ -119,48 +118,48 @@ function App() {
   //   return nr.toString(16).padStart(2, '0');
   // }
 
-  const [todos, setTodos] = useState([]);
-  const [formData, setFormData] = useState(initialFormState);
+  // const [todos, setTodos] = useState([]);
+  // const [formData, setFormData] = useState(initialFormState);
 
   // useEffect(() => {
   //   fetchNotes().then(r => console.log("response", r));
   // }, []);
 
-  useEffect(() => {
-    console.log("todos: ", todos);
-  }, [todos])
+  // useEffect(() => {
+  //   console.log("todos: ", todos);
+  // }, [todos])
 
-  async function fetchNotes() {
-    const apiData = await API.graphql({ query: listTodos });
-    const todosFromAPI = apiData.data.listTodos.items;
-    await Promise.all(todosFromAPI.map(async todo => {
-      if (todo.image) {
-        const image = await Storage.get(todo.image);
-        todo.image = image;
-      }
-      return todo;
-    }))
-    setTodos(apiData.data.listTodos.items);
-  }
-
-  async function createNote() {
-    if (!formData.name || !formData.description) return;
-    await API.graphql({ query: createTodo, variables: { input: formData } });
-    if (formData.image) {
-      const image = await Storage.get(formData.image);
-      formData.image = image;
-    }
-    setTodos([ ...todos, formData ]);
-    setFormData(initialFormState);
-  }
-
-  async function onChange(e) {
-    if (!e.target.files[0]) return
-    const file = e.target.files[0];
-    setFormData({ ...formData, image: file.name });
-    await Storage.put(file.name, file);
-    fetchNotes();
-  }
+  // async function fetchNotes() {
+  //   const apiData = await API.graphql({ query: listTodos });
+  //   const todosFromAPI = apiData.data.listTodos.items;
+  //   await Promise.all(todosFromAPI.map(async todo => {
+  //     if (todo.image) {
+  //       const image = await Storage.get(todo.image);
+  //       todo.image = image;
+  //     }
+  //     return todo;
+  //   }))
+  //   setTodos(apiData.data.listTodos.items);
+  // }
+  //
+  // async function createNote() {
+  //   if (!formData.name || !formData.description) return;
+  //   await API.graphql({ query: createTodo, variables: { input: formData } });
+  //   if (formData.image) {
+  //     const image = await Storage.get(formData.image);
+  //     formData.image = image;
+  //   }
+  //   setTodos([ ...todos, formData ]);
+  //   setFormData(initialFormState);
+  // }
+  //
+  // async function onChange(e) {
+  //   if (!e.target.files[0]) return
+  //   const file = e.target.files[0];
+  //   setFormData({ ...formData, image: file.name });
+  //   await Storage.put(file.name, file);
+  //   fetchNotes();
+  // }
 
   const [username, setUsername] = useState(null);
   const [email, setEmail] = useState(null);
