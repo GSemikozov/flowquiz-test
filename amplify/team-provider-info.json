@@ -1,0 +1,38 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-amplifyflowquiz-staging-75733-authRole",
+      "UnauthRoleArn": "arn:aws:iam::614241280418:role/amplify-amplifyflowquiz-staging-75733-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::614241280418:role/amplify-amplifyflowquiz-staging-75733-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-amplifyflowquiz-staging-75733-deployment",
+      "UnauthRoleName": "amplify-amplifyflowquiz-staging-75733-unauthRole",
+      "StackName": "amplify-amplifyflowquiz-staging-75733",
+      "StackId": "arn:aws:cloudformation:eu-central-1:614241280418:stack/amplify-amplifyflowquiz-staging-75733/f1d30490-fff9-11eb-81c0-0aa7356ae93a",
+      "AmplifyAppId": "d20rvltslsablp"
+    },
+    "categories": {
+      "function": {
+        "preSignUp": {
+          "deploymentBucketName": "amplify-amplifyflowquiz-staging-75733-deployment",
+          "s3Key": "amplify-builds/preSignUp-5a4358754d726a774765-build.zip"
+        },
+        "createAuth": {
+          "deploymentBucketName": "amplify-amplifyflowquiz-staging-75733-deployment",
+          "s3Key": "amplify-builds/createAuth-4f37744e4b7871486961-build.zip"
+        },
+        "verifyAuth": {
+          "deploymentBucketName": "amplify-amplifyflowquiz-staging-75733-deployment",
+          "s3Key": "amplify-builds/verifyAuth-4c496279615a78775450-build.zip"
+        },
+        "defineAuth": {
+          "deploymentBucketName": "amplify-amplifyflowquiz-staging-75733-deployment",
+          "s3Key": "amplify-builds/defineAuth-53596234724248484d50-build.zip"
+        }
+      },
+      "auth": {
+        "amplifyflowquizfe9f9a0d": {}
+      }
+    }
+  }
+}

@@ -5,10 +5,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { polyfill } from "seamless-scroll-polyfill";
 
-// import Amplify from 'aws-amplify';
-// import config from './aws-exports';
-//
-// Amplify.configure(config);
+import Amplify from 'aws-amplify';
+import config from './aws-exports';
+
+Amplify.configure(config);
 
 // seamless-scroll-polyfill for smooth scroll
 polyfill();

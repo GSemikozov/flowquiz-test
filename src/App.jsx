@@ -34,7 +34,7 @@ import {UserInfoSection} from "./components/user-info-section";
 // import Grid from "@material-ui/core/Grid";
 
 // AWS
-// import { API, Storage, Auth } from 'aws-amplify';
+import { API, Storage, Auth } from 'aws-amplify';
 // import { listTodos } from './graphql/queries';
 // import { createTodo } from "./graphql/mutations";
 
@@ -65,59 +65,98 @@ function App() {
   const classes = useStyles();
 
   // sign up | in
-  const signIn = () => {
-    console.log("Sign In")
-    // Auth.signIn("semikozovgerman@gmail.com")
-    //   .then((result) => {
-    //     console.log("waiting for email", result);
-    //   })
-    //   .catch((e) => {
-    //     if (e.code === 'UserNotFoundException') {
-    //       signUp(); // Note that this is a new function to be created later
-    //     } else if (e.code === 'UsernameExistsException') {
-    //       console.log("waiting for email")
-    //       signIn();
-    //     } else {
-    //       console.log(e.code);
-    //       console.error(e);
-    //     }
-    //   });
-  };
-  //
-  // function signUp() {
-  //   const params = {
-  //     username: "semikozovgerman@gmail.com",
-  //     password: "qwerty123",
-  //     attributes: {
-  //       email: "semikozovgerman@gmail.com"
-  //     }
-  //   };
-  //   Auth.signUp(params).then(() => signIn());
-  // }
-  //
-  // useEffect(() => {
-  //   verifyAuth()
-  // }, []);
-  //
-  // const verifyAuth = () => {
-  //   Auth.currentAuthenticatedUser()
-  //     .then((user) => {
-  //       console.log("verify user", user)
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // };
+  const [user, setUser] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [email, setEmail] = useState(null);
 
-  // function getRandomString(bytes) {
-  //   const randomValues = new Uint8Array(bytes);
-  //   window.crypto.getRandomValues(randomValues);
-  //   return Array.from(randomValues).map(intToHex).join('');
-  // }
-  //
-  // function intToHex(nr) {
-  //   return nr.toString(16).padStart(2, '0');
-  // }
+  useEffect(() => {
+    verifyAuth();
+  }, []);
+
+  const verifyAuth = () => {
+    Auth.currentAuthenticatedUser()
+      .then((user) => {
+        console.log("current user: ", user);
+        setUser(user);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const signIn = () => {
+    console.log("signIn with next email:", email);
+    Auth.signIn(email)
+      .then(user => {
+        console.log("signIn first result", user);
+        setUser(user)
+        Auth.sendCustomChallengeAnswer(user, "secret")
+          .then(res => {
+            setUser(res);
+            console.log("signIn after sendCustomChallengeAnswer", res);
+          })
+          .catch((e) => {
+            console.log("sendCustomChallengeAnswer error");
+            console.log(e.code);
+            console.error(e);
+          });
+      })
+      .catch((e) => {
+        if (e.code === 'UserNotFoundException') {
+          console.log("UserNotFoundException", e);
+          signUp();
+        } else if (e.code === 'UsernameExistsException') {
+          console.log("UsernameExistsException");
+          signIn();
+        } else {
+          console.log("signIn error");
+          console.log(e.code);
+          console.error(e);
+        }
+      });
+  };
+
+  const signUp = async () => {
+    return await Auth.signUp({
+      username: email,
+      password: getRandomString(30),
+      attributes: {
+        email,
+        name: username
+      }
+    })
+      .then(() => signIn())
+      .catch((e) => {
+        if (e.code === 'UserNotFoundException') {
+          console.log("UserNotFoundException", e);
+          signUp();
+        } else if (e.code === 'UsernameExistsException') {
+          console.log("UsernameExistsException");
+          signIn();
+        } else {
+          console.log("signIn error");
+          console.log(e.code);
+          console.error(e);
+        }
+      });
+  };
+
+  function getRandomString(bytes) {
+    const randomValues = new Uint8Array(bytes);
+    window.crypto.getRandomValues(randomValues);
+    return Array.from(randomValues).map(intToHex).join('');
+  }
+
+  function intToHex(nr) {
+    return nr.toString().padStart(2, '0');
+  }
+
+  const signOut = () => {
+    if (user) {
+      console.log("Logout")
+      Auth.signOut();
+    }
+  };
 
   // const [todos, setTodos] = useState([]);
   // const [formData, setFormData] = useState(initialFormState);
@@ -161,9 +200,6 @@ function App() {
   //   await Storage.put(file.name, file);
   //   fetchNotes();
   // }
-
-  const [username, setUsername] = useState(null);
-  const [email, setEmail] = useState(null);
 
   const [isUserInfoSectionShown, setIsUserInfoSectionShown] = useState(false);
   const [isSection1Shown, setIsSection1Shown] = useState(false);
@@ -283,10 +319,15 @@ function App() {
 
       <main className="main">
         <Container fixed={true} maxWidth="md">
-          <form onSubmit={signIn}>
-            <input type="email" value="semikozovgerman@gmail.com"/>
-            <button type="submit">sign in</button>
-          </form>
+          <>
+            <button type="button" onClick={signUp}>sign in</button>
+            <button onClick={verifyAuth}>
+              Am I sign in?
+            </button>
+            <button onClick={signOut}>
+              Sign Out
+            </button>
+          </>
           <br/>
           <br/>
           {/*<input*/}
