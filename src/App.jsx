@@ -65,23 +65,24 @@ function App() {
   const classes = useStyles();
 
   // sign up | in
-  // const signIn = () => {
-  //   Auth.signIn("semikozovgerman@gmail.com")
-  //     .then((result) => {
-  //       console.log("waiting for email", result);
-  //     })
-  //     .catch((e) => {
-  //       if (e.code === 'UserNotFoundException') {
-  //         signUp(); // Note that this is a new function to be created later
-  //       } else if (e.code === 'UsernameExistsException') {
-  //         console.log("waiting for email")
-  //         signIn();
-  //       } else {
-  //         console.log(e.code);
-  //         console.error(e);
-  //       }
-  //     });
-  // };
+  const signIn = () => {
+    console.log("Sign In")
+    // Auth.signIn("semikozovgerman@gmail.com")
+    //   .then((result) => {
+    //     console.log("waiting for email", result);
+    //   })
+    //   .catch((e) => {
+    //     if (e.code === 'UserNotFoundException') {
+    //       signUp(); // Note that this is a new function to be created later
+    //     } else if (e.code === 'UsernameExistsException') {
+    //       console.log("waiting for email")
+    //       signIn();
+    //     } else {
+    //       console.log(e.code);
+    //       console.error(e);
+    //     }
+    //   });
+  };
   //
   // function signUp() {
   //   const params = {
@@ -284,25 +285,25 @@ function App() {
         <Container fixed={true} maxWidth="md">
           <form onSubmit={signIn}>
             <input type="email" value="semikozovgerman@gmail.com"/>
-            <button type="submit" onClick={createNote}>sign in</button>
+            <button type="submit">sign in</button>
           </form>
           <br/>
           <br/>
-          <input
-            onChange={e => setFormData({ ...formData, 'name': e.target.value})}
-            placeholder="Note name"
-            value={formData.name}
-          />
-          <input
-            onChange={e => setFormData({ ...formData, 'description': e.target.value})}
-            placeholder="Note description"
-            value={formData.description}
-          />
-          <input
-            type="file"
-            onChange={onChange}
-          />
-          <button onClick={createNote}>Create Note</button>
+          {/*<input*/}
+          {/*  onChange={e => setFormData({ ...formData, 'name': e.target.value})}*/}
+          {/*  placeholder="Note name"*/}
+          {/*  value={formData.name}*/}
+          {/*/>*/}
+          {/*<input*/}
+          {/*  onChange={e => setFormData({ ...formData, 'description': e.target.value})}*/}
+          {/*  placeholder="Note description"*/}
+          {/*  value={formData.description}*/}
+          {/*/>*/}
+          {/*<input*/}
+          {/*  type="file"*/}
+          {/*  onChange={onChange}*/}
+          {/*/>*/}
+          {/*<button onClick={createNote}>Create Note</button>*/}
           <Box>
             <Card className={classes.card}>
               <Intro handleClick={() => moveToSection(userInfoSectionRef)} />
