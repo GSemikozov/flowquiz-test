@@ -59,6 +59,10 @@ const useStyles = makeStyles((theme) => ({
 //   return [state, show];
 // }
 
+const NOTSIGNIN = 'You are NOT logged in';
+const SIGNEDIN = 'You have logged in successfully';
+const SIGNEDOUT = 'You have logged out successfully';
+
 const initialFormState = { name: '', description: '', image: '' }
 
 function App() {
@@ -68,6 +72,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [username, setUsername] = useState(null);
   const [email, setEmail] = useState(null);
+  const [message, setMessage] = useState('Welcome to Demo');
 
   useEffect(() => {
     verifyAuth();
@@ -78,8 +83,10 @@ function App() {
       .then((user) => {
         console.log("current user: ", user);
         setUser(user);
+        setMessage(SIGNEDIN);
       })
       .catch((err) => {
+        setMessage(NOTSIGNIN);
         console.error(err);
       });
   };
@@ -89,13 +96,15 @@ function App() {
     Auth.signIn(email)
       .then(user => {
         console.log("signIn first result", user);
-        setUser(user)
+        // setUser(user)
         Auth.sendCustomChallengeAnswer(user, "secret")
           .then(res => {
             setUser(res);
+            setMessage(SIGNEDIN);
             console.log("signIn after sendCustomChallengeAnswer", res);
           })
           .catch((e) => {
+            setMessage(e.message);
             console.log("sendCustomChallengeAnswer error");
             console.log(e.code);
             console.error(e);
@@ -110,6 +119,7 @@ function App() {
           signIn();
         } else {
           console.log("signIn error");
+          setMessage(e.message);
           console.log(e.code);
           console.error(e);
         }
@@ -135,6 +145,7 @@ function App() {
           signIn();
         } else {
           console.log("signIn error");
+          setMessage(e.message);
           console.log(e.code);
           console.error(e);
         }
@@ -155,6 +166,9 @@ function App() {
     if (user) {
       console.log("Logout")
       Auth.signOut();
+      setMessage(SIGNEDOUT);
+    } else {
+      setMessage(NOTSIGNIN);
     }
   };
 
@@ -319,7 +333,7 @@ function App() {
 
       <main className="main">
         <Container fixed={true} maxWidth="md">
-          <>
+          {email && (<>
             <button type="button" onClick={signUp}>sign in</button>
             <button onClick={verifyAuth}>
               Am I sign in?
@@ -327,7 +341,8 @@ function App() {
             <button onClick={signOut}>
               Sign Out
             </button>
-          </>
+            <span style={{marginLeft: "40px"}}>{message}</span>
+          </>)}
           <br/>
           <br/>
           {/*<input*/}
