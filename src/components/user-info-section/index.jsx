@@ -196,7 +196,13 @@ export const UserInfoSection = ({
           </Box>
         </Box>
         <Box ref={submitInputRef}>
-          <ChatMessageSubmit onSubmit={handleSubmit} isMultipleSubmitLogic={true} />
+          <ChatMessageSubmit
+            onSubmit={handleSubmit}
+            isMultipleSubmitLogic={true}
+            multiline={false}
+            placeholder={["Enter your name", "Enter your email"]}
+            hasAvatarGap={true}
+          />
         </Box>
         {isContinueActive && (
           <CustomButton

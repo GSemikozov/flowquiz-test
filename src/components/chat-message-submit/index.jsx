@@ -1,4 +1,4 @@
-import React, {forwardRef, useCallback, useEffect, useState} from "react";
+import React, {forwardRef, useState} from "react";
 import {TextField} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
@@ -8,14 +8,18 @@ import Grid from "@material-ui/core/Grid";
 const useStyles = makeStyles((theme) => ({
   form: {
     borderTop: `1px solid ${theme.palette.divider}`,
-    paddingTop: theme.spacing(2),
+    // paddingTop: theme.spacing(2),
   },
   input: {
     // width: "100%",
   },
+  hasAvatarGap: {
+    marginLeft: theme.spacing(6),
+  },
   button: {
     marginLeft: theme.spacing(1),
-    padding: 0
+    padding: 0,
+    top: -theme.spacing(0.5),
   },
 }));
 
@@ -25,7 +29,8 @@ export const ChatMessageSubmit = forwardRef((props, ref) => {
   const [isFieldEmpty, setIsFieldEmpty] = useState(true);
   const [submitStep, setSubmitStep] = useState(1);
   const classes = useStyles();
-  const {onSubmit, isMultipleSubmitLogic} = props;
+  const {onSubmit, isMultipleSubmitLogic, multiline, placeholder, hasAvatarGap} = props;
+  const [label, setLabel] = useState(() => Array.isArray(placeholder) ? placeholder[0] : placeholder);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -40,6 +45,7 @@ export const ChatMessageSubmit = forwardRef((props, ref) => {
     setSubmitStep(prev => prev + 1);
     setTimeout(() => {
       setValue("");
+      Array.isArray(placeholder) && setLabel(placeholder[submitStep]); // take before value and use to gat correct placeholder from array
     }, 0);
   }
 
@@ -50,36 +56,38 @@ export const ChatMessageSubmit = forwardRef((props, ref) => {
     setValue(event.target.value);
   }
 
-  const handleSubmitFromKeyboard = useCallback((event) => {
-    if ((event.ctrlKey && event.key === 'Enter') || (event.metaKey && event.key === 'Enter')) {
-      console.log("cmd + enter");
-      if (isMultipleSubmitLogic) {
-        submitStep === 2 ? onSubmit(value, true) : onSubmit(value, false);
-      } else {
-        onSubmit(value);
-      }
-      setIsSubmitted(true);
-      setSubmitStep(prev => prev + 1);
-    }
-  }, [onSubmit, isMultipleSubmitLogic, submitStep, value]);
-
-  useEffect(() => {
-    window.addEventListener("keypress", handleSubmitFromKeyboard, false);
-
-    // cleanup this component
-    return () => {
-      window.removeEventListener("keypress", handleSubmitFromKeyboard, false);
-    };
-  }, [handleSubmitFromKeyboard]);
+  // TODO: make it works
+  // const handleSubmitFromKeyboard = useCallback((event) => {
+  //   if(event.key === 'Enter' && event.shiftKey === false) {
+  //     event.preventDefault();
+  //     console.log("-- JUST ENTER");
+  //     if (isMultipleSubmitLogic) {
+  //       submitStep === 2 ? onSubmit(value, true) : onSubmit(value, false);
+  //     } else {
+  //       onSubmit(value);
+  //     }
+  //     setIsSubmitted(true);
+  //     setSubmitStep(prev => prev + 1);
+  //   }
+  // }, [setSubmitStep, setIsSubmitted, submitStep, isMultipleSubmitLogic, onSubmit, value]);
+  //
+  // useEffect(() => {
+  //  window.addEventListener("keypress", handleSubmitFromKeyboard, false);
+  //
+  //   // cleanup this component
+  //   return () => {
+  //     window.removeEventListener("keypress", handleSubmitFromKeyboard, false);
+  //   };
+  // }, [handleSubmitFromKeyboard]);
 
   return (
     <>
       <form noValidate autoComplete="off" onSubmit={handleSubmit} className={classes.form}>
         <Grid container spacing={1} alignItems="flex-end">
-          <Grid item style={{flexGrow: "1"}}>
+          <Grid item style={{flexGrow: "1"}} className={hasAvatarGap && classes.hasAvatarGap}>
             <TextField
               size="medium"
-              multiline={true}
+              multiline={multiline}
               className={classes.input}
               disabled={(!isMultipleSubmitLogic && isSubmitted) || (isMultipleSubmitLogic && submitStep > 2)}
               onChange={handleChange}
@@ -87,6 +95,8 @@ export const ChatMessageSubmit = forwardRef((props, ref) => {
               fullWidth={true}
               InputProps={{ disableUnderline: true }}
               autoFocus={true}
+              label={label}
+              type={(isMultipleSubmitLogic && submitStep === 2) ? "email" : "text"}
             />
           </Grid>
           <Grid item>

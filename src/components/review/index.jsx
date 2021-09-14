@@ -126,7 +126,10 @@ export const Review = ({ sectionRef, email, username, systemMessageAvatar }) => 
                 </>
               )}
               <Box ref={submitInputRef}>
-                <ChatMessageSubmit onSubmit={handleAnswerSubmit} />
+                <ChatMessageSubmit
+                  onSubmit={handleAnswerSubmit}
+                  placeholder={["Enter your answer"]}
+                />
               </Box>
             </>
             )}

@@ -34,7 +34,7 @@ import {UserInfoSection} from "./components/user-info-section";
 // import Grid from "@material-ui/core/Grid";
 
 // AWS
-import { API, Storage, Auth } from 'aws-amplify';
+import { Auth } from 'aws-amplify';
 // import { listTodos } from './graphql/queries';
 // import { createTodo } from "./graphql/mutations";
 
@@ -63,7 +63,7 @@ const NOTSIGNIN = 'You are NOT logged in';
 const SIGNEDIN = 'You have logged in successfully';
 const SIGNEDOUT = 'You have logged out successfully';
 
-const initialFormState = { name: '', description: '', image: '' }
+// const initialFormState = { name: '', description: '', image: '' }
 
 function App() {
   const classes = useStyles();

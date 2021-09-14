@@ -374,7 +374,8 @@ export const Assignment7 = ({ username, email, sectionRef, targetRef, handleClic
             {isSubmitInputShow && (
               <ChatMessageSubmit
                 onSubmit={handleSubmitAnswer}
-                isMultipleSubmitLogic={false}
+                multiline={true}
+                placeholder={"Type your answer"}
               />
             )}
           </Box>
