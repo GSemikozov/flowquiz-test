@@ -8,7 +8,7 @@ import Grid from "@material-ui/core/Grid";
 const useStyles = makeStyles((theme) => ({
   form: {
     borderTop: `1px solid ${theme.palette.divider}`,
-    // paddingTop: theme.spacing(2),
+    paddingTop: theme.spacing(1),
   },
   input: {
     // width: "100%",
@@ -94,8 +94,9 @@ export const ChatMessageSubmit = forwardRef((props, ref) => {
               value={value}
               fullWidth={true}
               InputProps={{ disableUnderline: true }}
+              label=""
               autoFocus={true}
-              label={label}
+              placeholder={label}
               type={(isMultipleSubmitLogic && submitStep === 2) ? "email" : "text"}
             />
           </Grid>

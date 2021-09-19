@@ -1,0 +1,1 @@
+export const SHARED_PAGE_LINK = "https://app.flowquiz.com";

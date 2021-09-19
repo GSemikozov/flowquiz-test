@@ -35,6 +35,7 @@ import {UserInfoSection} from "./components/user-info-section";
 
 // AWS
 import { Auth } from 'aws-amplify';
+import {SharePageEmbed} from "./components/share-page-embed";
 // import { listTodos } from './graphql/queries';
 // import { createTodo } from "./graphql/mutations";
 
@@ -333,6 +334,7 @@ function App() {
 
       <main className="main">
         <Container fixed={true} maxWidth="md">
+          <SharePageEmbed />
           {email && (<>
             <button type="button" onClick={signUp}>sign in</button>
             <button onClick={verifyAuth}>
