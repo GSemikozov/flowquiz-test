@@ -1,9 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import './index.css';
+
 import App from './App';
+
 import reportWebVitals from './reportWebVitals';
 import { polyfill } from "seamless-scroll-polyfill";
+import 'regenerator-runtime/runtime';
 
 import Amplify from 'aws-amplify';
 import config from './aws-exports';
