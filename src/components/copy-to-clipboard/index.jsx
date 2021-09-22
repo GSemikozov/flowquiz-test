@@ -11,7 +11,7 @@ import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   button: {
-
+    width: "100%",
   },
 }));
 
@@ -23,8 +23,6 @@ export const CopyToClipboard = ({text}) => {
     <>
       <Grid
         item
-        lg={3}
-        md={6}
         xs={12}
         component={Box}
         paddingLeft="15px"
@@ -58,9 +56,7 @@ export const CopyToClipboard = ({text}) => {
               borderRadius="4px"
               className={classes.button}
             >
-              <div>
-                {`${text}`}
-              </div>
+              {`${text}`}
             </Box>
           </Tooltip>
         </CopyToClipboardLib>

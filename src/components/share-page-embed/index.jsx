@@ -51,7 +51,7 @@ const BootstrapDialogTitle = (props) => {
 export const SharePageEmbed = () => {
   const [open, setOpen] = useState(false);
 
-  const getCopyToClipboardContent = () => `<object data="${SHARED_PAGE_LINK}" width="100%" height="100%"></object>`;
+  const getCopyToClipboardContent = () => `<object data="${SHARED_PAGE_LINK}" width="100%" height="400"></object>`;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -67,7 +67,7 @@ export const SharePageEmbed = () => {
         Share page embed
       </Button>
       <BootstrapDialog
-        fullScreen
+        // fullScreen
         onClose={handleClose}
         open={open}
         TransitionComponent={Transition}
