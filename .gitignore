@@ -47,4 +47,4 @@ amplifytools.xcconfig
 .cache
 
 # widget build folder
-public/widget
+#public/widget
