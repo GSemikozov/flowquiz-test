@@ -67,7 +67,6 @@ export const SharePageEmbed = () => {
         Share page embed
       </Button>
       <BootstrapDialog
-        // fullScreen
         onClose={handleClose}
         open={open}
         TransitionComponent={Transition}
