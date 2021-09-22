@@ -23,7 +23,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && build:widget",
+    "build": "react-scripts build && react-scripts build:widget",
     "build:widget": "parcel build src/index.js --no-source-maps -d public/widget",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
