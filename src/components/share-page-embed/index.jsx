@@ -52,8 +52,8 @@ export const SharePageEmbed = () => {
   const [open, setOpen] = useState(false);
 
   const getCopyToClipboardContent = () =>
-    `<iframe src="${SHARED_PAGE_LINK}" height="400" width="100%" style="border: none; box-shadow: none;"></iframe>`
-    // `<object data="${SHARED_PAGE_LINK}" width="100%" height="400"></object>`;
+    // `<iframe src="${SHARED_PAGE_LINK}" height="400" width="100%" style="border: none; box-shadow: none;"></iframe>`
+    `<object data="${SHARED_PAGE_LINK}" width="100%" height="400"></object>`;
 
   const handleClickOpen = () => {
     setOpen(true);
